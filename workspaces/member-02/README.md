@@ -4,7 +4,8 @@
 | | |
 |---|---|
 | Mã | `M02` |
-| Tên / MSSV | `[CHƯA CẬP NHẬT]` |
+| Tên | Lê Thiên Lộc |
+| MSSV | `079306040024` |
 | Vai trò | Khám phá cấu trúc & dtype, bản đồ nhóm đặc trưng, phát hiện vấn đề |
 | Trạng thái | `Todo` |
 
