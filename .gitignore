@@ -4,9 +4,8 @@
 # môi trường ảo, cache, file tạm, bí mật vào Git.
 # ============================================================
 
-# ---------- Dữ liệu (chỉ giữ .gitkeep, loại nội dung) ----------
-# Dataset gốc ở gốc repo
-D07 - parkinsons.data.xlsx
+# ---------- Dữ liệu (mặc định KHÔNG commit dữ liệu thật) ----------
+# *.xlsx / *.xls: mặc định không commit (an toàn dữ liệu)
 *.xlsx
 *.xls
 
@@ -17,6 +16,10 @@ data/interim/*
 !data/interim/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+
+# NGOẠI LỆ: dataset Parkinson (UCI, công khai, ~53KB) ĐƯỢC commit để 6 thành viên
+# clone là dùng được. Chỉ riêng file này; mọi xlsx khác vẫn bị ignore.
+!data/raw/D07 - parkinsons.data.xlsx
 
 # Ghi chú: canonical processed CSV (artifact chung) nếu nhóm muốn chia sẻ có thể
 # force-add bằng `git add -f data/processed/<ten-file>.csv`; mặc định giữ local
