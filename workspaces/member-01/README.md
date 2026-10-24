@@ -1,58 +1,77 @@
-# M01 — Điều phối + Chuẩn bị dữ liệu + Thống nhất đầu vào
+# M01 — Điều phối + Chuẩn bị dữ liệu + Thống nhất đầu vào (Work-order)
 
-| Hạng mục | Giá trị |
-|----------|---------|
-| Mã thành viên | `M01` |
-| Tên | `[CHƯA CẬP NHẬT]` |
-| MSSV | `[CHƯA CẬP NHẬT]` |
-| Vai trò dự kiến | Điều phối · chuẩn bị dữ liệu · thống nhất đầu vào |
-| Trạng thái ban đầu | `Todo` |
+## 1. Thông tin
+| | |
+|---|---|
+| Mã | `M01` |
+| Tên / MSSV | `[CHƯA CẬP NHẬT]` |
+| Vai trò | Điều phối · chuẩn bị dữ liệu · thống nhất đầu vào · gate nhất quán |
+| Trạng thái | `Todo` |
 
-## Nhiệm vụ được giao (xem `TASK_ASSIGNMENTS.md`)
+## 2. Bạn làm ở đâu
+- **Không phải notebook phân tích.** Công việc của M01 nằm trong `data/` (manifest, canonical CSV,
+  schema), `TASK_BOARD.md` (điều phối), và **gate nhất quán** trên `notebooks/05_integration_report.ipynb`.
+- M01 là **người mở khoá** cho cả nhóm: canonical CSV chưa có → mọi notebook (01–05) đứng `Blocked`.
 
-| Mã | Nhiệm vụ | Tóm tắt |
-|----|----------|---------|
-| M01-T1 | Chuẩn bị dữ liệu thô | Dữ liệu đã ở `data/raw/`; tạo `manifest.md` (hash, kích thước) |
-| M01-T2 | Canonical processed CSV | Sinh `data/processed/parkinsons_v1.csv` (drop `name`, giữ 22 feature + `status`) + `schema_v1.md` |
-| M01-T3 | Gate đầu vào | Xác nhận đầu vào sẵn sàng cho M02/M03/M04 |
-| M01-T4 | Kiểm tra nhất quán (gate) | Gate tính nhất quán dữ liệu & kết quả giữa các phần (kèm M06-T3/S-T2) |
+## 3. Nhiệm vụ giao (theo `TASK_ASSIGNMENTS.md`)
+| Mã | Việc | Nơi làm | Đầu vào | Đầu ra | Tiêu chí | Reviewer | Chặn bởi | Unblock |
+|----|------|---------|---------|--------|----------|----------|----------|---------|
+| M01-T1 | Manifest dataset | `data/raw/manifest.md` | `data/raw/D07 - parkinsons.data.xlsx` (đã có, đã commit) | `data/raw/manifest.md` | hash/size đúng thực tế | M06 | — | M01-T2 |
+| M01-T2 | Canonical CSV + schema | `data/processed/` | raw xlsx + `DATA_DICTIONARY.md` | `parkinsons_v1.csv` + `schema_v1.md` | 23 cột (22 feature+status), ~195 dòng, không `name`, 1 bản duy nhất | S-T1 + M03 | M01-T1 | toàn nhóm (S-T1) |
+| M01-T3 | Gate đầu vào | `TASK_BOARD.md` + thông báo | M01-T2 (đã xong) | cập nhật board + thông báo | S-T1 đã xác nhận | M03 | M01-T2 | M02/M03/M04 chạy |
+| M01-T4 | Gate nhất quán (cuối) | notebook 05 + `reports/` | kết quả M05-T3, M06-T2, M06-T3 | ký nhận nhất quán | cùng CSV/metric/quy ước | M06 | M05-T3, M06-T2 | S-T2 / báo cáo |
 
-## Đầu vào cần nhận
+## 4. Thứ tự thực hiện (cụ thể)
+1. **Xác nhận dataset** (`data/raw/D07 - parkinsons.data.xlsx` đã có, đã commit). Kiểm tra SHA-256
+   (đúng `d5d96457…`). → **M01-T1**: viết `data/raw/manifest.md` (tên file, kích thước, hash,
+   nguồn UCI Oxford Parkinson's, ngày).
+2. **Tạo canonical CSV** → **M01-T2**. Gợi ý thao tác (sinh viên tự chạy, không chạy sẵn ở đây):
+   ```python
+   import pandas as pd
+   # cần openpyxl (đã trong requirements.txt) để đọc .xlsx
+   df = pd.read_excel("data/raw/D07 - parkinsons.data.xlsx", sheet_name="parkinsons.data")
+   df = df.drop(columns=["name"])            # DROP 'name' (theo DATA_DICTIONARY + ghi chú dataset)
+   df.to_csv("data/processed/parkinsons_v1.csv", index=False)
+   ```
+   - Kèm `data/processed/schema_v1.md`: liệt kê **22 feature + `status`**, dtype từng cột,
+     **số NaN** (thường 0), cách xử lý (báo "giữ nguyên / chưa impute" nếu vậy).
+3. **Mở gate đầu vào** → **M01-T3**: thông báo nhóm (S-T1) đọc `schema_v1.md` + xác nhận canonical CSV.
+   Mọi người **mới** bắt đầu notebook 01. Cập nhật `TASK_BOARD.md`.
+4. **Giữa chừng**: giữ "1 đầu vào duy nhất". Nếu ai cần đổi schema → M01 duyệt + cập nhật
+   `schema_v1.md` (changelog) + `data/README.md`.
+5. **Gate nhất quán cuối** → **M01-T4**: khi notebook 03/04 có kết quả, M01 (cùng M06, S-T2)
+   kiểm tra tất cả dùng **cùng** canonical CSV v1, cùng quy ước (F-score macro/weighted, seed,
+   k) → ký trước khi hoàn thiện `reports/summary.md` (notebook 05).
 
-- Dataset gốc: `data/raw/D07 - parkinsons.data.xlsx` (đã đặt vào `data/raw/` khi setup, **không đưa vào Git**).
-- Quy ước cột: `DATA_DICTIONARY.md` (22 feature + nhãn `status`, loại `name`).
+## 5. Đầu vào cần nhận
+- Dataset (đã có ở `data/raw/`), `DATA_DICTIONARY.md`, `docs/REPRODUCIBILITY.md` (quy ước seed).
+- Kết quả M05-T3 + M06-T2 (cho M01-T4).
 
-## Đầu ra cần bàn giao
+## 6. Đầu ra phải bàn giao
+- `data/raw/manifest.md` · `data/processed/parkinsons_v1.csv` · `data/processed/schema_v1.md`.
+- Cập nhật `TASK_BOARD.md` (gate M01-T3, M01-T4) + ký nhất quán S-T2.
 
-- `data/raw/manifest.md` (M01-T1).
-- `data/processed/parkinsons_v1.csv` + `data/processed/schema_v1.md` (M01-T2) — **đầu vào chung** toàn nhóm.
-- Cập nhật `TASK_BOARD.md` tại M01-T3 (gate mở) và M01-T4 (gate đóng).
-- Ký nhận nhất quán tại `S-T2` (cùng M06).
+## 7. Tiêu chí nghiệm thu (đo được)
+- CSV **đúng 23 cột** (22 feature + `status`), **không** cột `name`, ~195 dòng.
+- Schema ghi đủ dtype + NaN + cách xử lý; **1 bản CSV duy nhất** (không ai tạo CSV riêng).
+- Gate M01-T3: S-T1 đã được xác nhận (toàn nhóm đồng ý dùng canonical CSV).
+- Gate M01-T4: các phần không mâu thuẫn (cùng CSV/metric/quy ước).
 
-## Tiêu chí hoàn thành
+## 8. Checklist tự kiểm (trước khi chuyển Review)
+- [ ] `manifest.md` có hash + size đúng (khớp file thật).
+- [ ] `parkinsons_v1.csv`: 23 cột, không `name`, đã kiểm tra `df.shape`.
+- [ ] `schema_v1.md`: 22 feature + status, dtype, NaN, cách xử lý.
+- [ ] Đã thông báo S-T1 + cập nhật `TASK_BOARD.md`.
+- [ ] (Cuối) Đã ký nhất quán M01-T4/S-T2 (cùng M06).
+- [ ] Không commit/xoá/xử lý sai dataset; không tạo CSV riêng cho ai.
 
-- Canonical CSV **duy nhất** — mọi bước khác tham chiếu file này, không bản riêng.
-- `schema_v1.md` ghi rõ: danh sách cột, dtype, số dòng/cột, cách xử lý NaN/loại cột.
-- Không commit/xoá/sửa file xlsx gốc; hash trong manifest khớp với file thực.
-- Gate nhất quán (M01-T4) được ký trước khi hoàn thiện `reports/`.
+## 9. Người review
+M01-T1 → **M06** · M01-T2 → **S-T1 + M03** · M01-T3 → **M03** · M01-T4 → **M06** (chủ tổng hợp).
 
-## Checklist tự kiểm tra
+## 10. Bàn giao & Blocked
+- Theo `HANDOFF.md`: mô tả 5 dòng + test-report (đã chạy tạo CSV, `df.shape` = ...).
+- M01-T2 **không bị Block** (dataset đã có). Nếu thiếu `openpyxl` → `pip install openpyxl`
+  (đã khai báo trong `requirements.txt`) rồi làm tiếp.
 
-- [ ] Đã xác nhận dataset nằm ở `data/raw/`, ghi manifest (hash + kích thước + ngày + nguồn).
-- [ ] `data/processed/parkinsons_v1.csv`: đúng 22 feature + `status`, đã drop `name`.
-- [ ] `schema_v1.md` đầy đủ (cột, dtype, số dòng/cột, xử lý NaN/loại).
-- [ ] Đã thông báo S-T1 (toàn nhóm xác nhận canonical CSV) trước khi M02/M03/M04 chạy.
-- [ ] Đã cập nhật `TASK_BOARD.md` tại gate M01-T3 và M01-T4.
-- [ ] Không có file xlsx / dữ liệu cá nhân / bí mật được commit.
-- [ ] Kết quả giữa các phần đã được kiểm tra nhất quán (cùng CSV, cùng metric, cùng quy ước).
-
-## Người review dự kiến
-
-- M01-T1: **M06** (kiểm tra hash/kích thước).
-- M01-T2: **S-T1 (toàn nhóm) + M03** (chất lượng dữ liệu).
-- M01-T3: **M03**.
-- M01-T4: **M06** (chủ trì tổng hợp).
-
-## Trạng thái ban đầu
-
-`Todo` — mọi nhiệm vụ của M01 chưa bắt đầu.
+## 11. Trạng thái
+`Todo` — chờ M01 nhận việc; đây là bước mở khoá cho cả nhóm.

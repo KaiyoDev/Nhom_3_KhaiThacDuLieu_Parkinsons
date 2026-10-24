@@ -1,55 +1,76 @@
-# M02 — Khám phá cấu trúc & kiểu dữ liệu
+# M02 — Khám phá cấu trúc & Kiểu dữ liệu (Work-order)
 
-| Hạng mục | Giá trị |
-|----------|---------|
-| Mã thành viên | `M02` |
-| Tên | `[CHƯA CẬP NHẬT]` |
-| MSSV | `[CHƯA CẬP NHẬT]` |
-| Vai trò dự kiến | Khám phá cấu trúc & kiểu dữ liệu |
-| Trạng thái ban đầu | `Todo` |
+## 1. Thông tin
+| | |
+|---|---|
+| Mã | `M02` |
+| Tên / MSSV | `[CHƯA CẬP NHẬT]` |
+| Vai trò | Khám phá cấu trúc & dtype, bản đồ nhóm đặc trưng, phát hiện vấn đề |
+| Trạng thái | `Todo` |
 
-## Nhiệm vụ được giao (xem `TASK_ASSIGNMENTS.md`)
+## 2. Bạn làm ở đâu
+- **Notebook:** `notebooks/01_data_exploration.ipynb`.
+- **Các phần bạn phụ trách (theo "Bước" trong notebook):**
+  - `Bước 1` Kiểm tra nguồn dữ liệu · `Bước 2` Kích thước · `Bước 3` Tên cột & dtype ·
+    `Bước 4` Xác định thuộc tính & cột nhãn (chạy guard + assert tên cột).
+  - `Bước 7` (phần **vấn đề**: scale / candidate outlier) — dùng chung với M03, nhưng **M02
+    viết phần "cấu trúc/dtype/vấn đề"**, M03 viết phần "thống kê/chất lượng".
 
-| Mã | Nhiệm vụ | Tóm tắt |
-|----|----------|---------|
-| M02-T1 | Khám phá cấu trúc & dtype | Số dòng/cột, dtype từng cột, NaN, trùng lặp, khoảng (min/max) |
-| M02-T2 | Bản đồ nhóm đặc trưng | Nhóm jitter/shimmer/noise/nonlinear/frequency, bổ sung `DATA_DICTIONARY.md` |
-| M02-T3 | Phát hiện vấn đề | Chênh lệch scale giữa nhóm feature, candidate outlier → bàn M03 & M04 |
+> M02 và M03 cùng notebook 01 → **chia bước rõ ở §4** để không ghi đè nhau.
 
-## Đầu vào cần nhận
+## 3. Nhiệm vụ giao (theo `TASK_ASSIGNMENTS.md`)
+| Mã | Việc | Nơi làm | Đầu vào | Đầu ra | Tiêu chí | Reviewer | Chặn bởi |
+|----|------|---------|---------|--------|----------|----------|----------|
+| M02-T1 | Khám phá cấu trúc & dtype | nb01 Bước 1–4 | canonical CSV (M01-T2) | bảng dòng/cột/dtype/thiếu/trùng/khoảng | đủ 22 feature + `status`, chỉ mô tả ĐÃ KIỂM TRA | M03 | M01-T2 (S-T1) |
+| M02-T2 | Bản đồ nhóm đặc trưng | nb01 Bước 4 + `DATA_DICTIONARY.md` | M02-T1 | cập nhật nhóm (FREQ/JITTER/SHIMMER/NOISE/NONLIN) + nguồn | phân nhóm đúng, ghi nguồn | M03 | M02-T1 |
+| M02-T3 | Phát hiện vấn đề | nb01 Bước 7 (vấn đề) | M02-T1 | danh sách scale/outlier → bàn M03, M04 | vấn đề rõ, đủ để xử lý | M04 | M02-T1 |
 
-- Canonical CSV: `data/processed/parkinsons_v1.csv` + `schema_v1.md` (từ M01-T2).
-- `DATA_DICTIONARY.md` (ý nghĩa cột đã xác minh).
-- **Cần S-T1 đã xác nhận** (toàn nhóm đã đồng ý canonical CSV) trước khi bắt đầu.
+## 4. Thứ tự thực hiện (cụ thể, trong `notebooks/01_data_exploration.ipynb`)
+0. **Chạy guard cell** (cell đầu tiên có `# if not os.path.exists(CSV)`): nếu **BLOCKED** (chưa
+   có `data/processed/parkinsons_v1.csv`) → **DỪNG**, đánh dấu `Blocked` trong `TASK_BOARD.md`
+   (chờ M01-T2 / S-T1), **KHÔNG** tự tạo CSV. Nếu đủ → tiếp tục.
+1. **Bước 1–2:** đọc canonical CSV, `df.shape`, `list(df.columns)`, `df.dtypes()`. Ghi nhận
+   số dòng/cột thực tế (đối chiếu ~195 dòng, 23 cột).
+2. **Bước 3:** xác nhận các feature là số; cột `status` là 0/1. Ghi dtype vào
+   `DATA_DICTIONARY.md` (cột "Kiểu / Thiếu" — mục M02-T1 được giao).
+3. **Bước 4:** chạy 2 dòng `assert` (không còn `name`, có `status`, đủ 22 feature). Đối chiếu
+   nhóm đặc trưng với `DATA_DICTIONARY.md` (M02-T2) — chỉ cập nhật nếu lệch, **ghi nguồn**.
+4. **Bước 7 (phần của M02):** xem `df.describe()` / percentiles, liệt kê **vấn đề cấu trúc**:
+   nhóm feature nào scale quá khác nhau (vd `MDVP:Jitter(Abs)` rất nhỏ), candidate outlier.
+   → ghi thành danh sách, **bàn giao M03 + M04**.
+5. Ghi kết quả vào **bảng "Kết quả & nhận xét"** trong notebook (phần của bạn) + `results/` (local).
 
-## Đầu ra cần bàn giao
+> **Phân chia bước 5, 6 cho M03** (số mẫu theo nhãn, min/max/mean). Bạn **không** chạy các
+> bước đó để tránh trùng (M03 chịu trách nhiệm). Bước 7 là **chia đôi**: M02 viết phần
+> "vấn đề cấu trúc/scale/outlier", M03 viết phần "thiếu/trùng/bất thường + chất lượng".
 
-- Bảng khám phá cấu trúc (dòng/cột/dtype/thiếu/trùng/khoảng) → `results/` (local).
-- Bổ sung cột *Kiểu / Thiếu* + *Ghi chú* trong `DATA_DICTIONARY.md` (M02-T1/T2).
-- Danh sách vấn đề (scale, candidate outlier) → bàn giao M03 (chất lượng) & M04 (tiền xử lý) (M02-T3).
+## 5. Đầu vào cần nhận
+- Canonical CSV (M01-T2, qua **S-T1**) + `DATA_DICTIONARY.md`. Không CSV riêng.
 
-## Tiêu chí hoàn thành
+## 6. Đầu ra phải bàn giao
+- Bảng khám phá cấu trúc (trong notebook + `results/`).
+- Cập nhật `DATA_DICTIONARY.md` (cột Kiểu/Thiếu/Ghi chú cho M02-T1/T2) — **chỉ mô tả đã kiểm tra**.
+- Danh sách vấn đề (scale/outlier) → bàn **M03 (chất lượng)** và **M04 (tiền xử lý)**.
 
-- Chỉ mô tả những gì **đã kiểm tra** trên canonical CSV (không bịa).
-- Có đánh giá: cân bằng label (`status`), mức độ thiếu/trùng (nếu có).
-- Danh sách vấn đề rõ ràng, đủ cho M04 chọn phương pháp tiền xử lý.
+## 7. Tiêu chí nghiệm thu (đo được)
+- `DATA_DICTIONARY.md` đã điền cột "Kiểu / Thiếu" cho **mọi** feature (từ kết quả thật).
+- Nhóm đặc trưng (FREQ/JITTER/SHIMMER/NOISE/NONLIN) đủ + có nguồn.
+- Danh sách vấn đề nêu rõ ít nhất: **nhanh/tông scale** nào cần chuẩn hoá, candidate outlier nào.
 
-## Checklist tự kiểm tra
+## 8. Checklist tự kiểm
+- [ ] Đã chạy guard (không Block) trước khi làm.
+- [ ] Đã kiểm tra `df.shape`, `df.dtypes`, assert tên cột (khỏi bịa).
+- [ ] `DATA_DICTIONARY.md` cột Kiểu/Thiếu + nhóm đặc trưng **cập nhật** (chỉ ghi đã kiểm tra).
+- [ ] Danh sách vấn đề (scale/outlier) đã gửi M03 + M04.
+- [ ] Kết quả ghi trong `results/`; không bịa số; không chạy Bước 5/6 của M03.
+- [ ] Đã chuyển M02-T1..T3 sang `Review` trong `TASK_BOARD.md` + thông báo reviewer (M03, M04).
 
-- [ ] Đã đọc canonical CSV (không đọc bản CSV riêng).
-- [ ] Ghi dtype, số NaN, trùng, min/max cho **mỗi** feature (22 cột) + `status`.
-- [ ] Đã cập nhật `DATA_DICTIONARY.md` (cột Kiểu / Thiếu).
-- [ ] Đã phân nhóm đặc trưng rõ (frequency/jitter/shimmer/noise/nonlinear).
-- [ ] Danh sách vấn đề (scale/outlier) đã gửi M03 & M04, có ghi rõ ảnh hưởng.
-- [ ] Kết quả ghi trong `results/` (local), không commit dữ liệu thô.
-- [ ] Đã chuyển trạng thái M02-T1..T3 sang `Review` + thông báo người review (M03, M04).
+## 9. Người review
+M02-T1 → **M03** · M02-T2 → **M03** · M02-T3 → **M04**.
 
-## Người review dự kiến
+## 10. Bàn giao & Blocked
+- Theo `HANDOFF.md` (mô tả 5 dòng + test-report: `df.shape`, dtype, danh sách vấn đề).
+- **Blocked nếu:** canonical CSV (S-T1) chưa có → ghi "chờ M01-T2 (S-T1)", thông báo M01.
 
-- M02-T1: **M03** (so với thống kê).
-- M02-T2: **M03** (ý nghĩa nhóm).
-- M02-T3: **M04** (đủ cho tiền xử lý).
-
-## Trạng thái ban đầu
-
-`Todo` — chờ S-T1 (xác nhận canonical CSV) trước khi chuyển `In Progress`.
+## 11. Trạng thái
+`Todo` — chờ **S-T1** (M01-T2 xong + nhóm xác nhận) trước khi chuyển `In Progress`.

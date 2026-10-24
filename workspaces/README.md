@@ -1,42 +1,46 @@
-# workspaces/ — Workspace của 6 thành viên
+# workspaces/ — Work-order cho 6 thành viên
 
-> Mỗi thư mục `member-XX/` là **khu làm việc cá nhân** cho một thành viên.
-> File `README.md` trong mỗi thư mục mô tả: mã, tên/MSSV, vai trò, nhiệm vụ,
-> đầu vào/ra, tiêu chí hoàn thành, checklist, người review, trạng thái ban đầu.
+> Mỗi thư mục `member-XX/` là **lệnh làm việc (work-order)** cụ thể cho một thành viên:
+> đúng notebook, đúng bước/cell, đúng đầu vào/ra, phụ thuộc, tiêu chí, checklist, reviewer,
+> và cách báo cáo khi bị chặn (Blocked). Đây là hướng dẫn **cụ thể nhất** — đọc kỹ trước khi nhận việc.
 
-## Chỉ mục
+## Bản đồ notebook ↔ thành viên (trùng với `TASK_ASSIGNMENTS.md`)
 
-| Thư mục | Mã | Vai trò dự kiến |
-|---------|----|-----------------|
-| `member-01/` | M01 | Điều phối + chuẩn bị dữ liệu + thống nhất đầu vào |
-| `member-02/` | M02 | Khám phá cấu trúc & kiểu dữ liệu |
-| `member-03/` | M03 | Thống kê mô tả + kiểm tra chất lượng |
-| `member-04/` | M04 | Tiền xử lý + PCA + trực quan hóa |
-| `member-05/` | M05 | Phân lớp + cross-validation + F-score |
-| `member-06/` | M06 | Phân cụm + ARI + hỗ trợ tổng hợp kết quả |
+| Notebook | Thành viên làm | Nhiệm vụ |
+|----------|----------------|----------|
+| `notebooks/01_data_exploration.ipynb` | **M02 + M03** | M02: cấu trúc/dtype/vấn đề · M03: thống kê + chất lượng |
+| `notebooks/02_preprocessing_pca.ipynb` | **M04** | tiền xử lý + PCA + scatter |
+| `notebooks/03_classification.ipynb` | **M05** | 10-fold CV + 3 mô hình + F-score |
+| `notebooks/04_clustering.ipynb` | **M06** | K-Means + DBSCAN + ARI |
+| `notebooks/05_integration_report.ipynb` | **M06 (chủ) + M01 (gate)** | tổng hợp + nhất quán + PDF |
+| (không notebook) | **M01** | chuẩn bị dữ liệu (canonical CSV) + điều phối + gate |
 
-## Quy ước chung (tất cả thành viên)
+## MẪU "GIAO TASK" (work-order) — áp dụng cho mọi `member-XX/`
 
-- **Mã M01–M06** là định danh an toàn; không ghi tên/MSSV khi chưa được cung cấp
-  (để `[CHƯA CẬP NHẬT]`).
-- **Một canonical CSV duy nhất** làm đầu vào (xem `data/README.md`, `M01-T2` trong
-  `TASK_ASSIGNMENTS.md`). Không ai tự tạo bản CSV riêng.
-- Làm theo **checklist tự kiểm tra** trong README của mình trước khi chuyển trạng thái
-  sang `Review` (xem `TASK_BOARD.md`).
-- Trạng thái ban đầu của mọi nhiệm vụ: **`Todo`**.
-- Chỉ chuyển `Review → Done` khi **người review** (ghi trong README) xác nhận đạt tiêu chí.
-- Thiếu đầu vào / phụ thuộc chưa xong → đánh dấu **`Blocked`** + ghi rõ thiếu gì, ai cung cấp.
+Mỗi work-order bắt buộc có đủ 11 mục sau (để không thiếu bước, không mơ hồ):
 
-## Cấu trúc mỗi `member-XX/README.md` (nhất quán)
+```text
+1. Thông tin          : mã, tên/MSSV [CHƯA CẬP NHẬT], vai trò, trạng thái (Todo)
+2. Làm ở đâu         : notebook + phần/cell cụ thể (hoặc file trong data/ nếu không phải notebook)
+3. Nhiệm vụ giao     : bảng [mã | việc | nơi làm | đầu vào | đầu ra | tiêu chí | reviewer | chặn bởi | unblock ai]
+4. Thứ tự thực hiện  : từng bước "việc cụ thể → cell/đoạn cần làm → dừng/Blocked nếu thiếu gì"
+5. Đầu vào nhận      : file + ai cung cấp + điều kiện (phụ thuộc phải = Done/Review)
+6. Đầu ra bàn giao   : file + đường dẫn + nội dung phải có (không bịa)
+7. Tiêu chí nghiệm thu: đo được (số dòng/cột đúng, có seed, CV đúng k, F-score/ARI từ kết quả thật ...)
+8. Checklist tự kiểm : trước khi chuyển trạng thái Review
+9. Người review      : ai + review cái gì
+10. Bàn giao & Blocked: theo HANDOFF.md (mô tả 5 dòng + test-report + Blocked nếu thiếu đầu vào)
+11. Trạng thái       : Todo (ban đầu)
+```
 
-1. Mã thành viên · Tên & MSSV · Vai trò dự kiến.
-2. Nhiệm vụ được giao (mã + tóm tắt).
-3. Đầu vào cần nhận (từ nhiệm vụ nào, ai).
-4. Đầu ra cần bàn giao (file/kết quả, để ở đâu).
-5. Tiêu chí hoàn thành.
-6. Checklist tự kiểm tra.
-7. Người review dự kiến.
-8. Trạng thái ban đầu (`Todo`).
+## Quy tắc chung (tất cả thành viên)
 
-> File README trong workspace chỉ là **trần nhà quy ước làm việc cá nhân**, không thay
-> `TASK_ASSIGNMENTS.md` (nơi ghi phụ thuộc & người review chính thức).
+- **Chỉ làm phần được giao**; đầu vào phải **xác nhận** trước khi bắt đầu.
+- **Một canonical CSV duy nhất** (`data/processed/parkinsons_v1.csv`) làm đầu vào — không ai
+  tạo bản CSV riêng (xem `data/README.md`).
+- **Không bịa** kết quả/số liệu/biểu đồ. Mọi số chỉ lấy từ **chạy thật**.
+- **Không hardcode** đường dẫn máy cá nhân (chạy từ gốc project / Colab).
+- Thiếu đầu vào / phụ thuộc chưa xong → **`Blocked`** trong `TASK_BOARD.md` + ghi rõ thiếu gì, ai
+  cung cấp, thông báo M01 (xem `HANDOFF.md` mục 6).
+- Ghi kết quả vào `results/`, tổng hợp vào `reports/`, code vào `src/` (nếu tách module).
+- `git`/commit/PR ở giai đoạn sau (xem `docs/GITHUB_GUIDE.md`) — hiện chưa commit.
