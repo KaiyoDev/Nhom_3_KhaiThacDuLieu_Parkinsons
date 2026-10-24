@@ -11,7 +11,7 @@
 
 | Mã | Nội dung ngắn | Phụ trách | Đầu vào (phụ thuộc) | Người review |
 |----|---------------|-----------|----------------------|--------------|
-| M01-T1 | Chuẩn bị dữ liệu thô → `data/raw/` | M01 | dataset gốc (root) | M06 |
+| M01-T1 | Chuẩn bị dữ liệu thô → `data/raw/` | M01 | dataset gốc (đã ở `data/raw/`) | M06 |
 | M01-T2 | Sản xuất canonical processed CSV | M01 | M01-T1 | S-T1 + M03 |
 | M01-T3 | Gate đầu vào cho M02/M03/M04 | M01 | M01-T2 | M03 |
 | M01-T4 | Kiểm tra nhất quán dữ liệu & kết quả (gate) | M01 | M05-T3, M06-T2 | M06 |
@@ -43,9 +43,8 @@
 ### M01 — Điều phối + dữ liệu
 
 **M01-T1 · Chuẩn bị dữ liệu thô**
-- Đầu vào: file gốc `D07 - parkinsons.data.xlsx` (nằm ở root, **không đưa vào Git**).
-- Đầu ra: copy vào `data/raw/` (local, gitignored) + `data/raw/manifest.md`
-  (tên file, kích thước, hash SHA-256, nguồn, ngày sao chép).
+- Trạng thái: file gốc `D07 - parkinsons.data.xlsx` **đã được đặt vào `data/raw/`** (khi setup); file bị `.gitignore` phủ (không vào Git).
+- Đầu ra: `data/raw/manifest.md` (tên file, kích thước, hash SHA-256, nguồn, ngày) + xác nhận file còn nguyên.
 - Tiêu chí: manifest đúng thực tế; không sửa dữ liệu gốc; không commit file xlsx.
 - Phụ thuộc: — (dataset đã có sẵn).
 - Review: M06 (kiểm tra hash/kích thước khớp).

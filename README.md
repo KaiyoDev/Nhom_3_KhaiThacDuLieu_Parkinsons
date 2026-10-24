@@ -23,7 +23,7 @@ tổng hợp kết quả và báo cáo.
 
 ## 3. Dữ liệu
 
-- File dataset gốc: `D07 - parkinsons.data.xlsx` (nằm ở gốc repo, **không đưa vào Git**).
+- File dataset gốc: `data/raw/D07 - parkinsons.data.xlsx` (nằm ở `data/raw/`, **không đưa vào Git**).
   - Sheet `"parkinsons.data"`: **195 dòng dữ liệu, 24 cột** (đã kiểm tra local).
   - Cột nhãn: `status` (`0` = khỏe mạnh, `1` = Parkinson).
   - Cột `name` (tên chủ thể + số bản ghi) được **loại bỏ trước khi phân tích**
@@ -46,7 +46,7 @@ Nhom_3_KhaiThacDuLieu_Parkinsons/
 ├── DATA_DICTIONARY.md     # bảng mô tả thuộc tính (từ thông tin đã xác minh)
 ├── requirements.txt       # phụ thuộc (không cài ở giai đoạn setup)
 ├── .gitignore             # loại dataset gốc, môi trường ảo, cache
-├── data/                  # raw / interim / processed (chỉ giữ .gitkeep)
+├── data/                  # raw (dataset gốc, local) / interim / processed (Git chỉ giữ .gitkeep)
 ├── workspaces/            # 6 workspace thành viên (member-01..06)
 ├── notebooks/             # sẽ chứa notebook ở giai đoạn sau (hiện trống)
 ├── src/                   # sẽ chứa module mã hóa ở giai đoạn sau (hiện trống)

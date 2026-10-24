@@ -12,14 +12,14 @@
 
 | Mã | Nhiệm vụ | Tóm tắt |
 |----|----------|---------|
-| M01-T1 | Chuẩn bị dữ liệu thô | Copy dataset gốc → `data/raw/` + `manifest.md` (hash, kích thước) |
+| M01-T1 | Chuẩn bị dữ liệu thô | Dữ liệu đã ở `data/raw/`; tạo `manifest.md` (hash, kích thước) |
 | M01-T2 | Canonical processed CSV | Sinh `data/processed/parkinsons_v1.csv` (drop `name`, giữ 22 feature + `status`) + `schema_v1.md` |
 | M01-T3 | Gate đầu vào | Xác nhận đầu vào sẵn sàng cho M02/M03/M04 |
 | M01-T4 | Kiểm tra nhất quán (gate) | Gate tính nhất quán dữ liệu & kết quả giữa các phần (kèm M06-T3/S-T2) |
 
 ## Đầu vào cần nhận
 
-- Dataset gốc: `D07 - parkinsons.data.xlsx` (ở root repo, **không đưa vào Git**).
+- Dataset gốc: `data/raw/D07 - parkinsons.data.xlsx` (đã đặt vào `data/raw/` khi setup, **không đưa vào Git**).
 - Quy ước cột: `DATA_DICTIONARY.md` (22 feature + nhãn `status`, loại `name`).
 
 ## Đầu ra cần bàn giao
@@ -38,7 +38,7 @@
 
 ## Checklist tự kiểm tra
 
-- [ ] Đã copy dataset gốc vào `data/raw/`, ghi manifest (hash + kích thước + ngày + nguồn).
+- [ ] Đã xác nhận dataset nằm ở `data/raw/`, ghi manifest (hash + kích thước + ngày + nguồn).
 - [ ] `data/processed/parkinsons_v1.csv`: đúng 22 feature + `status`, đã drop `name`.
 - [ ] `schema_v1.md` đầy đủ (cột, dtype, số dòng/cột, xử lý NaN/loại).
 - [ ] Đã thông báo S-T1 (toàn nhóm xác nhận canonical CSV) trước khi M02/M03/M04 chạy.
