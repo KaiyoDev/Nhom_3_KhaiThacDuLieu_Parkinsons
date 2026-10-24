@@ -1,0 +1,30 @@
+# ============================================================
+# requirements.txt — Nhóm 3 · Khai phá dữ liệu Parkinson
+# GIỚI HẠN SETUP: chỉ khai báo phụ thuộc, KHÔNG chạy `pip install`.
+# Lưu ý: Google Colab có sẵn numpy/pandas/sklearn/matplotlib/scipy —
+# chạy trên Colab thì không cần cài lại; file này dùng cho môi trường local.
+# ============================================================
+
+# --- Nền tảng khoa học dữ liệu ---
+numpy>=1.26
+pandas>=2.0
+scipy>=1.10
+
+# --- Máy học (phân lớp + phân cụm + PCA + cross-validation) ---
+scikit-learn>=1.3
+
+# --- Trực quan hóa ---
+matplotlib>=3.7
+seaborn>=0.13
+
+# --- Đọc file .xlsx của dataset gốc ---
+openpyxl>=3.1
+
+# --- Jupyter (local; Colab không cần) ---
+jupyter>=1.0
+
+# ============================================================
+# Khi sang giai đoạn phân tích, nhóm thống nhất một phiên bản
+# (pin) duy nhất cho toàn bộ — ghi lại trong docs/REPRODUCIBILITY.md.
+# Không tự ý nâng/muộn phiên bản giữa các thành viên.
+# ============================================================

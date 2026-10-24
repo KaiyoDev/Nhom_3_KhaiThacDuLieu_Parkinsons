@@ -1,0 +1,60 @@
+# ============================================================
+# .gitignore — Nhóm 3 · Khai phá dữ liệu Parkinson
+# Nguyên tắc: KHÔNG đưa dataset gốc / dữ liệu chưa được phép chia sẻ,
+# môi trường ảo, cache, file tạm, bí mật vào Git.
+# ============================================================
+
+# ---------- Dữ liệu (chỉ giữ .gitkeep, loại nội dung) ----------
+# Dataset gốc ở gốc repo
+D07 - parkinsons.data.xlsx
+*.xlsx
+*.xls
+
+# Nội dung trong data/ — giữ lại .gitkeep để bảo toàn cấu trúc thư mục
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Ghi chú: canonical processed CSV (artifact chung) nếu nhóm muốn chia sẻ có thể
+# force-add bằng `git add -f data/processed/<ten-file>.csv`; mặc định giữ local
+# để an toàn dữ liệu.
+
+# ---------- Môi trường ảo / Python ----------
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- Jupyter / Colab ----------
+# Chỉ bỏ cache checkpoint — KHÔNG ignore bản thân notebook (*.ipynb)
+# vì notebook là artifact nhóm cần commit ở giai đoạn sau.
+.ipynb_checkpoints/
+
+# ---------- Bí mật (TUYỆT ĐỐI không commit) ----------
+.env
+*.env
+*.env.*
+secrets*
+*.pem
+*.key
+*.p12
+token*
+credentials*
+
+# ---------- Hệ điều hành ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- Cơ sở hạ tầng của agent (pi) — không phải nội dung dự án ----------
+.pi/
