@@ -12,7 +12,7 @@ an toàn, tách biệt với tên thật.
 | M01 | `[CHƯA CẬP NHẬT]` | `[CHƯA CẬP NHẬT]` | Điều phối + chuẩn bị dữ liệu + thống nhất đầu vào | `workspaces/member-01/` | `[CHƯA CẬP NHẬT]` |
 | M02 | Lê Thiên Lộc | `079306040024` | Khám phá cấu trúc & kiểu dữ liệu | `workspaces/member-02/` | `[CHƯA CẬP NHẬT]` |
 | M03 | `[CHƯA CẬP NHẬT]` | `[CHƯA CẬP NHẬT]` | Thống kê mô tả + kiểm tra chất lượng dữ liệu | `workspaces/member-03/` | `[CHƯA CẬP NHẬT]` |
-| M04 | `[CHƯA CẬP NHẬT]` | `[CHƯA CẬP NHẬT]` | Tiền xử lý + PCA + trực quan hóa | `workspaces/member-04/` | `[CHƯA CẬP NHẬT]` |
+| M04 | `Trần Hoàng Thông`| `[075206008044]` | Tiền xử lý + PCA + trực quan hóa | `workspaces/member-04/` | `[CHƯA CẬP NHẬT]` |
 | M05 | `[CHƯA CẬP NHẬT]` | `[CHƯA CẬP NHẬT]` | Phân lớp + cross-validation + F-score | `workspaces/member-05/` | `[CHƯA CẬP NHẬT]` |
 | M06 | `[CHƯA CẬP NHẬT]` | `[CHƯA CẬP NHẬT]` | Phân cụm + ARI + hỗ trợ tổng hợp kết quả | `workspaces/member-06/` | `[CHƯA CẬP NHẬT]` |
 
