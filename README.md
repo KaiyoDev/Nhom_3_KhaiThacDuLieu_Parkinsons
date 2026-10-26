@@ -94,6 +94,49 @@ G1 CHUẨN BỊ DỮ LIỆU (M01)  →  G2 ĐỒNG BỘ ĐẦU VÀO [GATE#1]  �
 - **GATE #2 (S-T2):** nhất quán kết quả trước khi hoàn thiện báo cáo.
 - Chi tiết: [`PROJECT_WORKFLOW.md`](PROJECT_WORKFLOW.md).
 
+### Quy trình đầy đủ — sơ đồ tư duy (mind map)
+
+```mermaid
+mindmap
+  root((Khai phá dữ liệu Parkinson))
+    Dữ liệu M01
+      M01-T1 manifest raw
+      M01-T2 canonical CSV
+        drop name
+        giữ 22 feature + status
+      M01-T3 gate đầu vào
+      S-T1 xác nhận GATE 1
+    Khám phá + chất lượng nb01 M02 M03
+      M02-T1 cấu trúc dtype
+      M02-T2 nhóm đặc trưng
+      M02-T3 vấn đề
+      M03-T1 thống kê mô tả
+      M03-T2 chất lượng
+      M03-T3 báo cáo quality
+    Tiền xử lý + PCA nb02 M04
+      M04-T1 tách X y + chuẩn hoá
+      M04-T2 PCA 2D
+      M04-T3 scatter tô màu
+    Phân lớp nb03 M05
+      M05-T1 CV 10-fold
+      M05-T2 3 mô hình + F-score
+      M05-T3 báo cáo phân lớp
+    Phân cụm nb04 M06
+      M06-T1 KMeans + DBSCAN
+      M06-T2 ARI
+    Tổng hợp nb05 M06 M01
+      M06-T3 tổng hợp
+      S-T2 nhất quán GATE 2
+      xuất PDF
+    Xuyên suốt
+      An toàn dữ liệu
+      Tái lập
+      Git + PR
+      Colab
+```
+
+> Bản văn tự đầy đủ: [`PROJECT_WORKFLOW.md`](PROJECT_WORKFLOW.md) + [`TASK_ASSIGNMENTS.md`](TASK_ASSIGNMENTS.md).
+
 ## 7. 5 Notebook
 
 | Notebook | Phụ trách | Nội dung khung | Phụ thuộc |
