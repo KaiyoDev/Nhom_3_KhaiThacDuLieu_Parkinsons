@@ -4,7 +4,8 @@
 | | |
 |---|---|
 | Mã | `M05` |
-| Tên / MSSV | `[CHƯA CẬP NHẬT]` |
+| Tên | Ngô Thị Anh Thư |
+| MSSV | `087306008195` |
 | Vai trò | Phân lớp nhị phân, 10-fold CV, so sánh 3 mô hình bằng F-score |
 | Trạng thái | `Todo` |
 

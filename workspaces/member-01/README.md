@@ -4,7 +4,8 @@
 | | |
 |---|---|
 | Mã | `M01` |
-| Tên / MSSV | `[CHƯA CẬP NHẬT]` |
+| Tên | Đặng Hoàng Ân |
+| MSSV | `080206014982` |
 | Vai trò | Điều phối · chuẩn bị dữ liệu · thống nhất đầu vào · gate nhất quán |
 | Trạng thái | `Todo` |
 

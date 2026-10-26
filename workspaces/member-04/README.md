@@ -4,7 +4,8 @@
 | | |
 |---|---|
 | Mã | `M04` |
-| Tên / MSSV | `[CHƯA CẬP NHẬT]` |
+| Tên | Trần Hoàng Thông |
+| MSSV | `075206008044` |
 | Vai trò | Tiền xử lý (feature matrix), PCA, trực quan hoá (scatter) |
 | Trạng thái | `Todo` |
 

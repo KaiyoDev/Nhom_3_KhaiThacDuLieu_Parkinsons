@@ -4,7 +4,8 @@
 | | |
 |---|---|
 | Mã | `M03` |
-| Tên / MSSV | `[CHƯA CẬP NHẬT]` |
+| Tên | Huỳnh Gia Hợp |
+| MSSV | `054205008367` |
 | Vai trò | Thống kê mô tả, kiểm tra chất lượng, báo cáo chất lượng |
 | Trạng thái | `Todo` |
 

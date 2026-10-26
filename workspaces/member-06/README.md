@@ -4,7 +4,8 @@
 | | |
 |---|---|
 | Mã | `M06` |
-| Tên / MSSV | `[CHƯA CẬP NHẬT]` |
+| Tên | Nguyễn Hoàng Bách |
+| MSSV | `056205005522` |
 | Vai trò | Phân cụm (K-Means, DBSCAN) + ARI; **chủ trì tổng hợp** (nhận M01 gate) |
 | Trạng thái | `Todo` |
 
