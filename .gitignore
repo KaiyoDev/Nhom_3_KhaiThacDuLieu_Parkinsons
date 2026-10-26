@@ -12,18 +12,20 @@
 # Nội dung trong data/ — giữ lại .gitkeep để bảo toàn cấu trúc thư mục
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/manifest.md
 data/interim/*
 !data/interim/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/parkinsons_v1.csv
+!data/processed/schema_v1.md
 
 # NGOẠI LỆ: dataset Parkinson (UCI, công khai, ~53KB) ĐƯỢC commit để 6 thành viên
 # clone là dùng được. Chỉ riêng file này; mọi xlsx khác vẫn bị ignore.
 !data/raw/D07 - parkinsons.data.xlsx
 
-# Ghi chú: canonical processed CSV (artifact chung) nếu nhóm muốn chia sẻ có thể
-# force-add bằng `git add -f data/processed/<ten-file>.csv`; mặc định giữ local
-# để an toàn dữ liệu.
+# Ghi chú: canonical CSV v1 (`parkinsons_v1.csv` + `schema_v1.md` + `data/raw/manifest.md`)
+# ĐÃ được track bằng các ngoại lệ bên trên; các processed khác vẫn ignore (muốn share -> thêm exception).
 
 # ---------- Môi trường ảo / Python ----------
 .venv/

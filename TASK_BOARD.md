@@ -15,9 +15,9 @@
 
 | Mã | Nhiệm vụ | Phụ trách | Trạng thái | Ghi chú / Chặn bởi |
 |----|----------|-----------|:----------:|--------------------|
-| M01-T1 | Chuẩn bị dữ liệu thô → `data/raw/` | M01 | Todo | — |
-| M01-T2 | Sản xuất canonical processed CSV | M01 | Todo | Chặn bởi M01-T1 |
-| M01-T3 | Gate đầu vào cho M02/M03/M04 | M01 | Todo | Chặn bởi M01-T2 |
+| M01-T1 | Chuẩn bị dữ liệu thô → `data/raw/` | M01 | **Done** | data ở `data/raw/` + `manifest.md`; đã commit |
+| M01-T2 | Sản xuất canonical processed CSV | M01 | **Done** | v1 đã tạo + commit (`data/processed/`); chờ review S-T1 |
+| M01-T3 | Gate đầu vào cho M02/M03/M04 | M01 | **In Progress** | gate mở, chờ S-T1 (toàn nhóm xác nhận) |
 | M01-T4 | Kiểm tra nhất quán dữ liệu & kết quả (gate) | M01 | Todo | Chặn bởi M05-T3, M06-T2 |
 | M02-T1 | Khám phá cấu trúc & dtype | M02 | Todo | Chặn bởi M01-T2 |
 | M02-T2 | Bản đồ nhóm đặc trưng | M02 | Todo | Chặn bởi M02-T1 |
@@ -39,13 +39,13 @@
 
 ## Trạng thái tổng hợp (snapshot)
 
-> Cập nhật mỗi lần có chuyển trạng thái. Hiện tại: **0 / 21** hoàn thành.
+> Cập nhật mỗi lần có chuyển trạng thái. Hiện tại: **2 / 21** hoàn thành (+1 In Progress).
 
-- **Todo:** 21 (toàn bộ)
-- **In Progress:** 0
+- **Todo:** 18
+- **In Progress:** 1 (M01-T3)
 - **Review:** 0
 - **Blocked:** 0
-- **Done:** 0
+- **Done:** 2 (M01-T1, M01-T2)
 
 ## Định danh "chặn bởi"
 
