@@ -31,35 +31,48 @@
 
 | # | Cột | Nhóm | Ý nghĩa (đã xác minh từ sheet mô tả) | Xử lý | Kiểu / Thiếu |
 |---|-----|------|----------------------------------------|:------:|--------------|
-| 1 | `name` | ID | Tên chủ thể + số bản ghi (ASCII) | **LOẠI** (theo ghi chú) | chưa xác nhận (M02-T1) |
-| 2 | `MDVP:Fo(Hz)` | FREQ | Tần số giọng cơ bản trung bình | FEATURE | chưa xác nhận |
-| 3 | `MDVP:Fhi(Hz)` | FREQ | Tần số giọng cơ bản lớn nhất | FEATURE | chưa xác nhận |
-| 4 | `MDVP:Flo(Hz)` | FREQ | Tần số giọng cơ bản nhỏ nhất | FEATURE | chưa xác nhận |
-| 5 | `MDVP:Jitter(%)` | JITTER | Biến thiên tần số (jitter %) | FEATURE | chưa xác nhận |
-| 6 | `MDVP:Jitter(Abs)` | JITTER | Biến thiên tần số (jitter tuyệt đối) | FEATURE | chưa xác nhận |
-| 7 | `MDVP:RAP` | JITTER | Biên độ dao động ngắn hạn (jitter) | FEATURE | chưa xác nhận |
-| 8 | `MDVP:PPQ` | JITTER | Chênh lệch pitch period (jitter) | FEATURE | chưa xác nhận |
-| 9 | `Jitter:DDP` | JITTER | Chênh lệch pitch period 3 điểm (jitter) | FEATURE | chưa xác nhận |
-| 10 | `MDVP:Shimmer` | SHIMMER | Biến thiên biên độ (shimmer) | FEATURE | chưa xác nhận |
-| 11 | `MDVP:Shimmer(dB)` | SHIMMER | Biến thiên biên độ (dB) | FEATURE | chưa xác nhận |
-| 12 | `Shimmer:APQ3` | SHIMMER | Amplitude pulse (shimmer) | FEATURE | chưa xác nhận |
-| 13 | `Shimmer:APQ5` | SHIMMER | Amplitude pulse (shimmer) | FEATURE | chưa xác nhận |
-| 14 | `MDVP:APQ` | SHIMMER | Amplitude pulse (shimmer) | FEATURE | chưa xác nhận |
-| 15 | `Shimmer:DDA` | SHIMMER | Dạng sóng (shimmer) | FEATURE | chưa xác nhận |
-| 16 | `NHR` | NOISE | Tỉ lệ noise (nhiễu) / tonal trong giọng | FEATURE | chưa xác nhận |
-| 17 | `HNR` | NOISE | Harmonics-to-Noise Ratio (tonal / noise) | FEATURE | chưa xác nhận |
-| 18 | `status` | NHÃN | Trạng thái sức khỏe: `1` = Parkinson, `0` = khỏe | **NHÃN (target)** | chưa xác nhận |
-| 19 | `RPDE` | NONLIN | Độ phức tạp động học phi tuyến (nonlinear) | FEATURE | chưa xác nhận |
-| 20 | `DFA` | NONLIN | Số mũ fractal scaling (fractal scaling exponent) | FEATURE | chưa xác nhận |
-| 21 | `spread1` | NONLIN | Chỉ số phi tuyến (độ lan tỏa tần số, 1) | FEATURE | chưa xác nhận |
-| 22 | `spread2` | NONLIN | Chỉ số phi tuyến (độ lan tỏa tần số, 2) | FEATURE | chưa xác nhận |
-| 23 | `D2` | NONLIN | Chỉ số phi tuyến (fractal dimension) | FEATURE | chưa xác nhận |
-| 24 | `PPE` | NONLIN | Pitch period entropy | FEATURE | chưa xác nhận |
+| 1 | `name` | ID | Tên chủ thể + số bản ghi (ASCII) | **LOẠI** (theo ghi chú) | không có trong canonical |
+| 2 | `MDVP:Fo(Hz)` | FREQ | Tần số giọng cơ bản trung bình | FEATURE | float / 0 |
+| 3 | `MDVP:Fhi(Hz)` | FREQ | Tần số giọng cơ bản lớn nhất | FEATURE | float / 0 |
+| 4 | `MDVP:Flo(Hz)` | FREQ | Tần số giọng cơ bản nhỏ nhất | FEATURE | float / 0 |
+| 5 | `MDVP:Jitter(%)` | JITTER | Biến thiên tần số (jitter %) | FEATURE | float / 0 |
+| 6 | `MDVP:Jitter(Abs)` | JITTER | Biến thiên tần số (jitter tuyệt đối) | FEATURE | float / 0 |
+| 7 | `MDVP:RAP` | JITTER | Biên độ dao động ngắn hạn (jitter) | FEATURE | float / 0 |
+| 8 | `MDVP:PPQ` | JITTER | Chênh lệch pitch period (jitter) | FEATURE | float / 0 |
+| 9 | `Jitter:DDP` | JITTER | Chênh lệch pitch period 3 điểm (jitter) | FEATURE | float / 0 |
+| 10 | `MDVP:Shimmer` | SHIMMER | Biến thiên biên độ (shimmer) | FEATURE | float / 0 |
+| 11 | `MDVP:Shimmer(dB)` | SHIMMER | Biến thiên biên độ (dB) | FEATURE | float / 0 |
+| 12 | `Shimmer:APQ3` | SHIMMER | Amplitude pulse (shimmer) | FEATURE | float / 0 |
+| 13 | `Shimmer:APQ5` | SHIMMER | Amplitude pulse (shimmer) | FEATURE | float / 0 |
+| 14 | `MDVP:APQ` | SHIMMER | Amplitude pulse (shimmer) | FEATURE | float / 0 |
+| 15 | `Shimmer:DDA` | SHIMMER | Dạng sóng (shimmer) | FEATURE | float / 0 |
+| 16 | `NHR` | NOISE | Tỉ lệ noise (nhiễu) / tonal trong giọng | FEATURE | float / 0 |
+| 17 | `HNR` | NOISE | Harmonics-to-Noise Ratio (tonal / noise) | FEATURE | float / 0 |
+| 18 | `status` | NHÃN | Trạng thái sức khỏe: `1` = Parkinson, `0` = khỏe | **NHÃN (target)** | int / 0 |
+| 19 | `RPDE` | NONLIN | Độ phức tạp động học phi tuyến (nonlinear) | FEATURE | float / 0 |
+| 20 | `DFA` | NONLIN | Số mũ fractal scaling (fractal scaling exponent) | FEATURE | float / 0 |
+| 21 | `spread1` | NONLIN | Chỉ số phi tuyến (độ lan tỏa tần số, 1) | FEATURE | float / 0 |
+| 22 | `spread2` | NONLIN | Chỉ số phi tuyến (độ lan tỏa tần số, 2) | FEATURE | float / 0 |
+| 23 | `D2` | NONLIN | Chỉ số phi tuyến (fractal dimension) | FEATURE | float / 0 |
+| 24 | `PPE` | NONLIN | Pitch period entropy | FEATURE | float / 0 |
 
 > Nhóm phi tuyến (NONLIN) gồm `RPDE, DFA, spread1, spread2, D2, PPE` — UCI gom
 > "ba chỉ số phi tuyến về biến thiên tần số cơ bản" (`spread1, spread2, PPE`)
 > và "hai chỉ số phức tạp động học phi tuyến" (`RPDE, D2`); `DFA` là "signal fractal scaling exponent".
 > Nhóm này có thể được **mở rộng/kết hợp** theo ý nghĩa cụ thể của từng bài (M02-T2).
+
+## 2.1 Kết quả kiểm tra M02-T1 (canonical CSV v1)
+
+Đã kiểm tra trực tiếp `data/processed/parkinsons_v1.csv` bằng notebook 01:
+
+- Kích thước: **195 dòng × 23 cột**.
+- 22 feature là kiểu số thực; `status` là số nguyên với đúng hai giá trị `0/1`.
+- Tổng số ô thiếu: **0**; số hàng trùng toàn bộ: **0**.
+- Phân bố nhãn: `status=0` có 48 mẫu, `status=1` có 147 mẫu.
+- Không có cột `name`; schema gồm đúng 22 feature và `status`.
+- Các nhóm feature có range rất khác nhau (FREQ hàng trăm, JITTER rất nhỏ), vì vậy
+  cần chuẩn hoá trước PCA/mô hình. Các điểm bị đánh dấu bằng quy tắc IQR chỉ là
+  **candidate outlier**, chưa được tự động loại bỏ.
 
 ## 3. Feature vector dùng cho mô hình (thống nhất trước)
 
