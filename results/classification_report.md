@@ -1,6 +1,6 @@
 # M05-T3 · Báo cáo kết quả phân lớp (Nhóm 3 · Parkinson)
 
-- Nhiệm vụ: M05-T1, M05-T2, M05-T3 · Người làm: M05 · Ngày chạy: 2026-11-14
+- Nhiệm vụ: M05-T1, M05-T2, M05-T3 · Người làm: M05 · Ngày chạy: 2026-11-18
 - Notebook: `notebooks/03_classification.ipynb` · Kết quả thô: `results/m05_f1_cv.csv`
 - Reviewer: M01 (gate) + M06 · Trạng thái: chờ review
 
@@ -39,7 +39,7 @@ Lý do chọn mô hình: KNN làm baseline dựa trên khoảng cách; SVM tìm 
 - Số fold: dùng k=10 theo đề bài notebook 03 và work-order M05 (docs/REPRODUCIBILITY.md đang ghi k=5, đề nghị M01 cập nhật cho khớp).
 - Loại F-score: macro là chỉ số chính vì dữ liệu lệch lớp; weighted ghi kèm để đối chiếu. Cần M06 xác nhận.
 - Dùng `X` gốc từ canonical CSV với `Pipeline`, không dùng ma trận chuẩn hoá riêng của M04.
-- Tham số tối ưu của từng fold chưa được lưu; bảng chỉ báo điểm trung bình.
+- Tham số tối ưu của từng fold được lưu trong cột `best_params_per_fold` của `results/m05_f1_cv.csv`.
 
 ## 5. Hạn chế
 
