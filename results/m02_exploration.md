@@ -4,7 +4,8 @@
 
 - Đầu vào duy nhất: `data/processed/parkinsons_v1.csv` (canonical v1).
 - Notebook: `notebooks/01_data_exploration.ipynb`.
-- Kiểm tra candidate outlier: quy tắc IQR, ngưỡng `Q1 - 1.5*IQR` và `Q3 + 1.5*IQR`.
+- Kiểm tra candidate outlier: quy tắc IQR, ngưỡng `Q1 - 1.5*IQR` và `Q3 + 1.5*IQR`,
+  với `pandas.DataFrame.quantile()` mặc định `interpolation="linear"`.
 - Không tự động xoá hoặc thay thế candidate outlier.
 
 ## M02-T1 — Cấu trúc và kiểu dữ liệu
@@ -45,7 +46,7 @@ với scale.
 
 | Feature | Số điểm bị đánh dấu |
 |---|---:|
-| `NHR` | 20 |
+| `NHR` | 19 |
 | `MDVP:PPQ` | 15 |
 | `MDVP:Jitter(%)` | 14 |
 | `MDVP:RAP` | 14 |

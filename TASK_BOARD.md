@@ -22,7 +22,7 @@
 | M02-T1 | Khám phá cấu trúc & dtype | M02 | **Review** | Đã kiểm tra canonical v1: 195x23, 22 feature số, 0 missing, 0 trùng; chờ M03 |
 | M02-T2 | Bản đồ nhóm đặc trưng | M02 | **Review** | Đã cập nhật DATA_DICTIONARY.md với 5 nhóm; chờ M03 |
 | M02-T3 | Phát hiện vấn đề (scale / outlier) | M02 | **Review** | Đã ghi nhận chênh lệch scale và candidate outlier theo IQR; chờ M04 |
-| M03-T1 | Thống kê mô tả | M03 | Todo | Chặn bởi M01-T2 |
+| M03-T1 | Thống kê mô tả | M03 | Todo | M01-T2 đã Done; đầu vào canonical v1 sẵn sàng |
 | M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | Todo | Chặn bởi M02-T3 |
 | M03-T3 | Báo cáo chất lượng tổng hợp | M03 | Todo | Chặn bởi M03-T1, M03-T2 |
 | M04-T1 | Tiền xử lý + feature matrix (22 cột) | M04 | Todo | Chặn bởi M03-T2 |

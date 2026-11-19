@@ -72,7 +72,8 @@
 - Không có cột `name`; schema gồm đúng 22 feature và `status`.
 - Các nhóm feature có range rất khác nhau (FREQ hàng trăm, JITTER rất nhỏ), vì vậy
   cần chuẩn hoá trước PCA/mô hình. Các điểm bị đánh dấu bằng quy tắc IQR chỉ là
-  **candidate outlier**, chưa được tự động loại bỏ.
+  **candidate outlier**, chưa được tự động loại bỏ. Notebook dùng quantile mặc định
+  của pandas (`interpolation="linear"`); theo cách này `NHR` có 19 candidate outlier.
 
 ## 3. Feature vector dùng cho mô hình (thống nhất trước)
 
