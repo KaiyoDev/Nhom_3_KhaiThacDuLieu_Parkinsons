@@ -1,248 +1,310 @@
-# Khai phá Dữ liệu — Dataset Parkinson (Nhóm 3)
+# Khai phá Dữ liệu — Oxford Parkinson's Disease Detection
 
-> **Môn:** Khai phá dữ liệu · **Đề tài:** Oxford Parkinson's Disease Detection Dataset
-> **Trạng thái:** ✅ Setup + 5 notebook khung + 6 work-order + roster đầy đủ — ⏳ chờ chạy phân tích.
-> Repo GitHub: [`KaiyoDev/Nhom_3_KhaiThacDuLieu_Parkinsons`](https://github.com/KaiyoDev/Nhom_3_KhaiThacDuLieu_Parkinsons)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3%2B-F7931E?logo=scikit-learn&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-2.0%2B-150458?logo=pandas&logoColor=white)
+![matplotlib](https://img.shields.io/badge/matplotlib-3.7%2B-0076C8)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
+![PRs](https://img.shields.io/badge/PRs-review%20required-success)
 
-Đây là repo quản lý dự án nhóm 6: từ chuẩn bị dữ liệu → khám phá → tiền xử lý/PCA →
-phân lớp (F-score) → phân cụm (ARI) → tổng hợp báo cáo. Mọi thứ ở đây là **khung + hướng dẫn**,
-chưa có kết quả phân tích (sinh viên tự triển khai theo work-order).
+> **Môn:** Khai phá dữ liệu · **Nhóm 3** · **Dataset:** Oxford Parkinson's Disease Detection (UCI, Max Little)
+> **Repo:** [`KaiyoDev/Nhom_3_KhaiThacDuLieu_Parkinsons`](https://github.com/KaiyoDev/Nhom_3_KhaiThacDuLieu_Parkinsons)
+
+Mục lục: [About](#-about) · [Pipeline](#-kiến-trúc--pipeline) · [Dữ liệu](#-dữ-liệu) · [Kết quả](#-kết-quả-thực-nghiệm) · [Cấu trúc](#-cấu-trúc-thư-mục) · [Cài đặt](#-cài-đặt--chạy) · [Tái lập](#-tái-lập-reproducibility) · [Trạng thái](#-trạng-thái--deadline) · [Team](#-đội-ngũ) · [Tham khảo](#-tài-liệu--tham-khảo)
 
 ---
 
-## 1. Tổng quan đề tài
+## 📌 About
 
-Xây dựng quy trình **khai phá dữ liệu (data mining)** trên tập dữ liệu giọng nói của bệnh nhân
-Parkinson: dự đoán `status` (0 = khỏe, 1 = Parkinson) từ 22 đặc trưng âm thanh (jitter, shimmer,
-noise, chỉ số phi tuyến…), kết hợp **phân lớp có giám sát** (F-score) và **phân cụm không giám
-sát** (ARI) rồi tổng hợp thành báo cáo.
+Dự án xây dựng quy trình **khai phá dữ liệu (data mining)** hoàn chỉnh trên tập dữ liệu giọng nói
+của bệnh nhân Parkinson: từ chuẩn bị dữ liệu, khám phá, tiền xử lý, giảm chiều bằng PCA, tới
+**phân lớp có giám sát** (đo bằng F-score) và **phân cụm không giám sát** (đo bằng ARI).
 
-## 2. Mục tiêu
+- **Bài toán:** phân loại `status` (`0` = khỏe, `1` = Parkinson) từ **22 đặc trưng giọng nói**
+  (tần số, jitter, shimmer, noise, chỉ số phi tuyến).
+- **Dữ liệu:** 195 bản ghi × 23 cột (22 feature + `status`), đã loại cột định danh `name`.
+- **Mục tiêu kỹ thuật:** một đầu vào canonical duy nhất, pipeline tái lập được (cùng seed/phiên bản),
+  đánh giá đúng chuẩn (CV stratified, chống data leakage), kết quả có hình ảnh/bảng minh hoạ.
+- **Kết quả nổi bật:** PCA giải thích **70.2%** phương sai bằng 2 thành phần; phân lớp đạt
+  **F-score macro 0.87–0.89** trên 10-fold CV với 3 mô hình (KNN, SVM, Random Forest).
 
-- Không gian làm việc **an toàn, nhất quán, tái tạo được** cho 6 thành viên làm việc độc lập.
-- **Một nguồn dữ liệu xử lý duy nhất** (canonical CSV) — tránh mỗi người một bản CSV.
-- **5 notebook khung** + **6 work-order** để từng người triển khai từng bước (không làm thay phần
-  phân tích chính của sinh viên).
-- Quy trình **Git/PR** rõ ràng để phối hợp 6 người.
+Dự án do 6 thành viên phối hợp qua quy trình Git/PR rõ ràng (branch theo nhiệm vụ → PR → review → merge),
+với 2 "cổng" đồng bộ: **GATE #1** (thống nhất canonical CSV) và **GATE #2** (nhất quán trước báo cáo).
 
-## 3. Dữ liệu (đã xác minh từ file)
+---
+
+## 🏗️ Kiến trúc & Pipeline
+
+```mermaid
+flowchart TD
+    A["data/raw/D07 - parkinsons.data.xlsx<br/>195 x 24 (gồm name)"] --> B["M01-T2 · Canonical CSV v1<br/>data/processed/parkinsons_v1.csv<br/>195 x 23 (bỏ name)"]
+    B --> C["Khám phá + chất lượng<br/>M02 + M03"]
+    C --> D["Tiền xử lý + PCA<br/>M04 · StandardScaler"]
+    D --> E["Phân lớp + F-score<br/>M05 · 10-fold CV"]
+    D --> F["Phân cụm + ARI<br/>M06 · KMeans/DBSCAN"]
+    E --> G["Tổng hợp + Gate #2<br/>M06 chủ trì · M01 ký nhất quán"]
+    F --> G
+    G --> H["Báo cáo / figures"]
+    B -. "GATE #1: mọi bước dùng cùng canonical v1" .-> C
+```
+
+Luồng trạng thái của mỗi nhiệm vụ:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Todo
+    Todo --> InProgress: phụ trách bắt đầu
+    InProgress --> Review: hoàn thành + checklist
+    Review --> Done: reviewer xác nhận
+    Todo --> Blocked: thiếu đầu vào
+    InProgress --> Blocked: thiếu đầu vào
+    Blocked --> Todo: đầu vào đã sẵn sàng
+    Done --> [*]
+```
+
+Luồng dữ liệu trong pipeline tổng hợp (`src/pipeline.py`):
+
+```mermaid
+flowchart LR
+    R["raw xlsx"] --> D["canonical CSV v1"]
+    D --> X["X: 22 feature"]
+    D --> Y["y: status"]
+    X --> SC["StandardScaler"]
+    SC --> P["PCA"]
+    SC --> CL["Pipeline phân lớp<br/>(scaler + model)"]
+    Y --> CL
+    P --> F1["figures PCA"]
+    CL --> R1["F-score (10-fold CV)"]
+```
+
+---
+
+## 📊 Dữ liệu
+
+### Tổng quan (đã xác minh trên `data/processed/parkinsons_v1.csv`)
 
 | Hạng mục | Giá trị |
 |----------|---------|
-| File gốc | `data/raw/D07 - parkinsons.data.xlsx` (dataset UCI, **đã commit** cho tiện dùng) |
-| Sheet dữ liệu | `"parkinsons.data"` — **195 dòng × 24 cột** |
-| Sheet mô tả | `"Descriptipion"` (mô tả UCI + citation) |
-| Nhãn (target) | `status` — `0` khỏe, `1` Parkinson |
-| Cột cần loại | `name` (tên chủ thể + số bản ghi) — drop trước khi phân tích |
-| Feature (22) | FREQ(3) · JITTER(5) · SHIMMER(6) · NOISE(2) · NONLIN(6) |
+| Số mẫu | **195** |
+| Số cột canonical | **23** = 22 feature + `status` |
+| Nhãn | `0` (khỏe): **48** · `1` (Parkinson): **147** |
+| Missing / trùng lặp | **0** / **0** |
+| Feature | FREQ (3) · JITTER (5) · SHIMMER (6) · NOISE (2) · NONLIN (6) |
+| Cột đã loại | `name` (định danh chủ thể) |
+| Chênh lệch scale | Có (FREQ hàng trăm, JITTER ~1e-4) → cần chuẩn hoá |
 
-Chi tiết từng cột: [`DATA_DICTIONARY.md`](DATA_DICTIONARY.md). Quy ước dữ liệu: [`data/README.md`](data/README.md).
+```mermaid
+pie
+    "Parkinson (status=1)" : 147
+    "Khỏe (status=0)" : 48
+```
 
-## 4. Đội ngũ (6 thành viên)
+**Bằng chứng:** phân bố nhãn và các feature có nhiều candidate outlier (quy tắc IQR 1.5),
+sinh từ chạy thật trên canonical v1.
 
-| Mã | Tên | MSSV | GitHub | Vai trò | Notebook |
-|----|-----|------|--------|---------|:--------:|
-| M01 | Đặng Hoàng Ân | `080206014982` | `@KaiyoDev` | Điều phối + chuẩn bị dữ liệu + thống nhất đầu vào + gate | (data prep, gate 05) |
-| M02 | Lê Thiên Lộc | `079306040024` | `@Phiadz` | Khám phá cấu trúc & kiểu dữ liệu | 01 |
-| M03 | Huỳnh Gia Hợp | `054205008367` | `@HGiaHop` | Thống kê mô tả + kiểm tra chất lượng | 01 |
-| M04 | Trần Hoàng Thông | `075206008044` | `@HoangThongTom` | Tiền xử lý + PCA + trực quan | 02 |
-| M05 | Ngô Thị Anh Thư | `087306008195` | `@THUNGO-dot` | Phân lớp + cross-validation + F-score | 03 |
-| M06 | Nguyễn Hoàng Bách | `056205005522` | `@nguyenhoangbach1` | Phân cụm + ARI + tổng hợp kết quả | 04, 05 |
+![Tổng quan dữ liệu](docs/images/eda_summary.png)
 
-Nguồn danh sách: [`TEAM.md`](TEAM.md).
+> Ghi chú: header UCI ghi "197 instances" nhưng file thực tế có **195 dòng dữ liệu** — đã đối chiếu
+> và ghi nhận trong `DATA_DICTIONARY.md`.
 
-## 5. Cấu trúc thư mục
+---
+
+## 🧪 Kết quả thực nghiệm
+
+### 1. Phân tích thành phần chính (PCA, M04)
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| PC1 | **58.9%** |
+| PC2 | **11.3%** |
+| PC1 + PC2 | **70.2%** |
+| Số thành phần đạt ≥ 90% | **6** (tích lũy **91.61%**) |
+
+![PCA scatter](results/figures/02_pca_scatter.png)
+
+Hai nhóm tách một phần, chồng lấp đáng kể trên PC1–PC2 — phù hợp với bài toán nhị phân có
+nhiều đặc trưng âm thanh tương quan cao.
+
+### 2. Phân bố & tương quan (M04)
+
+![Phân bố 22 feature theo status](results/figures/m04-t3_histograms.png)
+
+![Ma trận tương quan](results/figures/m04-t3_corr_heatmap.png)
+
+- **14/22** feature lệch (`|skew| > 1`); **26/231** cặp feature có `|r| ≥ 0.9`.
+- `Jitter:DDP = 3 × MDVP:RAP` và `Shimmer:DDA = 3 × Shimmer:APQ3` (r = 1.0) — trùng thông tin,
+  được giữ nguyên trong canonical v1 và cần cân nhắc khi phân cụm.
+
+### 3. Phân lớp (M05, 10-fold CV, seed 42)
+
+| Mô hình | F-score macro (test) | F-score weighted (test) | F-score macro (train) |
+|---------|:--------------------:|:-----------------------:|:---------------------:|
+| KNN | 0.8757 ± 0.0742 | 0.9073 ± 0.0578 | 0.9647 |
+| **SVM** | **0.8904 ± 0.0804** | **0.9199 ± 0.0603** | 0.9787 |
+| Random Forest | 0.8737 ± 0.1171 | 0.9103 ± 0.0824 | 1.0000 |
+
+![F-score 3 mô hình](docs/images/f1_scores.png)
+
+- Chênh lệch giữa các mô hình (~0.016) **nhỏ hơn** độ lệch chuẩn giữa các fold (0.07–0.12) →
+  không kết luận mô hình tốt nhất một cách quá chắc chắn; để reviewer/M06 cùng đánh giá.
+- Random Forest có train F-score 1.0000 và std lớn nhất → dấu hiệu overfit.
+- Nhận xét: điểm weighted cao hơn macro do lớp khỏe (48 mẫu) nhỏ hơn.
+
+### 4. Phân cụm + ARI (M06)
+
+⏳ Chưa hoàn thành (xem [Trạng thái](#-trạng-thái--deadline)).
+
+---
+
+## 🗂️ Cấu trúc thư mục
 
 ```text
 Nhom_3_KhaiThacDuLieu_Parkinsons/
-├── README.md                # file này (toàn bộ dự án)
-├── TEAM.md                  # danh sách 6 thành viên (tên + MSSV + GitHub + vai trò)
-├── TASK_ASSIGNMENTS.md      # phân rã nhiệm vụ + phụ thuộc + người review
-├── TASK_BOARD.md            # bảng trạng thái công việc (Todo/In Progress/Review/Blocked/Done)
-├── PROJECT_WORKFLOW.md      # luồng tổng thể: chuẩn bị dữ liệu → báo cáo (6 giai đoạn + 2 gate)
-├── HANDOFF.md               # quy trình bàn giao + cách báo cáo Blocked
-├── CONTRIBUTING.md          # quy ước git/commit/review/conflict
-├── DATA_DICTIONARY.md       # bảng mô tả thuộc tính (đã xác minh từ dataset)
-├── requirements.txt         # numpy, pandas, scikit-learn, matplotlib, openpyxl, ...
-├── .gitignore               # ignore nội dung data/, env, cache, bí mật; EXCEPTION: dataset gốc
+├── README.md                     # file này
+├── TEAM.md                       # đội ngũ 6 thành viên
+├── TASK_BOARD.md                 # trạng thái từng nhiệm vụ + deadline
+├── TASK_ASSIGNMENTS.md           # phân rã 21 mã nhiệm vụ + phụ thuộc + reviewer
+├── PROJECT_WORKFLOW.md           # luồng 6 giai đoạn + 2 gate
+├── HANDOFF.md · CONTRIBUTING.md  # quy trình bàn giao & đóng góp
+├── DATA_DICTIONARY.md            # mô tả 24 cột (đã xác minh)
+├── docs/
+│   ├── COLAB_GUIDE.md · GITHUB_GUIDE.md · TROUBLESHOOTING.md
+│   ├── REPRODUCIBILITY.md        # quy ước seed/k/scaler/phiên bản
+│   └── images/                   # hình minh hoạ trong README
 ├── data/
-│   ├── raw/                 # dataset gốc (đã commit): D07 - parkinsons.data.xlsx
-│   ├── interim/             # dữ liệu trung gian (gitignore, chỉ .gitkeep)
-│   └── processed/           # canonical CSV sẽ được tạo ở M01-T2 (gitignore, chỉ .gitkeep)
-├── workspaces/              # 6 work-order thành viên + mẫu "giao task"
-│   └── member-01..06/README.md
-├── notebooks/               # 5 notebook khung (skeleton, chưa code phân tích)
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_preprocessing_pca.ipynb
-│   ├── 03_classification.ipynb
-│   ├── 04_clustering.ipynb
-│   └── 05_integration_report.ipynb
-├── src/  ·  tests/          # module + kiểm thử (tạo ở giai đoạn làm việc)
-├── results/                 # kết quả thực nghiệm (F-score, ARI, figure)
-├── reports/                 # báo cáo tổng hợp
-└── docs/                    # COLAB · GITHUB · TROUBLESHOOTING · REPRODUCIBILITY
+│   ├── raw/                      # dataset gốc (xlsx, đã commit)
+│   ├── interim/                  # trung gian (không commit)
+│   └── processed/                # canonical CSV v1 + schema
+├── notebooks/                    # 5 notebook: 01 khám phá · 02 PCA · 03 phân lớp · 04 cụm · 05 tổng hợp
+├── src/
+│   ├── preprocessing.py          # nạp canonical, tách X/y, StandardScaler
+│   └── pipeline.py               # pipeline tổng hợp (chạy được độc lập)
+├── results/                      # F-score, ARI, báo cáo, figures/
+├── reports/                      # báo cáo tổng hợp
+└── workspaces/                   # work-order từng thành viên
 ```
 
-## 6. Pipeline (6 giai đoạn + 2 gate)
+---
 
-```text
-G1 CHUẨN BỊ DỮ LIỆU (M01)  →  G2 ĐỒNG BỘ ĐẦU VÀO [GATE#1]  →  G3 KHÁM PHÁ + CHẤT LƯỢNG (M02+M03)
-   →  G4 TIỀN XỬ LÝ + PCA (M04)  →  G5 MÔ HÌNH (M05 phân lớp | M06 phân cụm)  →  G6 TỔNG HỢP [GATE#2] (M06 chủ, M01 gate)
+## ⚙️ Cài đặt & chạy
+
+### Môi trường
+
+- **Python ≥ 3.10** (đã kiểm tra trên 3.14)
+- `numpy`, `pandas`, `scipy`, `scikit-learn`, `matplotlib`, `seaborn`, `openpyxl`, `jupyter`
+  (phiên bản tối thiểu trong `requirements.txt`)
+
+```bash
+git clone https://github.com/KaiyoDev/Nhom_3_KhaiThacDuLieu_Parkinsons.git
+cd Nhom_3_KhaiThacDuLieu_Parkinsons
+python -m venv .venv
+source .venv/Scripts/activate      # Windows; trên Linux/macOS: source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-- **GATE #1 (S-T1):** toàn nhóm xác nhận **một canonical CSV duy nhất** trước khi chạy phân tích.
-- **GATE #2 (S-T2):** nhất quán kết quả trước khi hoàn thiện báo cáo.
-- Chi tiết: [`PROJECT_WORKFLOW.md`](PROJECT_WORKFLOW.md).
+### Chạy pipeline tổng hợp
 
-### Quy trình đầy đủ — sơ đồ tư duy (mind map)
-
-```mermaid
-mindmap
-  root((Khai phá dữ liệu Parkinson))
-    Dữ liệu M01
-      M01-T1 manifest raw
-      M01-T2 canonical CSV
-        drop name
-        giữ 22 feature + status
-      M01-T3 gate đầu vào
-      S-T1 xác nhận GATE 1
-    Khám phá + chất lượng nb01 M02 M03
-      M02-T1 cấu trúc dtype
-      M02-T2 nhóm đặc trưng
-      M02-T3 vấn đề
-      M03-T1 thống kê mô tả
-      M03-T2 chất lượng
-      M03-T3 báo cáo quality
-    Tiền xử lý + PCA nb02 M04
-      M04-T1 tách X y + chuẩn hoá
-      M04-T2 PCA 2D
-      M04-T3 scatter tô màu
-    Phân lớp nb03 M05
-      M05-T1 CV 10-fold
-      M05-T2 3 mô hình + F-score
-      M05-T3 báo cáo phân lớp
-    Phân cụm nb04 M06
-      M06-T1 KMeans + DBSCAN
-      M06-T2 ARI
-    Tổng hợp nb05 M06 M01
-      M06-T3 tổng hợp
-      S-T2 nhất quán GATE 2
-      xuất PDF
-    Xuyên suốt
-      An toàn dữ liệu
-      Tái lập
-      Git + PR
-      Colab
+```bash
+python -m src.pipeline
 ```
 
-> Bản văn tự đầy đủ: [`PROJECT_WORKFLOW.md`](PROJECT_WORKFLOW.md) + [`TASK_ASSIGNMENTS.md`](TASK_ASSIGNMENTS.md).
+Đầu ra: `results/pipeline_summary.json` — chứa chỉ báo dữ liệu, PCA, F-score, tham số mỗi fold,
+seed và phiên bản thư viện. Lệnh này **không đụng vào** các kết quả của notebook.
 
-## 7. 5 Notebook
+### Chạy notebook từng bước
 
-| Notebook | Phụ trách | Nội dung khung | Phụ thuộc |
-|----------|-----------|----------------|-----------|
-| `01_data_exploration.ipynb` | M02 + M03 | đọc dữ liệu, kích thước, dtype, thống kê, chất lượng | M01-T2 (canonical CSV) |
-| `02_preprocessing_pca.ipynb` | M04 | tách X/y, chuẩn hoá, PCA 2D, scatter tô màu | M03 (chất lượng) |
-| `03_classification.ipynb` | M05 | 10-fold CV, chọn 3/5 mô hình, F-score, tránh leakage | M04 (feature matrix) |
-| `04_clustering.ipynb` | M06 | K-Means, DBSCAN, ARI (label chỉ dùng khi đánh giá) | M04 (feature matrix) |
-| `05_integration_report.ipynb` | M06 (chủ) + M01 (gate) | tổng hợp 4 notebook + nhất quán + xuất PDF | kết quả 02/03/04 |
+```bash
+jupyter lab notebooks/01_data_exploration.ipynb
+jupyter lab notebooks/02_preprocessing_pca.ipynb
+jupyter lab notebooks/03_classification.ipynb
+```
 
-Mỗi notebook: markdown hướng dẫn + cell `TODO`, **chưa có code phân tích / kết quả / output**.
+### Google Colab
 
-## 8. Hệ thống task & phối hợp
+Mỗi thành viên dùng runtime riêng: upload `data/processed/parkinsons_v1.csv`, cài thêm
+`openpyxl` nếu đọc xlsx, chạy từ notebook. Xem `docs/COLAB_GUIDE.md`.
 
-- **Phân công:** [`TASK_ASSIGNMENTS.md`](TASK_ASSIGNMENTS.md) (21 mã nhiệm vụ + phụ thuộc + reviewer).
-- **Trạng thái:** [`TASK_BOARD.md`](TASK_BOARD.md) (5 trạng thái: Todo / In Progress / Review /
-  Blocked / Done).
-- **Work-order cá nhân:** `workspaces/member-XX/README.md` (nhiệm vụ + bước/cell + đầu vào/ra +
-  tiêu chí + checklist + cách báo Blocked).
-- **Bàn giao:** [`HANDOFF.md`](HANDOFF.md) (mô tả 5 dòng + test-report + quy tắc `Blocked`).
-- Nguyên tắc: mỗi người chỉ làm phần được giao; thiếu đầu vào → đánh dấu `Blocked`; chỉ `Done`
-  khi người review xác nhận đạt tiêu chí.
+---
 
-## 9. Tiến độ hiện tại (tiến độ dự án)
+## 🔁 Tái lập (reproducibility)
 
-| Hạng mục | Trạng thái |
-|----------|:----------:|
-| Setup workspace + tài liệu quản lý | ✅ xong (đã commit) |
-| Dataset trong repo (`data/raw/`) | ✅ xong (đã commit) |
-| 5 notebook khung | ✅ xong (đã commit) |
-| 6 work-order thành viên | ✅ xong (đã commit) |
-| Roster đầy đủ (Tên + MSSV + GitHub, 6/6) | ✅ xong (đã merge qua PR #1) |
-| Git/PR workflow (rule "PR required" bật) | ✅ cấu hình |
-| **Canonical CSV (M01-T2)** | ⏳ **chưa — chưa ai chạy** (điểm mở khoá) |
-| Phân tích (notebook 01–04) | ⏳ chưa (mọi nhiệm vụ `Todo`) |
-| Kết quả F-score / ARI / báo cáo | ⏳ chưa |
+Mọi kết quả phải chạy lại được với cùng số. Quy ước chốt trong `docs/REPRODUCIBILITY.md`:
 
-**Tiến độ phân tích: 0/21 nhiệm vụ hoàn thành** (xem `TASK_BOARD.md`). Bước tiếp theo là
-M01 tạo canonical CSV (M01-T2) để mở GATE #1 cho cả nhóm.
-
-## 10. Git, PR & Colab
-
-- **Branching:** `task/<mã-nhiệm-vụ>` → commit (Conventional Commits) → push → **PR** → review → merge.
-- **Rule "PR required" đang BẬT trên `main`**: thành viên không push thẳng main, bắt buộc qua PR
-  (owner có thể bypass). Xem [`docs/GITHUB_GUIDE.md`](docs/GITHUB_GUIDE.md).
-- **Colab:** mỗi người một runtime độc lập, dataset upload riêng, thay đổi **không** tự đồng bộ
-  với GitHub — phải commit. Xem [`docs/COLAB_GUIDE.md`](docs/COLAB_GUIDE.md).
-
-## 11. Thư viện & công cụ (Python)
-
-Danh sách **toàn bộ** thư viện công cụ dự án dùng, kèm nơi sử dụng. Phiên bản tối thiểu theo
-`requirements.txt`; **Colab** đã cài sẵn nhóm lõi (numpy/pandas/scipy/scikit-learn/matplotlib) —
-chỉ `openpyxl` thường phải cài thêm (xem `docs/COLAB_GUIDE.md`).
-
-### Lõi xử lý dữ liệu
-| Thư viện | Tối thiểu | Vai trò | Dùng ở |
-|----------|:--------:|---------|--------|
-| `numpy` | 1.26 | mảng số, tính vector | 01–05 (X, y, PCA, cluster) |
-| `pandas` | 2.0 | DataFrame, đọc CSV/xlsx | 01 (đọc), M01 (tạo canonical CSV) |
-| `scipy` | 1.10 | thống kê (skew, kurtosis) | 01 (thống kê mô tả) |
-| `openpyxl` | 3.1 | đọc file `.xlsx` dataset gốc | M01-T1/T2 |
-
-### Máy học — `scikit-learn` (≥1.3), dùng theo module
-| Module (class) | Dùng ở | Việc |
-|----------------|:------:|------|
-| `preprocessing.StandardScaler` | 02, 03, 04 | chuẩn hoá |
-| `decomposition.PCA` | 02 | giảm chiều (2D) |
-| `model_selection` (StratifiedKFold, cross_validate, GridSearchCV) | 03 | 10-fold CV + tune |
-| `neighbors.KNeighborsClassifier` | 03 | mô hình (1/5) |
-| `ensemble.RandomForestClassifier`, `AdaBoostClassifier` | 03 | mô hình (2/5) |
-| `naive_bayes.GaussianNB` | 03 | mô hình (3/5) |
-| `svm.SVC` | 03 | mô hình (4/5) |
-| `pipeline.Pipeline` | 03 | chống data-leakage |
-| `cluster.KMeans`, `DBSCAN` | 04 | phân cụm |
-| `metrics.silhouette_score`, `adjusted_rand_score` (ARI) | 04 | chọn K + đánh giá cụm |
-
-> Notebook 03 **chọn đúng 3/5** mô hình (KNN, RF, NB, AdaBoost, SVM); phần còn lại là dự phòng.
-
-### Trực quan hoá
-| Thư viện | Tối thiểu | Dùng ở |
-|----------|:--------:|--------|
-| `matplotlib` | 3.7 | 02, 04 (scatter PC1–PC2, figure cụm) |
-| `seaborn` | 0.13 | 01, 02 (heatmap tương quan, phân bố) |
-
-### Notebook & xuất báo cáo
-| Công cụ | Dùng để |
+| Tham số | Giá trị |
 |---------|---------|
-| `jupyter` / `jupyterlab` (≥1.0) | chạy 5 notebook (local) |
-| `jupyter nbconvert` + `pandoc` | xuất PDF (checklist ở notebook 05) |
+| Seed | `42` |
+| CV phân lớp | **k ngoài = 10**, **k trong = 5**, stratified theo `status` |
+| Scaler | `StandardScaler` (fit trên train trong Pipeline; PCA/cụm fit trên toàn bộ X) |
+| Chỉ số phân lớp | F-score **macro** (chính) + weighted (đối chiếu) |
+| PCA | 2 thành phần để vẽ (70.2%); 6 thành phần nếu cần ≥ 90% |
+| Anti-leakage | scaler/PCA fit trong fold train; chọn tham số bằng nested `GridSearchCV` |
+| Dữ liệu | `data/processed/parkinsons_v1.csv` (version v1) — một đầu vào duy nhất |
+| Phiên bản | `scikit-learn 1.9.0`, `pandas 3.0.x`, `numpy 2.4.x` |
 
-## 12. Tái lập (reproducibility)
+Chạy `python -m src.pipeline` phải cho ra đúng các số ở mục [Kết quả](#-kết-quả-thực-nghiệm).
 
-Mọi kết quả phải chạy lại được: cùng canonical CSV (v1), cùng seed, cùng phiên bản thư viện
-(và quy ước k-fold, loại F-score, K/eps — xem [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md)
-và `requirements.txt`).
+---
 
-## 13. An toàn dữ liệu
+## 📋 Trạng thái & deadline
 
-- Dữ liệu **bí mật / chưa được phép chia sẻ**: không đưa vào Git. Dataset Parkinson là UCI
-  công khai nên **được commit** (cho tiện dùng); mọi xlsx khác vẫn bị `.gitignore` chặn.
-- Không token / mật khẩu / API key. Tên + MSSV + GitHub đã điền (chỉ dùng khi được cung cấp, không bịa).
+> **Deadline bài tập: 20/11/2026 (đã qua).** Bảng chi tiết: [`TASK_BOARD.md`](TASK_BOARD.md).
 
-## 14. Bắt đầu (next steps)
+| Mã | Thành viên | Trạng thái | Bằng chứng |
+|----|-----------|:----------:|------------|
+| M01 | Đặng Hoàng Ân | 🟡 Đang điều phối | T1/T2 xong; gate S-T1 đang chốt |
+| M02 | Lê Thiên Lộc | ✅ Hoàn thành | PR #5 đạt review & merge (19–22/11) |
+| M03 | Huỳnh Gia Hợp | 🔴 Chưa hoàn thành — quá hạn 20/11 | Chưa có sản phẩm |
+| M04 | Trần Hoàng Thông | ✅ Hoàn thành | PR #7 đã merge (17/11) |
+| M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đã merge (22/11) |
+| M06 | Nguyễn Hoàng Bách | 🔴 Chưa hoàn thành — quá hạn 20/11 | Chưa có sản phẩm |
 
-1. **M01** chạy bước tạo canonical CSV (M01-T2) → mở GATE #1. 2. **M02+M03** chạy
-   `01_data_exploration.ipynb`. 3. **M04** chạy `02_preprocessing_pca.ipynb`. 4. **M05**
-   chạy `03_classification.ipynb`. 5. **M06** chạy `04_clustering.ipynb` rồi
-   `05_integration_report.ipynb` (cùng M01 gate). Từng người làm theo work-order của mình
-   (`workspaces/member-XX/README.md`).
+**Tiến độ:** 11/21 nhiệm vụ `Done` · 2 `In Progress` · 2 `Blocked` · 6 `Todo`.
+Các PR đã xử lý: #5 (M02), #7 (M04), #8 (M05), #9 (cập nhật TASK_BOARD) — đều đã merge.
+
+---
+
+## 👥 Đội ngũ
+
+| Mã | Tên | MSSV | Vai trò | Notebook |
+|----|-----|------|---------|:--------:|
+| M01 | Đặng Hoàng Ân | `080206014982` | Điều phối · dữ liệu · gate | (data prep, gate) |
+| M02 | Lê Thiên Lộc | `079306040024` | Khám phá cấu trúc & dtype | 01 |
+| M03 | Huỳnh Gia Hợp | `054205008367` | Thống kê mô tả · chất lượng | 01 |
+| M04 | Trần Hoàng Thông | `075206008044` | Tiền xử lý · PCA · trực quan | 02 |
+| M05 | Ngô Thị Anh Thư | `087306008195` | Phân lớp · CV · F-score | 03 |
+| M06 | Nguyễn Hoàng Bách | `056205005522` | Phân cụm · ARI · tổng hợp | 04, 05 |
+
+Nguồn: [`TEAM.md`](TEAM.md).
+
+---
+
+## 🤝 Quy ước đóng góp
+
+- **Branch:** `task/<mã-member>-<mã-task>-<tên-ngắn>`; commit theo **Conventional Commits**.
+- **PR:** bắt buộc trên `main` (branch protection `PR required`), gồm `Summary` · `Test Plan` · `Risk`.
+- **Review:** mỗi nhiệm vụ có người review; chỉ `Done` khi đạt tiêu chí nghiệm thu.
+- **Dữ liệu:** một canonical CSV duy nhất; không tạo bản CSV riêng; không commit bí mật/raw.
+- Chi tiết: [`CONTRIBUTING.md`](CONTRIBUTING.md) · [`HANDOFF.md`](HANDOFF.md).
+
+---
+
+## 📚 Tài liệu & tham khảo
+
+- **Dataset:** Max Little, University of Oxford — *Oxford Parkinson's Disease Detection Dataset*,
+  UCI Machine Learning Repository. Ghi chú: mô tả UCI ghi 197 instances, file thực tế 195 dòng.
+- **Bài báo liên quan:** Little, M. A., McSharry, P. E., Hunter, E. J., & Ramig, L. O. (2009).
+  *Suitability of dysphonia measurements for telemonitoring of Parkinson's disease.*
+  IEEE Transactions on Biomedical Engineering, 56(4), 1015–1023.
+- **Tài liệu nội bộ:** [`DATA_DICTIONARY.md`](DATA_DICTIONARY.md) ·
+  [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) ·
+  [`PROJECT_WORKFLOW.md`](PROJECT_WORKFLOW.md) ·
+  [`docs/COLAB_GUIDE.md`](docs/COLAB_GUIDE.md).
+
+---
+
+## 🛡️ Ghi chú an toàn
+
+- Không commit token/mật khẩu/API key; `.env`, `*.key`, `secrets*` đã được `.gitignore` chặn.
+- Cột `name` (định danh chủ thể) **loại bỏ** khỏi canonical CSV; chỉ giữ trong `data/raw/` nếu
+  cần đối chiếu nội bộ.
+- Mọi số liệu/figure trong README đều sinh từ chạy thật trên canonical v1; không điền sẵn số giả.
