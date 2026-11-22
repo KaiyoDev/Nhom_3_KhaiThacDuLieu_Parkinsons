@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-11-22T18:23:56+07:00",
+  "canonical_csv": "data/processed/parkinsons_v1.csv",
+  "seed": 42,
+  "cv": {
+    "k_outer": 10,
+    "k_inner": 5
+  },
+  "versions": {
+    "python": "3.14.0",
+    "numpy": "2.4.2",
+    "pandas": "3.0.3",
+    "scikit_learn": "1.9.0"
+  },
+  "dataset": {
+    "rows": 195,
+    "columns": 23,
+    "features": 22,
+    "missing_cells": 0,
+    "duplicate_rows": 0,
+    "label_counts": {
+      "0": 48,
+      "1": 147
+    },
+    "iqr_outlier_columns": 19,
+    "iqr_outlier_rows": 47,
+    "nhr_outliers": 19
+  },
+  "pca": {
+    "pc1": 0.589,
+    "pc2": 0.113,
+    "pc1_pc2_total": 0.702,
+    "n_components_for_90pct": 6,
+    "cum_variance_at_90pct": 0.9161
+  },
+  "classification": [
+    {
+      "model": "KNN",
+      "f1_macro_test_mean": 0.8757,
+      "f1_macro_test_std": 0.0742,
+      "f1_weighted_test_mean": 0.9073,
+      "f1_weighted_test_std": 0.0578,
+      "f1_macro_train_mean": 0.9647,
+      "best_params_per_fold": [
+        {
+          "clf__n_neighbors": 3
+        },
+        {
+          "clf__n_neighbors": 3
+        },
+        {
+          "clf__n_neighbors": 5
+        },
+        {
+          "clf__n_neighbors": 3
+        },
+        {
+          "clf__n_neighbors": 3
+        },
+        {
+          "clf__n_neighbors": 5
+        },
+        {
+          "clf__n_neighbors": 3
+        },
+        {
+          "clf__n_neighbors": 3
+        },
+        {
+          "clf__n_neighbors": 3
+        },
+        {
+          "clf__n_neighbors": 3
+        }
+      ],
+      "grid": {
+        "clf__n_neighbors": [
+          3,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "model": "SVM",
+      "f1_macro_test_mean": 0.8904,
+      "f1_macro_test_std": 0.0804,
+      "f1_weighted_test_mean": 0.9199,
+      "f1_weighted_test_std": 0.0603,
+      "f1_macro_train_mean": 0.9787,
+      "best_params_per_fold": [
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        },
+        {
+          "clf__C": 10
+        }
+      ],
+      "grid": {
+        "clf__C": [
+          0.1,
+          1,
+          10
+        ]
+      }
+    },
+    {
+      "model": "RandomForest",
+      "f1_macro_test_mean": 0.8737,
+      "f1_macro_test_std": 0.1171,
+      "f1_weighted_test_mean": 0.9103,
+      "f1_weighted_test_std": 0.0824,
+      "f1_macro_train_mean": 1.0,
+      "best_params_per_fold": [
+        {
+          "clf__n_estimators": 100
+        },
+        {
+          "clf__n_estimators": 100
+        },
+        {
+          "clf__n_estimators": 50
+        },
+        {
+          "clf__n_estimators": 50
+        },
+        {
+          "clf__n_estimators": 50
+        },
+        {
+          "clf__n_estimators": 50
+        },
+        {
+          "clf__n_estimators": 100
+        },
+        {
+          "clf__n_estimators": 50
+        },
+        {
+          "clf__n_estimators": 100
+        },
+        {
+          "clf__n_estimators": 50
+        }
+      ],
+      "grid": {
+        "clf__n_estimators": [
+          50,
+          100
+        ]
+      }
+    }
+  ]
+}

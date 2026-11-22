@@ -4,6 +4,8 @@
 > Ban đầu **mọi nhiệm vụ ở `Todo`**. Không giả lập tiến độ: chỉ chuyển trạng thái
 > khi có bằng chứng (đã làm xong / đã review / đang bị chặn).
 >
+> **Cập nhật:** 2026-11-22 · **Deadline bài tập: 20/11/2026 (đã qua)**.
+>
 > Quy tắc chuyển trạng thái (xem `PROJECT_WORKFLOW.md`):
 > - `Todo → In Progress`: phụ trách bắt đầu (đầu vào đã sẵn sàng).
 > - `In Progress → Review`: phụ trách hoàn thành + qua checklist tự kiểm tra.
@@ -22,9 +24,11 @@
 | M02-T1 | Khám phá cấu trúc & dtype | M02 | Todo | Chặn bởi M01-T2 |
 | M02-T2 | Bản đồ nhóm đặc trưng | M02 | Todo | Chặn bởi M02-T1 |
 | M02-T3 | Phát hiện vấn đề (scale / outlier) | M02 | Todo | Chặn bởi M02-T1 |
+
 | M03-T1 | Thống kê mô tả | M03 | Done | Đã thống kê kích thước dữ liệu, phân bố nhãn status và các chỉ số min/max/mean |
-| M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | Done | Đã kiểm tra NaN, dòng trùng lặp và phân vị 1%–99%; không phát hiện NaN hoặc dòng trùng |
+| M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | Done | Đã kiểm tra NaN, dòng trùng lặp và phân vị 1%-99%; không phát hiện vấn đề |
 | M03-T3 | Báo cáo chất lượng tổng hợp | M03 | Review | Đã tổng hợp kết quả M03-T1, M03-T2 vào results/quality_report.md; chờ reviewer kiểm tra |
+
 | M04-T1 | Tiền xử lý + feature matrix (22 cột) | M04 | Todo | Chặn bởi M03-T2 |
 | M04-T2 | PCA (chọn số thành phần) | M04 | Todo | Chặn bởi M04-T1 |
 | M04-T3 | Trực quan hóa (hist/heatmap/scatter PC) | M04 | Todo | Chặn bởi M04-T2 |
@@ -39,13 +43,13 @@
 
 ## Trạng thái tổng hợp (snapshot)
 
-> > Cập nhật mỗi lần có chuyển trạng thái. Hiện tại: **4 / 21** hoàn thành (+1 Review).
+> Cập nhật mỗi lần có chuyển trạng thái. Hiện tại: **2 / 21** hoàn thành (+1 In Progress).
 
-- **Todo:** 15
+- **Todo:** 18
 - **In Progress:** 1 (M01-T3)
-- **Review:** 1 (M03-T3)
+- **Review:** 0
 - **Blocked:** 0
-- **Done:** 4 (M01-T1, M01-T2, M03-T1, M03-T2)
+- **Done:** 2 (M01-T1, M01-T2)
 
 ## Định danh "chặn bởi"
 
