@@ -22,15 +22,23 @@
 
 ## 3. Quy ước tham số (thống nhất 1 lần, dùng chung)
 
+> **Chốt ngày 2026-11-22** (sau khi hợp nhánh PR #5 / #8 / #9).
+
 - **Seed:** `42` (mặc định cho toàn bộ). Nếu đổi → ghi lý do + ai đổi.
-- **k-fold CV:** `k = 5`, stratified (theo `status`).
-- **Test set:** tách **1 lần cuối**, không "dùng lại" cho chọn mô hình (tránh overfit).
-- **PCA:** giữ thành phần đến khi **total explained variance ≥ 90%** (hoặc theo M04-T2
-  thống nhất, ghi rõ ngưỡng).
+- **k-fold CV (phân lớp):** **k ngoài = 10**, **k trong (chọn tham số) = 5**, stratified
+  theo `status`. Đây là quy ước chung; trước đây tài liệu ghi k=5 đã được cập nhật.
+- **Test set:** trong thiết lập CV lồng nhau, fold test chỉ dùng để đánh giá; chọn tham số
+  chỉ chạy trên fold train (tránh overfit / leakage).
+- **PCA:** để trực quan hóa dùng **2 thành phần** (PC1 + PC2 = 70.2%); nếu cần đạt
+  ngưỡng **≥ 90%** phương sai thì giữ **6 thành phần** (91.61%) — theo M04-T2.
 - **K (cluster):** chọn bằng silhouette + elbow; **ghi rõ K giữ lại** và lý do.
-- **Scaler:** `StandardScaler` (mặc định, nếu M03-T2 không đề xuất khác).
-- **F-score:** macro (nhiều lớp / cân bằng) hoặc weighted (gọi rõ khi báo cáo).
+- **Scaler:** `StandardScaler`, fit **chỉ trên train** trong Pipeline khi phân lớp;
+  đối với PCA/phân cụm (không giám sát) có thể fit trên toàn bộ `X` (ghi rõ).
+- **F-score:** **macro** là chỉ số chính (dữ liệu lệch lớp 147/48); **weighted** ghi kèm
+  để đối chiếu. Ghi rõ loại khi báo cáo.
 - **ARI:** tính trên nhiều giá trị K; ghi rõ K tham chiếu so với `status`.
+- **Phiên bản đã dùng:** `scikit-learn 1.9.0`, `pandas 3.0.x`, `numpy 2.4.x`
+  (chi tiết trong `results/m05_f1_cv.csv` và `results/pipeline_summary.json`).
 
 ## 4. Khi "không tái tạo được"
 

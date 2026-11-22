@@ -1,26 +1,26 @@
-# src/ — Mã nguồn tái sử dụng (tạo ở giai đoạn sau)
+# src/ — Mã nguồn tái sử dụng (Nhóm 3 · Parkinson)
 
-> **Hiện tại: TRỐNG (chưa viết code phân tích ở giai đoạn setup).**
-> Đây là nơi đặt module Python **tái sử dụng được** cho pipeline (không phải
-> notebook), để các thành viên dùng chung.
+> Module Python dùng chung cho pipeline. Không hardcode đường dẫn máy cá nhân;
+> mọi module tìm gốc project qua `data/processed/parkinsons_v1.csv`.
 
-## Định hướng (không triển khai ở giai đoạn này)
+## Hiện có
 
-- `src/data.py` — nạp canonical CSV, kiểm tra schema, drop `name`.
-- `src/preprocessing.py` — chuẩn hoá, xử lý NaN (quy ước một chiều, dùng chung).
-- `src/pca.py`, `src/classification.py`, `src/clustering.py` — đóng gói từng bước,
-  trả về kết quả định dạng nhất quán (dict/DataFrame) để ghi vào `results/`.
-- Mỗi module **test được** (xem `tests/`).
+| Module | Vai trò | Dùng ở |
+|--------|---------|--------|
+| `preprocessing.py` | `find_root()`, `load_xy()`, `make_scaler()`, `standardize()` — nạp canonical CSV, tách `X`/`y`, chuẩn hoá `StandardScaler` | notebook 02, `pipeline.py` |
+| `pipeline.py` | **Pipeline tổng hợp**: kiểm tra dữ liệu → PCA (2D + ngưỡng 90%) → phân lớp 3 mô hình (CV 10-fold) → ghi `results/pipeline_summary.json` | chạy độc lập, tái lập kết quả |
+| `__init__.py` | Đánh dấu `src` là package | — |
 
-## Quy định (khi viết code)
+## Chạy pipeline tổng hợp
 
-- **Một canonical CSV duy nhất** — mọi module nạp từ `data/processed/parkinsons_v1.csv`,
-  không có nhiều bản.
-- Không hardcode secret; cấu hình (seed, k, ngưỡng) ghi trong `docs/REPRODUCIBILITY.md`.
-- Không `console.log`/`print` debug bỏ lại; code sạch trước khi bàn giao.
-- Kết quả thực nghiệm chỉ lưu trong `results/` (không commit dữ liệu thô).
+```bash
+python -m src.pipeline
+```
 
-## Ràng buộc setup
+Đầu ra: `results/pipeline_summary.json` (số liệu + seed + phiên bản thư viện + ngày chạy).
 
-- **Không viết code phân tích / không tạo kết quả ở giai đoạn này.**
-- Thư mục chỉ giữ README.
+## Quy định
+
+- **Một canonical CSV duy nhất** — mọi module nạp từ `data/processed/parkinsons_v1.csv`.
+- Cấu hình (seed, k, ngưỡng) lấy từ `docs/REPRODUCIBILITY.md`; không hardcode bí mật.
+- Code sạch, không để `print` debug; kết quả thực nghiệm chỉ lưu trong `results/`.
