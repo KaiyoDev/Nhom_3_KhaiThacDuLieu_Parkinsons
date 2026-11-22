@@ -137,7 +137,7 @@ def main() -> None:
     out = root / "results" / "pipeline_summary.json"
     out.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
-    print("Đã ghi:", out)
+    print("Saved:", out)
 
 
 if __name__ == "__main__":

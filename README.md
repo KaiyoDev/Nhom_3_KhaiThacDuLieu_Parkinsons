@@ -132,8 +132,8 @@ nhiều đặc trưng âm thanh tương quan cao.
 ![Ma trận tương quan](results/figures/m04-t3_corr_heatmap.png)
 
 - **14/22** feature lệch (`|skew| > 1`); **26/231** cặp feature có `|r| ≥ 0.9`.
-- `Jitter:DDP = 3 × MDVP:RAP` và `Shimmer:DDA = 3 × Shimmer:APQ3` (r = 1.0) — trùng thông tin,
-  được giữ nguyên trong canonical v1 và cần cân nhắc khi phân cụm.
+- `Jitter:DDP ≈ 3 × MDVP:RAP` và `Shimmer:DDA ≈ 3 × Shimmer:APQ3` (r ≈ 1.0) — gần như trùng
+  thông tin, được giữ nguyên trong canonical v1 và cần cân nhắc khi phân cụm.
 
 ### 3. Phân lớp (M05, 10-fold CV, seed 42)
 
@@ -237,7 +237,7 @@ Mọi kết quả phải chạy lại được với cùng số. Quy ước ch�
 | Scaler | `StandardScaler` (fit trên train trong Pipeline; PCA/cụm fit trên toàn bộ X) |
 | Chỉ số phân lớp | F-score **macro** (chính) + weighted (đối chiếu) |
 | PCA | 2 thành phần để vẽ (70.2%); 6 thành phần nếu cần ≥ 90% |
-| Anti-leakage | scaler/PCA fit trong fold train; chọn tham số bằng nested `GridSearchCV` |
+| Anti-leakage | scaler fit trong fold train (Pipeline); chọn tham số bằng nested `GridSearchCV`; PCA/phân cụm fit trên toàn bộ X (không giám sát) |
 | Dữ liệu | `data/processed/parkinsons_v1.csv` (version v1) — một đầu vào duy nhất |
 | Phiên bản | `scikit-learn 1.9.0`, `pandas 3.0.x`, `numpy 2.4.x` |
 
