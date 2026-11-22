@@ -22,9 +22,9 @@
 | M02-T1 | Khám phá cấu trúc & dtype | M02 | Todo | Chặn bởi M01-T2 |
 | M02-T2 | Bản đồ nhóm đặc trưng | M02 | Todo | Chặn bởi M02-T1 |
 | M02-T3 | Phát hiện vấn đề (scale / outlier) | M02 | Todo | Chặn bởi M02-T1 |
-| M03-T1 | Thống kê mô tả | M03 | Todo | Chặn bởi M01-T2 |
-| M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | Todo | Chặn bởi M02-T3 |
-| M03-T3 | Báo cáo chất lượng tổng hợp | M03 | Todo | Chặn bởi M03-T1, M03-T2 |
+| M03-T1 | Thống kê mô tả | M03 | Done | Đã thống kê kích thước dữ liệu, phân bố nhãn status và các chỉ số min/max/mean |
+| M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | Done | Đã kiểm tra NaN, dòng trùng lặp và phân vị 1%–99%; không phát hiện NaN hoặc dòng trùng |
+| M03-T3 | Báo cáo chất lượng tổng hợp | M03 | Review | Đã tổng hợp kết quả M03-T1, M03-T2 vào results/quality_report.md; chờ reviewer kiểm tra |
 | M04-T1 | Tiền xử lý + feature matrix (22 cột) | M04 | Todo | Chặn bởi M03-T2 |
 | M04-T2 | PCA (chọn số thành phần) | M04 | Todo | Chặn bởi M04-T1 |
 | M04-T3 | Trực quan hóa (hist/heatmap/scatter PC) | M04 | Todo | Chặn bởi M04-T2 |
@@ -39,13 +39,13 @@
 
 ## Trạng thái tổng hợp (snapshot)
 
-> Cập nhật mỗi lần có chuyển trạng thái. Hiện tại: **2 / 21** hoàn thành (+1 In Progress).
+> > Cập nhật mỗi lần có chuyển trạng thái. Hiện tại: **4 / 21** hoàn thành (+1 Review).
 
-- **Todo:** 18
+- **Todo:** 15
 - **In Progress:** 1 (M01-T3)
-- **Review:** 0
+- **Review:** 1 (M03-T3)
 - **Blocked:** 0
-- **Done:** 2 (M01-T1, M01-T2)
+- **Done:** 4 (M01-T1, M01-T2, M03-T1, M03-T2)
 
 ## Định danh "chặn bởi"
 
