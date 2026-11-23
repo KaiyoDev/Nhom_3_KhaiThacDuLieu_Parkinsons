@@ -17,16 +17,19 @@ Mục lục: [About](#-about) · [Pipeline](#-kiến-trúc--pipeline) · [Dữ l
 ## 📌 About
 
 Dự án xây dựng quy trình **khai phá dữ liệu (data mining)** hoàn chỉnh trên tập dữ liệu giọng nói
-của bệnh nhân Parkinson: từ chuẩn bị dữ liệu, khám phá, tiền xử lý, giảm chiều bằng PCA, tới
-**phân lớp có giám sát** (đo bằng F-score) và **phân cụm không giám sát** (đo bằng ARI).
+của bệnh nhân Parkinson: chuẩn bị dữ liệu → khám phá & chất lượng → tiền xử lý & PCA →
+**phân lớp có giám sát** (F-score) → **phân cụm không giám sát** (ARI) → tổng hợp.
 
 - **Bài toán:** phân loại `status` (`0` = khỏe, `1` = Parkinson) từ **22 đặc trưng giọng nói**
   (tần số, jitter, shimmer, noise, chỉ số phi tuyến).
 - **Dữ liệu:** 195 bản ghi × 23 cột (22 feature + `status`), đã loại cột định danh `name`.
 - **Mục tiêu kỹ thuật:** một đầu vào canonical duy nhất, pipeline tái lập được (cùng seed/phiên bản),
-  đánh giá đúng chuẩn (CV stratified, chống data leakage), kết quả có hình ảnh/bảng minh hoạ.
-- **Kết quả nổi bật:** PCA giải thích **70.2%** phương sai bằng 2 thành phần; phân lớp đạt
-  **F-score macro 0.87–0.89** trên 10-fold CV với 3 mô hình (KNN, SVM, Random Forest).
+  đánh giá đúng chuẩn (CV stratified, chống data leakage), mọi kết quả có bảng/hình minh hoạ.
+- **Kết quả nổi bật:**
+  - PCA: 2 thành phần giải thích **70.2%** phương sai; 6 thành phần đạt **91.61%**.
+  - Phân lớp: **F-score macro 0.87–0.89** (10-fold CV) với KNN / SVM / Random Forest.
+  - Phân cụm: K-Means chọn **K=2** (silhouette 0.4373) nhưng **ARI ≈ −0.10**; DBSCAN **ARI −0.064**
+    → cấu trúc không gian đặc trưng **không tự tách theo `status`** (bệnh lý cần mô hình có giám sát).
 
 Dự án do 6 thành viên phối hợp qua quy trình Git/PR rõ ràng (branch theo nhiệm vụ → PR → review → merge),
 với 2 "cổng" đồng bộ: **GATE #1** (thống nhất canonical CSV) và **GATE #2** (nhất quán trước báo cáo).
@@ -72,9 +75,11 @@ flowchart LR
     X --> SC["StandardScaler"]
     SC --> P["PCA"]
     SC --> CL["Pipeline phân lớp<br/>(scaler + model)"]
+    SC --> KM["KMeans / DBSCAN"]
     Y --> CL
     P --> F1["figures PCA"]
     CL --> R1["F-score (10-fold CV)"]
+    KM --> R2["ARI (so status)"]
 ```
 
 ---
@@ -87,7 +92,7 @@ flowchart LR
 |----------|---------|
 | Số mẫu | **195** |
 | Số cột canonical | **23** = 22 feature + `status` |
-| Nhãn | `0` (khỏe): **48** · `1` (Parkinson): **147** |
+| Nhãn | `0` (khỏe): **48** (24.62%) · `1` (Parkinson): **147** (75.38%) |
 | Missing / trùng lặp | **0** / **0** |
 | Feature | FREQ (3) · JITTER (5) · SHIMMER (6) · NOISE (2) · NONLIN (6) |
 | Cột đã loại | `name` (định danh chủ thể) |
@@ -99,7 +104,7 @@ pie
     "Khỏe (status=0)" : 48
 ```
 
-**Bằng chứng:** phân bố nhãn và các feature có nhiều candidate outlier (quy tắc IQR 1.5),
+**Bằng chứng:** phân bố nhãn, phân bố feature và candidate outlier theo IQR 1.5,
 sinh từ chạy thật trên canonical v1.
 
 ![Tổng quan dữ liệu](docs/images/eda_summary.png)
@@ -111,7 +116,21 @@ sinh từ chạy thật trên canonical v1.
 
 ## 🧪 Kết quả thực nghiệm
 
-### 1. Phân tích thành phần chính (PCA, M04)
+### 1. Kiểm tra chất lượng & thống kê mô tả (M03)
+
+| Hạng mục | Kết quả |
+|----------|---------|
+| Label | `0`: 48 (24.62%) · `1`: 147 (75.38%) — **mất cân bằng** |
+| NaN / trùng lặp | **0** / **0** |
+| Candidate outlier (IQR 1.5) | **19/22** feature; **47/195** dòng (24.10%); `NHR=19`, `HNR=3` |
+| Feature không có outlier | `MDVP:Fo(Hz)`, `RPDE`, `DFA` |
+| Độ lệch | 14/22 feature có `\|skew\| > 1` (vd `NHR` skew 4.2207 / kurt 21.9950) |
+| Đề xuất cho M04/M05 | `StandardScaler`; cân nhắc xử lý lệch nhãn; giữ outlier có kiểm soát |
+
+Chi tiết: [`results/quality_report.md`](results/quality_report.md) ·
+[`results/iqr_table.md`](results/iqr_table.md).
+
+### 2. Phân tích thành phần chính (PCA, M04)
 
 | Chỉ số | Giá trị |
 |--------|---------|
@@ -125,7 +144,7 @@ sinh từ chạy thật trên canonical v1.
 Hai nhóm tách một phần, chồng lấp đáng kể trên PC1–PC2 — phù hợp với bài toán nhị phân có
 nhiều đặc trưng âm thanh tương quan cao.
 
-### 2. Phân bố & tương quan (M04)
+### 3. Phân bố & tương quan (M04)
 
 ![Phân bố 22 feature theo status](results/figures/m04-t3_histograms.png)
 
@@ -135,7 +154,7 @@ nhiều đặc trưng âm thanh tương quan cao.
 - `Jitter:DDP ≈ 3 × MDVP:RAP` và `Shimmer:DDA ≈ 3 × Shimmer:APQ3` (r ≈ 1.0) — gần như trùng
   thông tin, được giữ nguyên trong canonical v1 và cần cân nhắc khi phân cụm.
 
-### 3. Phân lớp (M05, 10-fold CV, seed 42)
+### 4. Phân lớp (M05, 10-fold CV, seed 42)
 
 | Mô hình | F-score macro (test) | F-score weighted (test) | F-score macro (train) |
 |---------|:--------------------:|:-----------------------:|:---------------------:|
@@ -146,13 +165,41 @@ nhiều đặc trưng âm thanh tương quan cao.
 ![F-score 3 mô hình](docs/images/f1_scores.png)
 
 - Chênh lệch giữa các mô hình (~0.016) **nhỏ hơn** độ lệch chuẩn giữa các fold (0.07–0.12) →
-  không kết luận mô hình tốt nhất một cách quá chắc chắn; để reviewer/M06 cùng đánh giá.
+  không kết luận mô hình tốt nhất một cách quá chắc chắn.
 - Random Forest có train F-score 1.0000 và std lớn nhất → dấu hiệu overfit.
-- Nhận xét: điểm weighted cao hơn macro do lớp khỏe (48 mẫu) nhỏ hơn.
+- Điểm weighted cao hơn macro do lớp khỏe (48 mẫu) nhỏ hơn.
 
-### 4. Phân cụm + ARI (M06)
+### 5. Phân cụm + ARI (M06, KMeans & DBSCAN)
 
-⏳ Chưa hoàn thành (xem [Trạng thái](#-trạng-thái--deadline)).
+**K-Means** (seed 42, `n_init=10`), K được chọn theo **Silhouette cực đại**:
+
+| K | Inertia | Silhouette | Kích thước cụm | ARI (so `status`) |
+|---:|--------:|-----------:|----------------|------------------:|
+| **2** | 2817.2 | **0.4373** | `[165, 30]` | **−0.0978** |
+| 3 | 2076.2 | 0.2763 | `[106, 77, 12]` | 0.0582 |
+| 4 | 1822.4 | 0.2358 | `[91, 77, 23, 4]` | 0.0583 |
+| 5 | 1595.5 | 0.2048 | `[73, 64, 32, 22, 4]` | 0.1000 |
+| 6 | 1442.0 | 0.2138 | `[60, 51, 30, 28, 22, 4]` | 0.1058 |
+| 7 | 1319.8 | 0.2094 | `[54, 51, 31, 24, 23, 8, 4]` | 0.0882 |
+| 8 | 1230.5 | 0.2201 | `[53, 35, 32, 23, 23, 15, 10, 4]` | 0.0313 |
+| 9 | 1157.0 | 0.2265 | `[52, 39, 25, 24, 21, 13, 9, 8, 4]` | 0.0574 |
+| 10 | 1110.7 | 0.1896 | `[38, 35, 26, 23, 22, 18, 12, 9, 8, 4]` | 0.0481 |
+
+**DBSCAN** (`min_samples=5`, `eps=3.37` — knee của k-distance):
+
+| eps | min_samples | Số cụm | Điểm nhiễu (−1) | ARI |
+|----:|------------:|:------:|:---------------:|----:|
+| 3.37 | 5 | **1** (183 điểm) | **12** | **−0.0639** |
+
+- Toàn lưới (`min_samples ∈ {3,5,10}` × `eps ∈ {1.5…5.0}`): ARI ∈ **[−0.0744, 0.1625]**;
+  giá trị cao nhất ở `eps=1.5, min_samples=5` nhưng 149/195 điểm bị coi là nhiễu → không có ý nghĩa.
+- **Nhận xét:** cụm K=2 tách một nhóm nhỏ 30 mẫu (toàn `status=1`) khác biệt mạnh ở
+  `Shimmer:APQ5`, `MDVP:Shimmer`, `MDVP:Shimmer(dB)`; nhưng **ARI ≈ 0/âm** ⇒ cấu trúc tự nhiên
+  **không khớp** ranh giới bệnh lý — cần mô hình có giám sát (M05).
+
+![K-Means selection](results/figures/m06_kmeans_selection.png)
+
+![DBSCAN analysis](results/figures/m06_dbscan_analysis.png)
 
 ---
 
@@ -175,12 +222,12 @@ Nhom_3_KhaiThacDuLieu_Parkinsons/
 │   ├── raw/                      # dataset gốc (xlsx, đã commit)
 │   ├── interim/                  # trung gian (không commit)
 │   └── processed/                # canonical CSV v1 + schema
-├── notebooks/                    # 5 notebook: 01 khám phá · 02 PCA · 03 phân lớp · 04 cụm · 05 tổng hợp
+├── notebooks/                    # 01 khám phá · 02 PCA · 03 phân lớp · 04 cụm · 05 tổng hợp
 ├── src/
 │   ├── preprocessing.py          # nạp canonical, tách X/y, StandardScaler
 │   └── pipeline.py               # pipeline tổng hợp (chạy được độc lập)
-├── results/                      # F-score, ARI, báo cáo, figures/
-├── reports/                      # báo cáo tổng hợp
+├── results/                      # thống kê/chất lượng/F-score/ARI/báo cáo + figures/
+├── reports/                      # báo cáo tổng hợp (M06-T3)
 └── workspaces/                   # work-order từng thành viên
 ```
 
@@ -208,8 +255,8 @@ pip install -r requirements.txt
 python -m src.pipeline
 ```
 
-Đầu ra: `results/pipeline_summary.json` — chứa chỉ báo dữ liệu, PCA, F-score, tham số mỗi fold,
-seed và phiên bản thư viện. Lệnh này **không đụng vào** các kết quả của notebook.
+Đầu ra: `results/pipeline_summary.json` — chỉ báo dữ liệu, PCA, F-score, tham số mỗi fold,
+seed và phiên bản thư viện.
 
 ### Chạy notebook từng bước
 
@@ -217,6 +264,7 @@ seed và phiên bản thư viện. Lệnh này **không đụng vào** các kế
 jupyter lab notebooks/01_data_exploration.ipynb
 jupyter lab notebooks/02_preprocessing_pca.ipynb
 jupyter lab notebooks/03_classification.ipynb
+jupyter lab notebooks/04_clustering.ipynb
 ```
 
 ### Google Colab
@@ -228,7 +276,7 @@ Mỗi thành viên dùng runtime riêng: upload `data/processed/parkinsons_v1.cs
 
 ## 🔁 Tái lập (reproducibility)
 
-Mọi kết quả phải chạy lại được với cùng số. Quy ước chốt trong `docs/REPRODUCIBILITY.md`:
+Quy ước chốt trong `docs/REPRODUCIBILITY.md`:
 
 | Tham số | Giá trị |
 |---------|---------|
@@ -237,11 +285,26 @@ Mọi kết quả phải chạy lại được với cùng số. Quy ước ch�
 | Scaler | `StandardScaler` (fit trên train trong Pipeline; PCA/cụm fit trên toàn bộ X) |
 | Chỉ số phân lớp | F-score **macro** (chính) + weighted (đối chiếu) |
 | PCA | 2 thành phần để vẽ (70.2%); 6 thành phần nếu cần ≥ 90% |
+| Phân cụm | KMeans `n_init=10`, K = 2…10; DBSCAN `min_samples=5`, `eps=3.37` (knee); ARI so `status` |
 | Anti-leakage | scaler fit trong fold train (Pipeline); chọn tham số bằng nested `GridSearchCV`; PCA/phân cụm fit trên toàn bộ X (không giám sát) |
 | Dữ liệu | `data/processed/parkinsons_v1.csv` (version v1) — một đầu vào duy nhất |
-| Phiên bản | `scikit-learn 1.9.0`, `pandas 3.0.x`, `numpy 2.4.x` |
+| Phiên bản đã dùng | `scikit-learn 1.9.x`, `pandas 3.x`, `numpy 2.4+` (chi tiết từng lần chạy trong `results/*`) |
 
-Chạy `python -m src.pipeline` phải cho ra đúng các số ở mục [Kết quả](#-kết-quả-thực-nghiệm).
+Chạy `python -m src.pipeline` phải cho ra đúng các số PCA/F-score ở mục [Kết quả](#-kết-quả-thực-nghiệm);
+số phân cụm/ARI trong `results/m06_cluster_ari.csv` / `results/m06_dbscan_grid.csv` đã được
+kiểm tra chéo với bản tái lập trên canonical v1.
+
+---
+
+## ⚠️ Hạn chế
+
+- Dữ liệu nhỏ (**195 mẫu**) và **mất cân bằng** (147/48); nhiều bản ghi thuộc cùng một người
+  (~32 chủ thể) nên CV có thể đặt bản ghi cùng người vào cả train/test.
+- PCA 2 thành phần chỉ giữ **70.2%** phương sai (nếu cần ≥90% phải dùng 6 thành phần).
+- Phân cụm không giám sát cho **ARI ≈ 0/âm** — không tìm được cấu trúc cụm tự nhiên khớp `status`.
+- DBSCAN chỉ thành **1 cụm + 12 điểm nhiễu** ở tham số đã chọn.
+- Một số kết quả thư viện khác phiên bản giữa các lần chạy (vd M06 dùng `sklearn 1.9.1`) nhưng
+  số liệu vẫn tái lập khớp khi kiểm tra chéo.
 
 ---
 
@@ -252,14 +315,15 @@ Chạy `python -m src.pipeline` phải cho ra đúng các số ở mục [Kết 
 | Mã | Thành viên | Trạng thái | Bằng chứng |
 |----|-----------|:----------:|------------|
 | M01 | Đặng Hoàng Ân | 🟡 Đang điều phối | T1/T2 xong; gate S-T1 đang chốt |
-| M02 | Lê Thiên Lộc | ✅ Hoàn thành | PR #5 đạt review & merge (19–22/11) |
-| M03 | Huỳnh Gia Hợp | 🔴 Chưa hoàn thành — quá hạn 20/11 | Chưa có sản phẩm |
+| M02 | Lê Thiên Lộc | ✅ Hoàn thành | PR #5 đạt review & merge |
+| M03 | Huỳnh Gia Hợp | 🔵 Đang review | PR #13: đủ thống kê/skew/kurtosis/IQR; notebook JSON hợp lệ |
 | M04 | Trần Hoàng Thông | ✅ Hoàn thành | PR #7 đã merge (17/11) |
 | M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đã merge (22/11) |
-| M06 | Nguyễn Hoàng Bách | 🔴 Chưa hoàn thành — quá hạn 20/11 | Chưa có sản phẩm |
+| M06 | Nguyễn Hoàng Bách | 🔵 Đang review | PR #14: KMeans/DBSCAN + ARI tái lập khớp |
 
-**Tiến độ:** 11/21 nhiệm vụ `Done` · 2 `In Progress` · 2 `Blocked` · 6 `Todo`.
-Các PR đã xử lý: #5 (M02), #7 (M04), #8 (M05), #9 (cập nhật TASK_BOARD) — đều đã merge.
+**Tiến độ:** 11 `Done` · 5 `Review` · 2 `In Progress` · 2 `Blocked` · 1 `Todo`.
+Các PR đã merge: #5 (M02), #7 (M04), #8 (M05), #9 (board), #10 (README+pipeline),
+#13 (M03), #14 (M06). Còn treo: **M06-T3** tổng hợp (`reports/summary.md` + notebook 05) và các gate S-T1/S-T2.
 
 ---
 
