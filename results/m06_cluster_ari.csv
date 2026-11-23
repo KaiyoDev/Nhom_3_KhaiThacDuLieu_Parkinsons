@@ -1,0 +1,11 @@
+﻿K,inertia,silhouette,kich_thuoc_cum,ARI,chon,data_source,seed,date,python_libs
+2,2817.2,0.4373,"[165, 30]",-0.0978,<--,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+3,2076.2,0.2763,"[106, 77, 12]",0.0582,,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+4,1822.4,0.2358,"[91, 77, 23, 4]",0.0583,,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+5,1595.5,0.2048,"[73, 64, 32, 22, 4]",0.1,,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+6,1442.0,0.2138,"[60, 51, 30, 28, 22, 4]",0.1058,,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+7,1319.8,0.2094,"[54, 51, 31, 24, 23, 8, 4]",0.0882,,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+8,1230.5,0.2201,"[53, 35, 32, 23, 23, 15, 10, 4]",0.0313,,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+9,1157.0,0.2265,"[52, 39, 25, 24, 21, 13, 9, 8, 4]",0.0574,,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+10,1110.7,0.1896,"[38, 35, 26, 23, 22, 18, 12, 9, 8, 4]",0.0481,,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5
+"DBSCAN(eps=3.37,ms=5)",,,[183] (nhiễu: 12),-0.0639,DBSCAN,data/processed/parkinsons_v1.csv,42,2026-11-23,sklearn=1.9.1;pandas=3.1.1;numpy=2.5.5

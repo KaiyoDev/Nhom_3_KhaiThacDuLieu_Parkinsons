@@ -33,8 +33,8 @@
 | M05-T1 | Train/test + k-fold CV | M05 | **Done** | PR #8 đạt review 18/11; 10-fold stratified, seed 42 |
 | M05-T2 | Phân lớp baseline + F-score | M05 | **Done** | KNN/SVM/RF; F-score tái lập khớp |
 | M05-T3 | Báo cáo kết quả phân lớp | M05 | **Done** | `results/classification_report.md` + `results/m05_f1_cv.csv` |
-| M06-T1 | Phân cụm (KMeans, chọn K) | M06 | Todo | **Quá hạn 20/11** — M04-T1 đã Done, bắt đầu được |
-| M06-T2 | ARI (so cluster với `status`) | M06 | Todo | **Quá hạn 20/11** — chờ M06-T1 |
+| M06-T1 | Phân cụm (KMeans, chọn K) | M06 | Review | **Quá hạn 20/11** — M04-T1 đã Done, bắt đầu được |
+| M06-T2 | ARI (so cluster với `status`) | M06 | Review | **Quá hạn 20/11** — chờ M06-T1 |
 | M06-T3 | Tổng hợp kết quả (chủ M06, gate M01) | M06 | Todo | **Quá hạn 20/11** — chờ M06-T2 |
 | S-T1 | Toàn nhóm xác nhận canonical CSV | All | **In Progress** | canonical v1 đã dùng chung; chờ xác nhận chính thức |
 | S-T2 | Nhất quán trước báo cáo | M01 + M06 | **Blocked** | Chặn bởi M06-T3 |
