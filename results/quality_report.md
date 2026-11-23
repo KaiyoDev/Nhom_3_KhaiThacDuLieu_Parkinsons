@@ -141,15 +141,18 @@ Một số kết quả đáng chú ý:
 | D2               |   2.0991 |   2.6365 |  0.5373 |        1.2931 |        3.4425 |               1 |            0.5128 |
 | PPE              |   0.1375 |   0.253  |  0.1155 |       -0.0358 |        0.4263 |               5 |            2.5641 |
 
-===== TONG KET IQR =====
-Tổng số feature: 22
-Feature có outlier: 19
-Feature không có outlier: 3
-Tổng số mẫu: 195
-Số mẫu có ít nhất một outlier: 47
-Tỷ lệ: 24.1 %
-Đã xuất bảng IQR:
-Số feature trong bảng: 22
+### 5.3. Tổng kết kết quả IQR
+
+Kết quả kiểm tra IQR trên 22 feature cho thấy:
+
+| Hạng mục | Kết quả |
+|---|---:|
+| Tổng số feature được kiểm tra | 22 |
+| Feature có candidate outlier | 19 |
+| Feature không có candidate outlier | 3 |
+| Tổng số mẫu | 195 |
+| Số mẫu có ít nhất một candidate outlier | 47 |
+| Tỷ lệ mẫu có candidate outlier | 24,10% |
 
 **Nhận xét:** Có 19/22 feature xuất hiện giá trị ngoài ngưỡng IQR. Có 47/195 mẫu (24,10%) chứa ít nhất một candidate outlier. NHR là feature cần được chú ý do có 19 giá trị được đánh dấu.
 

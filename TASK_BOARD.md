@@ -55,7 +55,7 @@
 |----|-----------|:----------:|----------------------|
 | M01 | Đặng Hoàng Ân | 🟡 Đang điều phối | T1/T2 xong; gate S-T1 đang chốt |
 | M02 | Lê Thiên Lộc | ✅ Hoàn thành | PR #5 đạt review (19/11) |
-| M03 | Huỳnh Gia Hợp | 🔵 Đang review | PR #13 ở mức `Review`; còn thiếu skew/kurtosis + kiểm tra outlier; notebook JSON lỗi cần sửa |
+| M03 | Huỳnh Gia Hợp | 🔵 Đang review | PR #13 ở mức `Review`; không còn ghi thiếu skew/kurtosis hoặc Notebook JSON lỗi |
 | M04 | Trần Hoàng Thông | ✅ Hoàn thành | PR #7 đã merge (17/11) |
 | M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đạt review (18/11) |
 | M06 | Nguyễn Hoàng Bách | 🔴 Chưa hoàn thành — quá hạn 20/11 | Chưa có sản phẩm |
