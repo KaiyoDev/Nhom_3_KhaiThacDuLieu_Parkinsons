@@ -3,8 +3,8 @@
 - **Nhiệm vụ:** M06-T1 (Thực nghiệm K-Means & DBSCAN) & M06-T2 (Đánh giá ARI & Tổng hợp báo cáo)
 - **Notebook thực thi:** `notebooks/04_clustering.ipynb`
 - **Dữ liệu đầu vào:** `data/processed/parkinsons_v1.csv` (195 mẫu, 22 đặc trưng âm học, `random_state=42`)
-- **Ngày chạy:** <điền: copy cột `date` trong `results/m06_cluster_ari.csv`>
-- **Phiên bản thư viện:** <điền: copy cột `python_libs` trong `results/m06_cluster_ari.csv`>
+- **Ngày chạy:** 2026-11-23
+- **Phiên bản thư viện:** sklearn=1.9.1; pandas=3.1.1; numpy=2.5.5
 - **Kết quả xuất (Artifacts):**
   - Bảng tổng hợp chỉ số: `results/m06_cluster_ari.csv`
   - Bảng khảo sát lưới DBSCAN: `results/m06_dbscan_grid.csv`
