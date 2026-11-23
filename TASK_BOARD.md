@@ -4,7 +4,7 @@
 > Ban đầu **mọi nhiệm vụ ở `Todo`**. Không giả lập tiến độ: chỉ chuyển trạng thái
 > khi có bằng chứng (đã làm xong / đã review / đang bị chặn).
 >
-> **Cập nhật:** 2026-11-22 · **Deadline bài tập: 20/11/2026 (đã qua)**.
+> **Cập nhật:** 2026-11-23 · **Deadline bài tập: 20/11/2026 (đã qua)**.
 >
 > Quy tắc chuyển trạng thái (xem `PROJECT_WORKFLOW.md`):
 > - `Todo → In Progress`: phụ trách bắt đầu (đầu vào đã sẵn sàng).
@@ -33,20 +33,20 @@
 | M05-T1 | Train/test + k-fold CV | M05 | **Done** | PR #8 đạt review 18/11; 10-fold stratified, seed 42 |
 | M05-T2 | Phân lớp baseline + F-score | M05 | **Done** | KNN/SVM/RF; F-score tái lập khớp |
 | M05-T3 | Báo cáo kết quả phân lớp | M05 | **Done** | `results/classification_report.md` + `results/m05_f1_cv.csv` |
-| M06-T1 | Phân cụm (KMeans, chọn K) | M06 | Todo | **Quá hạn 20/11** — M04-T1 đã Done, bắt đầu được |
-| M06-T2 | ARI (so cluster với `status`) | M06 | Todo | **Quá hạn 20/11** — chờ M06-T1 |
+| M06-T1 | Phân cụm (KMeans, chọn K) | M06 | Review | **Quá hạn 20/11** — M04-T1 đã Done, bắt đầu được |
+| M06-T2 | ARI (so cluster với `status`) | M06 | Review | **Quá hạn 20/11** — chờ M06-T1 |
 | M06-T3 | Tổng hợp kết quả (chủ M06, gate M01) | M06 | Todo | **Quá hạn 20/11** — chờ M06-T2 |
 | S-T1 | Toàn nhóm xác nhận canonical CSV | All | **In Progress** | canonical v1 đã dùng chung; chờ xác nhận chính thức |
 | S-T2 | Nhất quán trước báo cáo | M01 + M06 | **Blocked** | Chặn bởi M06-T3 |
 
 ## Trạng thái tổng hợp (snapshot)
 
-> Cập nhật 2026-11-22. Hiện tại: **11 / 21** hoàn thành (+2 In Progress, +2 Blocked).
-> **Deadline 20/11/2026 đã qua:** M03 và M06 chưa hoàn thành phần việc của mình.
+> Cập nhật 2026-11-23. Hiện tại: **11 / 21** hoàn thành (+2 Review, +2 In Progress, +2 Blocked).
+> **Deadline 20/11/2026 đã qua:** M03 chưa hoàn thành; M06 đang ở mức `Review` (PR #14).
 
-- **Todo:** 6
+- **Todo:** 4 (M03-T1..T3, M06-T3)
 - **In Progress:** 2 (M01-T3, S-T1)
-- **Review:** 0
+- **Review:** 2 (M06-T1, M06-T2)
 - **Blocked:** 2 (M01-T4, S-T2)
 - **Done:** 11 (M01-T1, M01-T2, M02-T1..T3, M04-T1..T3, M05-T1..T3)
 
@@ -59,7 +59,7 @@
 | M03 | Huỳnh Gia Hợp | 🔴 Chưa hoàn thành — quá hạn 20/11 | Chưa có sản phẩm |
 | M04 | Trần Hoàng Thông | ✅ Hoàn thành | PR #7 đã merge (17/11) |
 | M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đạt review (18/11) |
-| M06 | Nguyễn Hoàng Bách | 🔴 Chưa hoàn thành — quá hạn 20/11 | Chưa có sản phẩm |
+| M06 | Nguyễn Hoàng Bách | 🔵 Đang review | PR #14: K-Means/DBSCAN + ARI tái lập khớp; chờ review |
 
 > M02/M05 được đánh `Done` theo đánh giá review tại PR (lead/owner); reviewer chính thức
 > theo bảng phân công có thể ký xác nhận bổ sung.
