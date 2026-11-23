@@ -24,9 +24,9 @@
 | M02-T1 | Khám phá cấu trúc & dtype | M02 | **Done** | PR #5 đạt review 19/11; notebook có output |
 | M02-T2 | Bản đồ nhóm đặc trưng | M02 | **Done** | Đã cập nhật `DATA_DICTIONARY.md` 5 nhóm; PR #5 |
 | M02-T3 | Phát hiện vấn đề (scale / outlier) | M02 | **Done** | Đã ghi scale/outlier IQR (`NHR=19`); PR #5 |
-| M03-T1 | Thống kê mô tả | M03 | Todo | **Quá hạn 20/11** — đầu vào đã sẵn sàng (M01-T2 Done) |
-| M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | Todo | **Quá hạn 20/11** — M02-T3 đã Done, bắt đầu được |
-| M03-T3 | Báo cáo chất lượng tổng hợp | M03 | Todo | **Quá hạn 20/11** — chờ M03-T1, M03-T2 |
+| M03-T1 | Thống kê mô tả | M03 | **Review** | Đã thống kê 22 feature gồm mean, median, std, min, max, skew và kurtosis; chờ M02 review |
+| M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | **Review** | Đã kiểm tra NaN/trùng lặp và IQR: 19/22 feature có candidate outlier, 47/195 mẫu; chờ M04 review |
+| M03-T3 | Báo cáo chất lượng tổng hợp | M03 | **Review** | Đã cập nhật `results/quality_report.md` gồm thống kê mô tả, IQR, giả định, phiên bản môi trường và đề xuất tiền xử lý; chờ M01 review |
 | M04-T1 | Tiền xử lý + feature matrix (22 cột) | M04 | **Done** | PR #7 merge 17/11; `Xs` 195×22, `StandardScaler` |
 | M04-T2 | PCA (chọn số thành phần) | M04 | **Done** | PC1 58.9% / PC2 11.3%; 6 thành phần = 91.61% |
 | M04-T3 | Trực quan hóa (hist/heatmap/scatter PC) | M04 | **Done** | 3 figure trong `results/figures/` |
@@ -41,12 +41,12 @@
 
 ## Trạng thái tổng hợp (snapshot)
 
-> Cập nhật 2026-11-23. Hiện tại: **11 / 21** hoàn thành (+2 Review, +2 In Progress, +2 Blocked).
-> **Deadline 20/11/2026 đã qua:** M03 chưa hoàn thành; M06 đang ở mức `Review` (PR #14).
+> Cập nhật 2026-11-23. Hiện tại: **11 / 21** hoàn thành (+5 Review, +2 In Progress, +2 Blocked).
+> **Deadline 20/11/2026 đã qua:** M06 đã `Review` (PR #14); M03 đang ở mức `Review` (PR #13).
 
-- **Todo:** 4 (M03-T1..T3, M06-T3)
+- **Todo:** 1 (M06-T3)
 - **In Progress:** 2 (M01-T3, S-T1)
-- **Review:** 2 (M06-T1, M06-T2)
+- **Review:** 5 (M03-T1..T3, M06-T1, M06-T2)
 - **Blocked:** 2 (M01-T4, S-T2)
 - **Done:** 11 (M01-T1, M01-T2, M02-T1..T3, M04-T1..T3, M05-T1..T3)
 
@@ -56,7 +56,7 @@
 |----|-----------|:----------:|----------------------|
 | M01 | Đặng Hoàng Ân | 🟡 Đang điều phối | T1/T2 xong; gate S-T1 đang chốt |
 | M02 | Lê Thiên Lộc | ✅ Hoàn thành | PR #5 đạt review (19/11) |
-| M03 | Huỳnh Gia Hợp | 🔴 Chưa hoàn thành — quá hạn 20/11 | Chưa có sản phẩm |
+| M03 | Huỳnh Gia Hợp | 🔵 Đang review | PR #13: đủ thống kê/skew/kurtosis/IQR; notebook JSON hợp lệ, assert đã khôi phục |
 | M04 | Trần Hoàng Thông | ✅ Hoàn thành | PR #7 đã merge (17/11) |
 | M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đạt review (18/11) |
 | M06 | Nguyễn Hoàng Bách | 🔵 Đang review | PR #14: K-Means/DBSCAN + ARI tái lập khớp; chờ review |
