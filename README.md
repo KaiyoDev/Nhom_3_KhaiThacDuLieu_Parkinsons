@@ -194,8 +194,8 @@ nhiều đặc trưng âm thanh tương quan cao.
 - Toàn lưới (`min_samples ∈ {3,5,10}` × `eps ∈ {1.5…5.0}`): ARI ∈ **[−0.0744, 0.1625]**;
   giá trị cao nhất ở `eps=1.5, min_samples=5` nhưng 149/195 điểm bị coi là nhiễu → không có ý nghĩa.
 - **Nhận xét:** cụm K=2 tách một nhóm nhỏ 30 mẫu (toàn `status=1`) khác biệt mạnh ở
-  `Shimmer:APQ5`, `MDVP:Shimmer`, `HNR`; nhưng **ARI ≈ 0/âm** ⇒ cấu trúc tự nhiên **không khớp**
-  ranh giới bệnh lý — cần mô hình có giám sát (M05).
+  `Shimmer:APQ5`, `MDVP:Shimmer`, `MDVP:Shimmer(dB)`; nhưng **ARI ≈ 0/âm** ⇒ cấu trúc tự nhiên
+  **không khớp** ranh giới bệnh lý — cần mô hình có giám sát (M05).
 
 ![K-Means selection](results/figures/m06_kmeans_selection.png)
 
@@ -291,14 +291,15 @@ Quy ước chốt trong `docs/REPRODUCIBILITY.md`:
 | Phiên bản đã dùng | `scikit-learn 1.9.x`, `pandas 3.x`, `numpy 2.4+` (chi tiết từng lần chạy trong `results/*`) |
 
 Chạy `python -m src.pipeline` phải cho ra đúng các số PCA/F-score ở mục [Kết quả](#-kết-quả-thực-nghiệm);
-số phân cụm/ARI đã được tái lập độc lập trên canonical v1 (`results/m06_cluster_ari.csv`).
+số phân cụm/ARI trong `results/m06_cluster_ari.csv` / `results/m06_dbscan_grid.csv` đã được
+kiểm tra chéo với bản tái lập trên canonical v1.
 
 ---
 
 ## ⚠️ Hạn chế
 
 - Dữ liệu nhỏ (**195 mẫu**) và **mất cân bằng** (147/48); nhiều bản ghi thuộc cùng một người
-  (~31 chủ thể) nên CV có thể đặt bản ghi cùng người vào cả train/test.
+  (~32 chủ thể) nên CV có thể đặt bản ghi cùng người vào cả train/test.
 - PCA 2 thành phần chỉ giữ **70.2%** phương sai (nếu cần ≥90% phải dùng 6 thành phần).
 - Phân cụm không giám sát cho **ARI ≈ 0/âm** — không tìm được cấu trúc cụm tự nhiên khớp `status`.
 - DBSCAN chỉ thành **1 cụm + 12 điểm nhiễu** ở tham số đã chọn.
