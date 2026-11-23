@@ -319,11 +319,12 @@ kiểm tra chéo với bản tái lập trên canonical v1.
 | M03 | Huỳnh Gia Hợp | 🔵 Đang review | PR #13: đủ thống kê/skew/kurtosis/IQR; notebook JSON hợp lệ |
 | M04 | Trần Hoàng Thông | ✅ Hoàn thành | PR #7 đã merge (17/11) |
 | M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đã merge (22/11) |
-| M06 | Nguyễn Hoàng Bách | 🔵 Đang review | PR #14: KMeans/DBSCAN + ARI tái lập khớp |
+| M06 | Nguyễn Hoàng Bách | 🔵 Đang review | PR #14 (KMeans/DBSCAN + ARI) + báo cáo tổng hợp `reports/summary.md` & notebook 05 |
 
-**Tiến độ:** 11 `Done` · 5 `Review` · 2 `In Progress` · 2 `Blocked` · 1 `Todo`.
+**Tiến độ:** 11 `Done` · 6 `Review` · 2 `In Progress` · 2 `Blocked` · 0 `Todo`.
 Các PR đã merge: #5 (M02), #7 (M04), #8 (M05), #9 (board), #10 (README+pipeline),
-#13 (M03), #14 (M06). Còn treo: **M06-T3** tổng hợp (`reports/summary.md` + notebook 05) và các gate S-T1/S-T2.
+#13 (M03), #14 (M06). M06-T3 tổng hợp đã xong (`reports/summary.md` + notebook 05);
+còn chờ ký các gate S-T1/S-T2.
 
 ---
 
