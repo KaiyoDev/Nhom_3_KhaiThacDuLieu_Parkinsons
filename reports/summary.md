@@ -3,7 +3,7 @@
 > **Ngày tổng hợp:** 2026-11-23 · **Deadline bài tập:** 20/11/2026 (đã qua)
 > **Đầu vào chung:** `data/processed/parkinsons_v1.csv` (canonical v1, 195 × 23, bỏ `name`)
 > **Người tổng hợp:** M06 (chủ trì) · **Gate nhất quán:** M01 (S-T2)
-> **Trạng thái:** tất cả số liệu đã merge trên `main`; task M03/M06 đang ở mức `Review`.
+> **Trạng thái:** đã nghiệm thu **21 / 21** nhiệm vụ; **GATE #1 (S-T1)** và **GATE #2 (S-T2)** đã ký.
 
 ---
 

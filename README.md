@@ -314,17 +314,17 @@ kiểm tra chéo với bản tái lập trên canonical v1.
 
 | Mã | Thành viên | Trạng thái | Bằng chứng |
 |----|-----------|:----------:|------------|
-| M01 | Đặng Hoàng Ân | 🟡 Đang điều phối | T1/T2 xong; gate S-T1 đang chốt |
+| M01 | Đặng Hoàng Ân | ✅ Hoàn thành | T1–T4 xong; đã ký GATE #1 (S-T1) & GATE #2 (S-T2) |
 | M02 | Lê Thiên Lộc | ✅ Hoàn thành | PR #5 đạt review & merge |
-| M03 | Huỳnh Gia Hợp | 🔵 Đang review | PR #13: đủ thống kê/skew/kurtosis/IQR; notebook JSON hợp lệ |
+| M03 | Huỳnh Gia Hợp | ✅ Hoàn thành | PR #13 đạt review (thống kê/chất lượng/IQR) |
 | M04 | Trần Hoàng Thông | ✅ Hoàn thành | PR #7 đã merge (17/11) |
 | M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đã merge (22/11) |
-| M06 | Nguyễn Hoàng Bách | 🔵 Đang review | PR #14 (KMeans/DBSCAN + ARI) + [báo cáo tổng hợp](reports/summary.md) & [notebook 05](notebooks/05_integration_report.ipynb) |
+| M06 | Nguyễn Hoàng Bách | ✅ Hoàn thành | PR #14 (KMeans/DBSCAN + ARI) + [báo cáo tổng hợp](reports/summary.md) & [notebook 05](notebooks/05_integration_report.ipynb) |
 
-**Tiến độ:** 11 `Done` · 6 `Review` · 2 `In Progress` · 2 `Blocked` · 0 `Todo`.
+**Tiến độ:** **21 / 21 nhiệm vụ `Done`** — đã ký GATE #1 (S-T1) và GATE #2 (S-T2).
 Các PR đã merge: #5 (M02), #7 (M04), #8 (M05), #9 (board), #10 (README+pipeline),
-#13 (M03), #14 (M06). M06-T3 tổng hợp đã xong ([`reports/summary.md`](reports/summary.md) +
-[notebook 05](notebooks/05_integration_report.ipynb)); còn chờ ký các gate S-T1/S-T2.
+#13 (M03), #14 (M06), #16 (M06-T3 tổng hợp). Xem [`TASK_BOARD.md`](TASK_BOARD.md) và
+[`reports/summary.md`](reports/summary.md).
 
 ---
 

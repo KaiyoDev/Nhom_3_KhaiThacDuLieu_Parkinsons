@@ -4,7 +4,7 @@
 > Ban đầu **mọi nhiệm vụ ở `Todo`**. Không giả lập tiến độ: chỉ chuyển trạng thái
 > khi có bằng chứng (đã làm xong / đã review / đang bị chặn).
 >
-> **Cập nhật:** 2026-11-23 · **Deadline bài tập: 20/11/2026 (đã qua)**.
+> **Cập nhật:** 2026-11-23 · **Deadline bài tập: 20/11/2026 (đã qua)** · **Đã hoàn thành 21 / 21 nhiệm vụ**.
 >
 > Quy tắc chuyển trạng thái (xem `PROJECT_WORKFLOW.md`):
 > - `Todo → In Progress`: phụ trách bắt đầu (đầu vào đã sẵn sàng).
@@ -19,50 +19,50 @@
 |----|----------|-----------|:----------:|--------------------|
 | M01-T1 | Chuẩn bị dữ liệu thô → `data/raw/` | M01 | **Done** | data ở `data/raw/` + `manifest.md`; đã commit |
 | M01-T2 | Sản xuất canonical processed CSV | M01 | **Done** | v1 đã tạo + commit (`data/processed/`); đã dùng chung thực tế |
-| M01-T3 | Gate đầu vào cho M02/M03/M04 | M01 | **In Progress** | canonical v1 đã dùng chung; chờ S-T1 chốt chính thức |
-| M01-T4 | Kiểm tra nhất quán dữ liệu & kết quả (gate) | M01 | **Blocked** | Chặn bởi M06-T2 (M05-T3 đã Done) |
+| M01-T3 | Gate đầu vào cho M02/M03/M04 | M01 | **Done** | GATE #1 (S-T1) đã chốt; canonical v1 làm đầu vào chung |
+| M01-T4 | Kiểm tra nhất quán dữ liệu & kết quả (gate) | M01 | **Done** | GATE #2 (S-T2) đã ký: cùng canonical v1, cùng metric/quy ước |
 | M02-T1 | Khám phá cấu trúc & dtype | M02 | **Done** | PR #5 đạt review 19/11; notebook có output |
 | M02-T2 | Bản đồ nhóm đặc trưng | M02 | **Done** | Đã cập nhật `DATA_DICTIONARY.md` 5 nhóm; PR #5 |
 | M02-T3 | Phát hiện vấn đề (scale / outlier) | M02 | **Done** | Đã ghi scale/outlier IQR (`NHR=19`); PR #5 |
-| M03-T1 | Thống kê mô tả | M03 | **Review** | Đã thống kê 22 feature gồm mean, median, std, min, max, skew và kurtosis; chờ M02 review |
-| M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | **Review** | Đã kiểm tra NaN/trùng lặp và IQR: 19/22 feature có candidate outlier, 47/195 mẫu; chờ M04 review |
-| M03-T3 | Báo cáo chất lượng tổng hợp | M03 | **Review** | Đã cập nhật `results/quality_report.md` gồm thống kê mô tả, IQR, giả định, phiên bản môi trường và đề xuất tiền xử lý; chờ M01 review |
+| M03-T1 | Thống kê mô tả | M03 | **Done** | PR #13 đạt review: mean/median/std/min/max + skew/kurtosis cho 22 feature |
+| M03-T2 | Kiểm tra chất lượng dữ liệu | M03 | **Done** | PR #13 đạt review: NaN/trùng = 0; IQR 19/22 feature, 47/195 mẫu; đề xuất xử lý |
+| M03-T3 | Báo cáo chất lượng tổng hợp | M03 | **Done** | `results/quality_report.md` + `results/iqr_table.md` đạt review |
 | M04-T1 | Tiền xử lý + feature matrix (22 cột) | M04 | **Done** | PR #7 merge 17/11; `Xs` 195×22, `StandardScaler` |
 | M04-T2 | PCA (chọn số thành phần) | M04 | **Done** | PC1 58.9% / PC2 11.3%; 6 thành phần = 91.61% |
 | M04-T3 | Trực quan hóa (hist/heatmap/scatter PC) | M04 | **Done** | 3 figure trong `results/figures/` |
 | M05-T1 | Train/test + k-fold CV | M05 | **Done** | PR #8 đạt review 18/11; 10-fold stratified, seed 42 |
 | M05-T2 | Phân lớp baseline + F-score | M05 | **Done** | KNN/SVM/RF; F-score tái lập khớp |
 | M05-T3 | Báo cáo kết quả phân lớp | M05 | **Done** | `results/classification_report.md` + `results/m05_f1_cv.csv` |
-| M06-T1 | Phân cụm (KMeans, chọn K) | M06 | Review | **Quá hạn 20/11** — M04-T1 đã Done, bắt đầu được |
-| M06-T2 | ARI (so cluster với `status`) | M06 | Review | **Quá hạn 20/11** — chờ M06-T1 |
-| M06-T3 | Tổng hợp kết quả (chủ M06, gate M01) | M06 | Review | `reports/summary.md` + notebook 05 hoàn thành; chờ M01 gate S-T2 |
-| S-T1 | Toàn nhóm xác nhận canonical CSV | All | **In Progress** | canonical v1 đã dùng chung; chờ xác nhận chính thức |
-| S-T2 | Nhất quán trước báo cáo | M01 + M06 | **Blocked** | Chặn bởi M06-T3 (đang `Review`) |
+| M06-T1 | Phân cụm (KMeans, chọn K) | M06 | **Done** | PR #14 đạt review: K=2..10, silhouette cực đại K=2; số tái lập khớp |
+| M06-T2 | ARI (so cluster với `status`) | M06 | **Done** | PR #14 đạt review: ARI KMeans/DBSCAN khớp; grid DBSCAN kiểm tra chéo |
+| M06-T3 | Tổng hợp kết quả (chủ M06, gate M01) | M06 | **Done** | `reports/summary.md` + notebook 05 đạt review; ký gate S-T2 |
+| S-T1 | Toàn nhóm xác nhận canonical CSV | All | **Done** | canonical v1 (`parkinsons_v1.csv`) duy nhất, đã dùng xuyên suốt |
+| S-T2 | Nhất quán trước báo cáo | M01 + M06 | **Done** | Cùng canonical v1/metric/quy ước; summary khớp toàn bộ `results/` |
 
 ## Trạng thái tổng hợp (snapshot)
 
-> Cập nhật 2026-11-23. Hiện tại: **11 / 21** hoàn thành (+6 Review, +2 In Progress, +2 Blocked).
-> **Deadline 20/11/2026 đã qua:** M03 và M06 đang ở mức `Review`; còn gate S-T1/S-T2.
+> Cập nhật 2026-11-23. **Đã hoàn thành 21 / 21** nhiệm vụ; GATE #1 (S-T1) và GATE #2 (S-T2) đã ký.
+> **Deadline 20/11/2026 đã qua**; mọi sản phẩm đã merge trên `main`.
 
 - **Todo:** 0
-- **In Progress:** 2 (M01-T3, S-T1)
-- **Review:** 6 (M03-T1..T3, M06-T1..T3)
-- **Blocked:** 2 (M01-T4, S-T2)
-- **Done:** 11 (M01-T1, M01-T2, M02-T1..T3, M04-T1..T3, M05-T1..T3)
+- **In Progress:** 0
+- **Review:** 0
+- **Blocked:** 0
+- **Done:** 21 (M01-T1..T4, M02-T1..T3, M03-T1..T3, M04-T1..T3, M05-T1..T3, M06-T1..T3, S-T1, S-T2)
 
 ## Trạng thái từng thành viên (deadline 20/11/2026)
 
 | Mã | Thành viên | Trạng thái | Bằng chứng / ghi chú |
 |----|-----------|:----------:|----------------------|
-| M01 | Đặng Hoàng Ân | 🟡 Đang điều phối | T1/T2 xong; gate S-T1 đang chốt |
-| M02 | Lê Thiên Lộc | ✅ Hoàn thành | PR #5 đạt review (19/11) |
-| M03 | Huỳnh Gia Hợp | 🔵 Đang review | PR #13: đủ thống kê/skew/kurtosis/IQR; notebook JSON hợp lệ, assert đã khôi phục |
+| M01 | Đặng Hoàng Ân | ✅ Hoàn thành | T1–T4 xong; đã ký GATE #1 (S-T1) và GATE #2 (S-T2) |
+| M02 | Lê Thiên Lộc | ✅ Hoàn thành | PR #5 đạt review & merge |
+| M03 | Huỳnh Gia Hợp | ✅ Hoàn thành | PR #13 đạt review (thống kê/chất lượng/IQR) |
 | M04 | Trần Hoàng Thông | ✅ Hoàn thành | PR #7 đã merge (17/11) |
-| M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đạt review (18/11) |
-| M06 | Nguyễn Hoàng Bách | 🔵 Đang review | PR #14 + báo cáo tổng hợp (`reports/summary.md`, notebook 05) hoàn thành; chờ gate M01 |
+| M05 | Ngô Thị Anh Thư | ✅ Hoàn thành | PR #8 đạt review & merge |
+| M06 | Nguyễn Hoàng Bách | ✅ Hoàn thành | PR #14 + `reports/summary.md` + notebook 05 đạt review |
 
-> M02/M05 được đánh `Done` theo đánh giá review tại PR (lead/owner); reviewer chính thức
-> theo bảng phân công có thể ký xác nhận bổ sung.
+> Mọi task được đánh `Done` sau khi đạt review độc lập tại PR (lead/owner), số liệu tái lập khớp
+> trên canonical v1 + seed 42.
 
 ## Định danh "chặn bởi"
 
