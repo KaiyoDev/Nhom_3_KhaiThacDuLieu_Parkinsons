@@ -16,7 +16,7 @@ phân cụm không giám sát (ARI). Mọi bước dùng **một canonical CSV d
 | Sản phẩm | Nhiệm vụ | Đường dẫn |
 |----------|----------|-----------|
 | Khám phá + chất lượng | M02, M03 | `results/m02_exploration.md`, `results/quality_report.md`, `results/iqr_table.md` |
-| Tiền xử lý + PCA + TVH | M04 | `results/m04_preprocessing_pca.md`, `results/figures/02_pca_scatter.png`, `m04-t3_histograms.png`, `m04-t3_corr_heatmap.png` |
+| Tiền xử lý + PCA + TVH | M04 | `results/m04_preprocessing_pca.md`, `results/figures/02_pca_scatter.png`, `results/figures/m04-t3_histograms.png`, `results/figures/m04-t3_corr_heatmap.png` |
 | Phân lớp + F-score | M05 | `results/classification_report.md`, `results/m05_f1_cv.csv` |
 | Phân cụm + ARI | M06 | `results/m06_clustering_report.md`, `results/m06_cluster_ari.csv`, `results/m06_dbscan_grid.csv`, `results/figures/m06_*.png` |
 | Pipeline tổng hợp | M01 (lead) | `src/pipeline.py` → `results/pipeline_summary.json` |
@@ -86,8 +86,9 @@ Thiết lập: **StratifiedKFold ngoài 10**, **GridSearchCV trong 5**, seed 42,
 - **DBSCAN:** `min_samples=5`, `eps=3.37` (knee) → **1 cụm (183 điểm)** + **12 nhiễu**, ARI **−0.0639**;
   lưới tham số cho ARI ∈ [−0.0744, 0.1625].
 - **Nhận xét:** cụm K=2 tách nhóm nhỏ 30 mẫu (toàn `status=1`) khác biệt ở
-  `Shimmer:APQ5`, `MDVP:Shimmer`, `MDVP:Shimmer(dB)`; nhưng ARI ≈ 0/âm ⇒ **cấu trúc cụm không
-  khớp** ranh giới bệnh lý. Phân cụm đóng vai trò đối chiếu, không thay thế mô hình có giám sát.
+  `Shimmer:APQ5`, `MDVP:Shimmer`, `MDVP:Shimmer(dB)` (đơn vị z-score); nhưng ARI ≈ 0/âm ⇒
+  **cấu trúc cụm không khớp** ranh giới bệnh lý. Phân cụm đóng vai trò đối chiếu, không thay
+  thế mô hình có giám sát.
 
 ## 6. Kết luận
 
@@ -101,7 +102,7 @@ Thiết lập: **StratifiedKFold ngoài 10**, **GridSearchCV trong 5**, seed 42,
 
 ## 7. Hạn chế
 
-- Mẫu nhỏ (195) và lệch nhãn; ~32 chủ thể nên cùng người có thể rơi vào cả train/test.
+- Mẫu nhỏ (195) và lệch nhãn; ~32 chủ thể (bản mô tả UCI ghi 31) nên cùng người có thể rơi vào cả train/test.
 - PCA 2D chỉ giữ 70.2% phương sai.
 - Phân cụm ARI thấp; DBSCAN chỉ 1 cụm + 12 nhiễu.
 - Một số lần chạy dùng phiên bản thư viện khác nhau (vd M06: sklearn 1.9.1) nhưng số liệu
