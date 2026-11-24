@@ -45,7 +45,7 @@ data/processed/parkinsons_v1.csv
 
 Việc này giúp tránh tình trạng các thành viên dùng lần lượt các phiên bản dữ liệu khác nhau
 dẫn đến số liệu không thể đối chiếu. Cấu trúc đầu vào được mô tả đầy đủ trong
-\texttt{data/processed/schema\_v1.md}.
+\texttt{data/processed/}\allowbreak\texttt{schema\_v1.md}.
 
 \section{Kiến trúc thực hiện}
 
@@ -78,7 +78,7 @@ dẫn đến số liệu không thể đối chiếu. Cấu trúc đầu vào đ
 \subsection{Pipeline tổng hợp}
 Để kiểm chứng tính nhất quán, nhóm viết một lối chạy tổng hợp
 (\texttt{python -m src.pipeline}) gọi lại các bước chuẩn bị dữ liệu, PCA và phân loại rồi
-ghi kết quả vào \texttt{results/pipeline\_summary.json}. Lối chạy này không thay thế các
+ghi kết quả vào \texttt{results/}\allowbreak\texttt{pipeline\_summary.json}. Lối chạy này không thay thế các
 notebook chuyên sâu mà phục vụ đối chiếu chéo giữa các sản phẩm của nhóm.
 
 \section{Quản lý công việc và đảm bảo chất lượng}
@@ -132,7 +132,7 @@ dưới ghi phiên bản được dùng ở lần chạy tổng hợp để cùn
 \begin{table}[H]
 \centering
 \caption{Môi trường thực nghiệm}
-\begin{tabular}{|l|l|}
+\begin{tabular}{|p{5.2cm}|p{10.2cm}|}
 \hline
 \textbf{Thành phần} & \textbf{Phiên bản / giá trị} \\
 \hline

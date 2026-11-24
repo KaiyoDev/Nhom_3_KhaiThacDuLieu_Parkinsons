@@ -228,7 +228,7 @@ page_break()
 
 # ============================ DECLARATION ============================
 doc.add_heading("LỜI CAM ĐOAN", level=1)
-para("Chúng em – NHÓM 3 lớp 012012204102 – xin cam đoan báo cáo đề tài “Khai phá dữ liệu giọng nói phát hiện bệnh Parkinson” là công trình nghiên cứu và thực nghiệm thực hiện phối hợp bởi Nhóm 3 dưới sự hướng dẫn khoa học của giảng viên Bùi Trọng Hiếu. Toàn bộ số liệu, phân tích, công thức tính toán, mã nguồn và kết quả thực nghiệm trình bày trong báo cáo là trung thực, được tái lập được trên cùng một bộ dữ liệu chuẩn (parkinsons_v1.csv) và cùng hạt giống ngẫu nhiên (seed = 42).")
+para("Chúng em – NHÓM 3 lớp 012012204102 – xin cam đoan báo cáo đề tài “KHAI PHÁ DỮ LIỆU GIỌNG NÓI PHÁT HIỆN BỆNH PARKINSON” là công trình nghiên cứu và thực nghiệm thực hiện phối hợp bởi Nhóm 3 dưới sự hướng dẫn khoa học của giảng viên Bùi Trọng Hiếu. Toàn bộ số liệu, phân tích, công thức tính toán, mã nguồn và kết quả thực nghiệm trình bày trong báo cáo là trung thực, được tái lập được trên cùng một bộ dữ liệu chuẩn (parkinsons_v1.csv) và cùng hạt giống ngẫu nhiên (seed = 42).")
 para("Mọi tài liệu tham khảo, tiêu chuẩn và công trình học thuật trích dẫn trong báo cáo đều được ghi rõ nguồn gốc theo đúng quy định về liêm chính học thuật. Chúng em xin chịu trách nhiệm hoàn toàn về nội dung và mã nguồn được trình bày trong báo cáo này.")
 para("")
 make_table(
@@ -294,9 +294,9 @@ bullet("RQ2 – Phân loại có giám sát: các mô hình KNN, SVM và Random 
 bullet("RQ3 – Phân cụm không giám sát: cấu trúc cụm tự phát sinh có phù hợp với ranh giới bệnh lý status hay không (đo bằng ARI)?")
 doc.add_heading("1.3. Phạm vi và giới hạn", level=2)
 para("Đề tài tập trung vào quy trình khai phá dữ liệu và học máy với bộ dữ liệu công khai có sẵn, không nhằm mục tiêu chẩn đoán y khoa. Kết quả thực nghiệm được giới hạn ở 195 bản ghi, khoảng 32 chủ thể trong dữ liệu thô, nên chưa khẳng định được hiệu năng trên dân số rộng. Nhóm không thay đổi, bổ sung hay gán lại nhãn ngoài dữ liệu công bố.")
-doc.add_heading("1.4. Tổ chức báo cáo", level=2)
+doc.add_heading("1.3. Tổ chức báo cáo", level=2)
 para("Báo cáo gồm năm chương: Chương 1 mở đầu; Chương 2 cơ sở lý thuyết; Chương 3 phương pháp và kiến trúc thực hiện; Chương 4 kết quả thực nghiệm; Chương 5 kết luận và hướng phát triển.")
-doc.add_heading("1.5. Thành viên và vai trò", level=2)
+doc.add_heading("1.4. Thành viên và vai trò", level=2)
 make_table(
     ["Mã", "Họ và tên", "MSSV", "Vai trò / nhiệm vụ chính"],
     [
@@ -356,7 +356,21 @@ doc.add_heading("3.2. Dữ liệu và chuẩn hoá đầu vào", level=2)
 para("Dữ liệu thô là tệp D07 - parkinsons.data.xlsx (Oxford Parkinson's Disease Detection, UCI), 195 bản ghi × 24 cột gồm 22 đặc trưng, nhãn status và cột định danh name. Nhóm loại bỏ cột name (thông tin cá nhân), giữ nguyên 22 đặc trưng định lượng.")
 para("Canonical CSV v1: data/processed/parkinsons_v1.csv – 195 dòng × 23 cột; SHA-256: 55e2fed63eb74ad19a119b43ef33d92c60d60f7d6751688f1cae45d38d358153. SHA-256 tệp thô: d5d96457a760cd06e93b1a1d1cd6380b38909c2cc82121968bb51ef29f80029a.")
 doc.add_heading("3.3. Kiến trúc thực hiện", level=2)
-para("Kho lưu trữ bao gồm data/raw, data/processed, notebooks (5 notebook), src (preprocessing.py, pipeline.py), results (báo cáo, CSV, hình ảnh), reports/summary.md và workspaces/member-XX. Pipeline tổng hợp chạy bằng lệnh python -m src.pipeline, ghi results/pipeline_summary.json để đối chiếu chéo.")
+make_table(
+    ["Đường dẫn", "Vai trò"],
+    [
+        ["data/raw/", "Dữ liệu thô và manifest nguồn"],
+        ["data/processed/", "Canonical CSV v1 và schema"],
+        ["notebooks/", "5 notebook phân tích có lần lượt M01–M06"],
+        ["src/", "Hàm dùng chung và pipeline tổng hợp (pipeline.py)"],
+        ["results/", "Báo cáo, bảng số liệu, hình ảnh, pipeline_summary.json"],
+        ["reports/", "Báo cáo tổng hợp cuối cùng"],
+        ["workspaces/member-XX/", "Không gian làm việc của từng thành viên"],
+    ],
+    widths=[5.0, 10.5],
+)
+caption("Bảng 3.1. Cấu trúc chính của kho lưu trữ")
+para("Pipeline tổng hợp chạy bằng lệnh python -m src.pipeline, ghi results/pipeline_summary.json để đối chiếu chéo.")
 doc.add_heading("3.4. Quản lý công việc và đảm bảo chất lượng", level=2)
 para("Nhóm áp dụng luồng Git theo nhánh: mỗi nhiệm vụ tạo nhánh riêng, mở pull request về main, review và tag thành viên liên quan, chỉ nhập nhánh sau khi đạt. PR đã merge: #5 (khám phá), #7 (tiền xử lý–PCA), #8 (phân loại), #13 (thống kê/chất lượng), #14 (phân cụm), #16 (tổng hợp), #17 (chốt gate). TASK_BOARD.md báo 21/21 nhiệm vụ Done; GATE #1 và #2 đã ký.")
 make_table(
@@ -371,7 +385,7 @@ make_table(
     ],
     widths=[1.4, 4.4, 9.7],
 )
-caption("Bảng 3.1. Phân công theo mô-đun và nghiệm thu")
+caption("Bảng 3.2. Phân công theo mô-đun và nghiệm thu")
 doc.add_heading("3.5. Môi trường thực nghiệm", level=2)
 make_table(
     ["Thành phần", "Phiên bản / giá trị"],
@@ -387,7 +401,7 @@ make_table(
     ],
     widths=[7.0, 8.5],
 )
-caption("Bảng 3.2. Môi trường thực nghiệm")
+caption("Bảng 3.3. Môi trường thực nghiệm")
 doc.add_heading("3.6. Phương pháp đánh giá", level=2)
 para("Phân loại báo cáo trung bình ± độ lệch chuẩn F-score macro trên 10 fold, kèm F-score weighted và điểm huấn luyện. Phân cụm chọn K theo silhouette, so cụm với nhãn bằng ARI; DBSCAN chọn eps theo điểm uốn k-distance và kiểm tra chéo trên lưới tham số. Mọi kết quả ghi đầy đủ trong results/ kèm tham số, seed và phiên bản thư viện.")
 page_break()
@@ -522,7 +536,6 @@ refs = [
     "[4] G. James, D. Witten, T. Hastie, and R. Tibshirani, An Introduction to Statistical Learning: With Applications in R. New York: Springer, 2013.",
     "[5] J. Han, M. Kamber, and J. Pei, Data Mining: Concepts and Techniques, 3rd ed. Waltham, MA: Morgan Kaufmann, 2011.",
     "[6] M. Ester, H.-P. Kriegel, J. Sander, and X. Xu, “A density-based algorithm for discovering clusters in large spatial databases with noise,” Proc. KDD-96, pp. 226–231, 1996.",
-    "[7] F. Pedregosa et al., “Scikit-learn: Machine learning in Python,” Journal of Machine Learning Research, vol. 12, pp. 2825–2830, 2011.",
 ]
 for r in refs:
     p = doc.add_paragraph()
@@ -536,6 +549,19 @@ para("Kho lưu trữ: ", )
 p = doc.paragraphs[-1]
 add_hyperlink(p, "https://github.com/KaiyoDev/Nhom_3_KhaiThacDuLieu_Parkinsons", "https://github.com/KaiyoDev/Nhom_3_KhaiThacDuLieu_Parkinsons")
 para("Nhánh main chứa sản phẩm đã nghiệm thu; PR #5, #7, #8, #13, #14, #16, #17 ghi nhận lịch sử thay đổi.")
+make_table(
+    ["Đường dẫn", "Nội dung"],
+    [
+        ["data/raw/", "Tệp thô D07 - parkinsons.data.xlsx, manifest"],
+        ["data/processed/", "parkinsons_v1.csv (canonical), schema_v1.md"],
+        ["notebooks/", "01 exploration, 02 preprocessing+PCA, 03 classification, 04 clustering, 05 integration report"],
+        ["src/", "preprocessing.py, pipeline.py"],
+        ["results/", "Báo cáo, bảng số liệu CSV, hình ảnh, pipeline_summary.json"],
+        ["reports/summary.md", "Báo cáo tổng hợp đa nhiệm vụ"],
+    ],
+    widths=[4.5, 11.0],
+)
+caption("Bảng A.1. Cấu trúc thư mục chính")
 para("Cách tái lập (trong thư mục gốc):")
 for cmd in ["pip install -r requirements.txt",
             "python -m src.pipeline          # ghi results/pipeline_summary.json",
@@ -556,7 +582,7 @@ make_table(
     ],
     widths=[1.4, 4.4, 3.4, 5.4],
 )
-caption("Bảng A.1. Thông tin nhóm")
+caption("Bảng A.2. Thông tin nhóm")
 page_break()
 
 # ============================ APPENDIX B ============================
