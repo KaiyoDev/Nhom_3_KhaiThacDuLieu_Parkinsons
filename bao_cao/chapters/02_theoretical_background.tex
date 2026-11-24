@@ -1,0 +1,169 @@
+\chapter{CƠ SỞ LÝ THUYẾT}
+\label{chap:theory}
+
+Chương này tóm tắt các khái niệm và phương pháp được sử dụng trong đề tài, làm nền tảng để
+hiện thực và diễn giải kết quả ở Chương 4.
+
+\section{Tín hiệu giọng nói và các nhóm đặc trưng}
+
+Bộ dữ liệu sử dụng các đại lượng âm học thu được từ bản ghi âm đọc nguyên âm ``aa'' dài
+khoảng một giây của từng chủ thể \cite{little2009}. Mỗi bản ghi được mô tả bởi 22 đặc
+trưng thuộc năm nhóm chức năng, phản ánh các triệu chứng giọng nói của bệnh Parkinson.
+
+\begin{table}[H]
+\centering
+\caption{Các nhóm đặc trưng trong bộ dữ liệu Parkinson}
+\begin{tabular}{|l|>{\raggedright\arraybackslash}p{7.4cm}|l|}
+\hline
+\textbf{Nhóm} & \textbf{Đặc trưng đại diện} & \textbf{Số lượng} \\
+\hline
+Tần số cơ bản & MDVP:Fo(Hz), MDVP:Fhi(Hz), MDVP:Flo(Hz) & 3 \\
+\hline
+Độ run tần số (Jitter) & MDVP:Jitter(\%), MDVP:Jitter(Abs), MDVP:RAP, MDVP:PPQ, Jitter:DDP & 5 \\
+\hline
+Độ run biên độ (Shimmer) & MDVP:Shimmer, MDVP:Shimmer(dB), Shimmer:APQ3, Shimmer:APQ5, MDVP:APQ, Shimmer:DDA & 6 \\
+\hline
+Tỷ lệ nhiễu - giọng & NHR, HNR & 2 \\
+\hline
+Chỉ số phi tuyến & RPDE, DFA, spread1, spread2, D2, PPE & 6 \\
+\hline
+\end{tabular}
+\end{table}
+
+Nhóm tần số đoạn hình phổ cơ bản; jitter và shimmer đo dao động ngắn hạn của chu kỳ, thường
+tăng ở giọng run; NHR/HNR đo nhiễu tương đối và độ hòa hợp; các chỉ số phi tuyến (RPDE, DFA,
+spread1, spread2, D2, PPE) mô tả độ phức tạp và động học không gian trạng thái của tín hiệu
+\cite{little2009,han2011}.
+
+\section{Tiền xử lý dữ liệu}
+
+\subsection{Kiểm tra chất lượng}
+Các kiểm tra cơ bản bao gồm kích thước, kiểu dữ liệu, giá trị thiếu, bản ghi trùng lặp, giá
+trị ngoại lai và độ lệch (skewness). Giá trị ngoại lai được xác định theo quy tắc IQR:
+
+\begin{equation}
+\text{IQR} = Q_3 - Q_1, \qquad
+\text{ngưỡng} = [Q_1 - 1{,}5\,\text{IQR},\; Q_3 + 1{,}5\,\text{IQR}].
+\label{eq:iqr}
+\end{equation}
+
+Độ lệch được đo bằng hệ số skewness; với phân phối lệch mạnh ($|\text{skew}| > 1$) cần lưu ý
+khi sử dụng các mô hình nhạy cảm với phân phối.
+
+\subsection{Chuẩn hoá}
+Vì các đặc trưng có thang đo khác nhau (từ $10^{-6}$ đến hàng trăm Hz), nhóm áp dụng chuẩn
+hoá z-score:
+
+\begin{equation}
+z_{ij} = \frac{x_{ij} - \mu_j}{\sigma_j},
+\label{eq:zscore}
+\end{equation}
+
+trong đó $\mu_j$ và $\sigma_j$ lần lượt là kỳ vọng và độ lệch chuẩn của đặc trưng thứ $j$.
+Quan trọng, bộ chuẩn hoá chỉ được học trên tập huấn luyện trong các mô hình có giám sát, nhằm
+tránh rò rỉ dữ liệu; với PCA và phân cụm, nhóm chuẩn hoá trên toàn bộ tập đặc trưng do không
+sử dụng nhãn trong quá trình học.
+
+\section{Phân tích thành phần chính (PCA)}
+
+PCA tìm một hệ trục tuyến tính mới sao cho thành phần đầu tiên giữ lượng phương sai lớn
+nhất, các thành phần tiếp theo kề nó trực giao và giữ dần lượt phương sai còn lại
+\cite{jolliffe2002}. Gọi $\mathbf{X} \in \mathbb{R}^{n\times p}$ là ma trận đã chuẩn hoá, ta tính
+ma trận hiệp phương sai $\mathbf{S} = \frac{1}{n-1}\mathbf{X}^{\mathsf T}\mathbf{X}$, phân tích
+thành trị riêng:
+
+\begin{equation}
+\mathbf{S}\mathbf{v}_i = \lambda_i \mathbf{v}_i, \quad
+\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_p \ge 0,
+\label{eq:eigen}
+\end{equation}
+
+và tỷ lệ phương sai giải thích của thành phần thứ $i$ là
+$\lambda_i / \sum_{j=1}^{p}\lambda_j$. PCA được dùng ở đây vừa để trực quan hoá dữ liệu trong
+không gian giảm chiều, vừa để xác định số thành phần cần giữ đạt ngưỡng phương sai mong muốn.
+
+\section{Các phương pháp phân loại có giám sát}
+
+\subsection{K-Nearest Neighbors (KNN)}
+KNN phân loại một điểm bằng cách xem xét $k$ điểm láng giềng gần nhất trong tập huấn luyện
+và lấy đa số nhãn. Phương pháp không có bước huấn luyện tham số nhưng nhạy cảm với thang đo
+đặc trưng, vì vậy dữ liệu phải được chuẩn hoá.
+
+\subsection{Support Vector Machine (SVM)}
+SVM tìm siêu phẳng phân chia tối đu định hướng, tối đu khoảng cách biên (margin) giữa hai lớp;
+với ranh giới phi tuyến, ta sử dụng kernel. Trong thực nghiệm nhóm dùng kernel RBF, cho phép
+mô hình các ranh giới phi tuyến tổng quát hơn \cite{han2011,james2013}.
+
+\subsection{Random Forest (RF)}
+RF là mô hình tập hợp (ensemble) gồm nhiều cây quyết định được huấn luyện trên các mẫu ngẫu
+nhiên và tập con đặc trưng ngẫu nhiên, sau đó tổng hợp bằng đa số phiếu. Mô hình thường có
+độ chính xác cao nhưng dễ quá khớp (overfit) nếu không giới hạn độ sâu hoặc số lượng mẫu tối
+thiểu trên lá \cite{james2013}.
+
+\subsection{Kiểm định chéo và độ đo F-score}
+Để ước lượng hiệu năng khách quan, nhóm dùng kiểm định chéo phân tầng (stratified k-fold): tập
+dữ liệu được chia $k$ phần giữ nguyên tỷ lệ nhãn, mỗi lần lấy một phần làm kiểm tra và các
+phần còn lại làm huấn luyện. Tham số mô hình được chọn bằng tìm lưới (GridSearchCV) trên một
+kiểm định chéo trong, tách biệt với kiểm tra ngoài. Với nhãn mất cân bằng, độ đo F-score được
+dùng làm độ đo chính:
+
+\begin{equation}
+F_1 = \frac{2\,P\,R}{P+R}, \quad
+\text{macro-F} = \frac{1}{C}\sum_{c=1}^{C} F_{1,c}, \quad
+\text{weighted-F} = \sum_{c=1}^{C} w_c F_{1,c},
+\label{eq:f1}
+\end{equation}
+
+với $P,R$ lần lượt là precision và recall, $C$ là số lớp, $w_c$ là tỷ trọng mẫu của lớp $c$.
+
+\section{Các phương pháp phân cụm không giám sát}
+
+\subsection{K-Means}
+K-Means chia $n$ điểm thành $K$ cụm bằng cách tối thiểu tổng bình phương khoảng cách từ
+điểm tới tâm cụm (inertia):
+
+\begin{equation}
+J = \sum_{c=1}^{K} \sum_{\mathbf{x} \in C_c} \|\mathbf{x} - \boldsymbol{\mu}_c\|^2.
+\label{eq:kmeans}
+\end{equation}
+
+Số cụm $K$ được chọn dựa trên chỉ số silhouette trung bình:
+
+\begin{equation}
+s(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}},
+\label{eq:silhouette}
+\end{equation}
+
+trong đó $a(i)$ là khoảng cách trung bình của điểm $i$ tới các điểm cùng cụm, $b(i)$ là
+khoảng cách trung bình tới cụm gần nhất; $s(i)$ càng gần 1 tức cụm càng gắn kết và tách biệt.
+
+\subsection{DBSCAN}
+DBSCAN nhóm điểm theo mật độ: một điểm là lõi (core) nếu số điểm trong lân cận bán kính
+$\varepsilon$ không ít hơn \texttt{min\_samples}; các điểm lõi nối được tạo thành cụm, điểm
+không thuộc cụm nào được coi là nhiễu (noise) \cite{ester1996}. DBSCAN không cần khai báo số
+cụm và phát hiện được cụm hình dạng tùy ý, nhưng nhạy cảm với $\varepsilon$ và
+\texttt{min\_samples}.
+
+\subsection{Chỉ số Rand hiệu chỉnh (ARI)}
+ARI đo độ tương đồng giữa phân hoạch cụm và nhãn thật, hiệu chỉnh theo ngẫu nhiên:
+
+\begin{equation}
+\text{ARI} = \frac{\text{RI} - \mathbb{E}[\text{RI}]}{\max(\text{RI}) - \mathbb{E}[\text{RI}]},
+\label{eq:ari}
+\end{equation}
+
+với RI là chỉ số Rand dựa trên số cặp mẫu được phân loại đồng ý. ARI $= 1$ là phù hợp hoàn
+hảo, $0$ tương đương với phân ngẫu nhiên, và giá trị âm cho thấy phân hoạch kém hơn ngẫu
+nhiên.
+
+\section{Đảm bảo tái lập và chống rò rỉ dữ liệu}
+
+Ba nguyên tắc được áp dụng xuyên suốt đề tài:
+\begin{enumerate}
+    \item \textbf{Một đầu vào chuẩn duy nhất:} mọi bước phân tích đều đọc từ
+          \texttt{parkinsons\_v1.csv} (GATE \#1), tránh lệch phiên bản dữ liệu.
+    \item \textbf{Bộ chuẩn hoá nằm trong pipeline:} trong phân loại, \texttt{StandardScaler}
+          được fit trong \texttt{Pipeline} nên mỗi fold huấn luyện chỉ học trên phần huấn luyện.
+    \item \textbf{Hạt giống cố định:} seed \texttt{42} được đặt ở mọi thủ tục ngẫu nhiên
+          (chia dữ liệu, K-Means, Random Forest, GridSearchCV), giúp kết quả tái lập.
+\end{enumerate}

@@ -1,0 +1,78 @@
+% ==============================================================
+%  MAIN.TEX - Bai tap lon Nhom 3 (Parkinson)
+%  Template: UTH LaTeX Template (Tieng Viet) - vanphat111
+% ==============================================================
+
+\input{preamble}
+
+\begin{document}
+
+% ---------- 1. TRANG BÌA ----------
+\input{frontmatter/titlepage}
+
+% ===== ĐÁNH SỐ LA MÃ CHO PHẦN ĐẦU =====
+\cleardoublepage
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\fontsize{10}{12}\selectfont\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\fontsize{10}{12}\selectfont\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% ---------- 2. CÁC TRANG ĐẦU ----------
+\input{frontmatter/declaration}
+\input{frontmatter/acknowledgments}
+
+% ---------- 3. MỤC LỤC & DANH MỤC ----------
+\cleardoublepage
+\begingroup
+\singlespacing
+
+\tableofcontents
+
+\input{frontmatter/abbreviations}
+
+\cleardoublepage
+\listoftables
+\addcontentsline{toc}{chapter}{\listtablename}
+
+\cleardoublepage
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+
+\endgroup
+
+% ================= 4. NỘI DUNG CHÍNH =================
+\cleardoublepage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{chapters/01_introduction}
+\input{chapters/02_theoretical_background}
+\input{chapters/03_methodology}
+\input{chapters/04_results}
+\input{chapters/05_conclusion}
+
+% ---------- 5. TÀI LIỆU THAM KHẢO ----------
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliographystyle{ieeetr-hyphen}
+\bibliography{refs}
+
+% ---------- 6. PHỤ LỤC ----------
+\cleardoublepage
+\appendix
+\input{appendices/appendix_a}
+\input{appendices/appendix_b}
+
+\end{document}

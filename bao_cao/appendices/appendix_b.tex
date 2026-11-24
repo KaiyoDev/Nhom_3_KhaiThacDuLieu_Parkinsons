@@ -1,0 +1,94 @@
+\chapter{BẢNG THỐNG KÊ CHI TIẾT}
+\label{app:b}
+
+\section{Thống kê mô tả 22 đặc trưng}
+
+Bảng dưới trình bày các chỉ số thống kê mô tả đầy đủ cho 22 feature trên canonical v1;
+độ lệch (skew) và độ nhọn (kurtosis) được tính theo pandas (excess kurtosis).
+
+\begingroup
+\footnotesize
+\setlength{\LTleft}{0pt}
+\begin{longtable}{l r r r r r r r}
+\caption{Thống kê mô tả 22 đặc trưng} \\
+\hline
+\textbf{Feature} & \textbf{mean} & \textbf{median} & \textbf{std} & \textbf{min} & \textbf{max} & \textbf{skew} & \textbf{kurtosis} \\
+\hline
+\endfirsthead
+\multicolumn{8}{l}{\footnotesize\itshape Bảng \thetable\ tiếp theo} \\
+\hline
+\textbf{Feature} & \textbf{mean} & \textbf{median} & \textbf{std} & \textbf{min} & \textbf{max} & \textbf{skew} & \textbf{kurtosis} \\
+\hline
+\endhead
+MDVP:Fo(Hz)      & 154{,}229 & 148{,}79  & 41{,}3901 & 88{,}333 & 260{,}105 & 0{,}5917 & -0{,}6279 \\
+MDVP:Fhi(Hz)     & 197{,}105 & 175{,}829 & 91{,}4915 & 102{,}145 & 592{,}03 & 2{,}5421 & 7{,}6272 \\
+MDVP:Flo(Hz)     & 116{,}325 & 104{,}315 & 43{,}5214 & 65{,}476 & 239{,}17 & 1{,}2174 & 0{,}6546 \\
+MDVP:Jitter(\%)  & 0{,}0062 & 0{,}0049 & 0{,}0048 & 0{,}0017 & 0{,}0332 & 3{,}0849 & 12{,}0309 \\
+MDVP:Jitter(Abs) & 0{,}0000 & 0{,}0000 & 0{,}0000 & 0{,}0000 & 0{,}0003 & 2{,}6491 & 10{,}8690 \\
+MDVP:RAP         & 0{,}0033 & 0{,}0025 & 0{,}0030 & 0{,}0007 & 0{,}0214 & 3{,}3607 & 14{,}2138 \\
+MDVP:PPQ         & 0{,}0034 & 0{,}0027 & 0{,}0028 & 0{,}0009 & 0{,}0196 & 3{,}0739 & 11{,}9639 \\
+Jitter:DDP       & 0{,}0099 & 0{,}0075 & 0{,}0089 & 0{,}0020 & 0{,}0643 & 3{,}3621 & 14{,}2248 \\
+MDVP:Shimmer     & 0{,}0297 & 0{,}0230 & 0{,}0189 & 0{,}0095 & 0{,}1191 & 1{,}6665 & 3{,}2383 \\
+MDVP:Shimmer(dB) & 0{,}2823 & 0{,}2210 & 0{,}1949 & 0{,}0850 & 1{,}3020 & 1{,}9994 & 5{,}1282 \\
+Shimmer:APQ3     & 0{,}0157 & 0{,}0128 & 0{,}0102 & 0{,}0046 & 0{,}0565 & 1{,}5806 & 2{,}7202 \\
+Shimmer:APQ5     & 0{,}0179 & 0{,}0135 & 0{,}0120 & 0{,}0057 & 0{,}0794 & 1{,}7987 & 3{,}8742 \\
+MDVP:APQ         & 0{,}0241 & 0{,}0183 & 0{,}0169 & 0{,}0072 & 0{,}1378 & 2{,}6180 & 11{,}1633 \\
+Shimmer:DDA      & 0{,}0470 & 0{,}0384 & 0{,}0305 & 0{,}0136 & 0{,}1694 & 1{,}5806 & 2{,}7207 \\
+NHR              & 0{,}0248 & 0{,}0117 & 0{,}0404 & 0{,}0006 & 0{,}3148 & 4{,}2207 & 21{,}9950 \\
+HNR              & 21{,}8860 & 22{,}0850 & 4{,}4258 & 8{,}4410 & 33{,}0470 & -0{,}5143 & 0{,}6160 \\
+RPDE             & 0{,}4985 & 0{,}4960 & 0{,}1039 & 0{,}2566 & 0{,}6852 & -0{,}1434 & -0{,}9218 \\
+DFA              & 0{,}7181 & 0{,}7223 & 0{,}0553 & 0{,}5743 & 0{,}8253 & -0{,}0332 & -0{,}6862 \\
+spread1          & -5{,}6844 & -5{,}7209 & 1{,}0902 & -7{,}9650 & -2{,}4340 & 0{,}4321 & -0{,}0502 \\
+spread2          & 0{,}2265 & 0{,}2189 & 0{,}0834 & 0{,}0063 & 0{,}4505 & 0{,}1444 & -0{,}0830 \\
+D2               & 2{,}3818 & 2{,}3615 & 0{,}3828 & 1{,}4233 & 3{,}6712 & 0{,}4304 & 0{,}2203 \\
+PPE              & 0{,}2066 & 0{,}1941 & 0{,}0901 & 0{,}0445 & 0{,}5274 & 0{,}7975 & 0{,}5283 \\
+\hline
+\end{longtable}
+\endgroup
+\source{\texttt{results/quality\_report.md} (M03-T1).}
+
+\section{Kiểm tra candidate outlier theo IQR}
+
+Bảng dưới ghi số điểm ngoài ngưỡng IQR của từng feature, với ngưỡng
+$[Q_1 - 1{,}5\,\text{IQR}; Q_3 + 1{,}5\,\text{IQR}]$.
+
+\begingroup
+\footnotesize
+\setlength{\LTleft}{0pt}
+\begin{longtable}{l r r r r r}
+\caption{Candidate outlier theo quy tắc IQR (hệ số 1,5)} \\
+\hline
+\textbf{Feature} & \textbf{Q1} & \textbf{Q3} & \textbf{IQR} & \textbf{Số outlier} & \textbf{Tỷ lệ (\%)} \\
+\hline
+\endfirsthead
+\multicolumn{6}{l}{\footnotesize\itshape Bảng \thetable\ tiếp theo} \\
+\hline
+\textbf{Feature} & \textbf{Q1} & \textbf{Q3} & \textbf{IQR} & \textbf{Số outlier} & \textbf{Tỷ lệ (\%)} \\
+\hline
+\endhead
+MDVP:Fo(Hz)      & 117{,}572 & 182{,}769 & 65{,}197 & 0 & 0{,}00 \\
+MDVP:Fhi(Hz)     & 134{,}863 & 224{,}206 & 89{,}343 & 11 & 5{,}64 \\
+MDVP:Flo(Hz)     & 84{,}291 & 140{,}018 & 55{,}7275 & 9 & 4{,}62 \\
+MDVP:Jitter(\%)  & 0{,}0035 & 0{,}0074 & 0{,}0039 & 14 & 7{,}18 \\
+MDVP:Jitter(Abs) & 0{,}0000 & 0{,}0001 & 0{,}0000 & 7 & 3{,}59 \\
+MDVP:RAP         & 0{,}0017 & 0{,}0038 & 0{,}0022 & 14 & 7{,}18 \\
+MDVP:PPQ         & 0{,}0019 & 0{,}0040 & 0{,}0021 & 15 & 7{,}69 \\
+Jitter:DDP       & 0{,}0050 & 0{,}0115 & 0{,}0065 & 14 & 7{,}18 \\
+MDVP:Shimmer     & 0{,}0165 & 0{,}0379 & 0{,}0214 & 8 & 4{,}10 \\
+MDVP:Shimmer(dB) & 0{,}1485 & 0{,}3500 & 0{,}2015 & 10 & 5{,}13 \\
+Shimmer:APQ3     & 0{,}0082 & 0{,}0203 & 0{,}0120 & 6 & 3{,}08 \\
+Shimmer:APQ5     & 0{,}0096 & 0{,}0224 & 0{,}0128 & 13 & 6{,}67 \\
+MDVP:APQ         & 0{,}0131 & 0{,}0294 & 0{,}0163 & 12 & 6{,}15 \\
+Shimmer:DDA      & 0{,}0247 & 0{,}0608 & 0{,}0361 & 6 & 3{,}08 \\
+NHR              & 0{,}0059 & 0{,}0256 & 0{,}0197 & 19 & 9{,}74 \\
+HNR              & 19{,}1980 & 25{,}0755 & 5{,}8775 & 3 & 1{,}54 \\
+RPDE             & 0{,}4213 & 0{,}5876 & 0{,}1663 & 0 & 0{,}00 \\
+DFA              & 0{,}6748 & 0{,}7619 & 0{,}0871 & 0 & 0{,}00 \\
+spread1          & -6{,}4501 & -5{,}0462 & 1{,}4039 & 4 & 2{,}05 \\
+spread2          & 0{,}1744 & 0{,}2792 & 0{,}1049 & 2 & 1{,}03 \\
+D2               & 2{,}0991 & 2{,}6365 & 0{,}5373 & 1 & 0{,}51 \\
+PPE              & 0{,}1375 & 0{,}2530 & 0{,}1155 & 5 & 2{,}56 \\
+\hline
+\end{longtable}
+\endgroup
+\source{\texttt{results/iqr\_table.md} (M03-T2).}

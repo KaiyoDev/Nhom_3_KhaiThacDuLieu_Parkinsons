@@ -1,0 +1,88 @@
+\chapter{MỞ ĐẦU}
+\label{chap:introduction}
+
+\section{Bối cảnh và động lực}
+
+Bệnh Parkinson là một trong những bệnh thoái hoá thần kinh phổ biến ở người cao tuổi.
+Giai đoạn đầu của bệnh thường diễn biến âm thầm, khiến việc phát hiện sớm trở nên khó khăn
+nếu chỉ dựa vào các triệu chứng vận động điển hình. Một trong những dấu hiệu sớm và dễ
+quan sát của bệnh là thay đổi giọng nói: người bệnh thường xuất hiện run giọng, giọng nhỏ,
+khàn hoặc mất điều khiển tần số, biên độ. Các đại lượng âm học thu được từ giọng nói do đó
+trở thành một nguồn tín hiệu phi xâm lấn, có tiềm năng hỗ trợ sàng lọc và theo dõi bệnh.
+
+Trong công trình nghiên cứu nổi bật, Little và cộng sự đã thu thập và công bố bộ dữ liệu
+giọng nói Parkinson trên kho lưu trữ học máy UCI \cite{little2009,uci_parkinsons}. Bộ dữ liệu
+gồm 195 bản ghi, mỗi bản ghi được mô tả bởi 22 đặc trưng giọng nói thuộc các nhóm tần số,
+độ run (jitter), độ ồn (shimmer), tỷ lệ nhiễu-giọng và các chỉ số phi tuyến, kèm nhãn
+\texttt{status} (0 = khỏe, 1 = Parkinson). Kích thước nhỏ và mất cân bằng nhãn làm cho bộ dữ
+liệu này trở thành một tình huống thực tế để rèn nghề khai phá dữ liệu: vừa cần kiểm soát
+chất lượng dữ liệu, vừa phải chọn phương pháp đánh giá phù hợp.
+
+Khai phá dữ liệu (data mining) là quá trình khám phá tri thức từ dữ liệu lớn, bao gồm các
+bước chuẩn bị, khám phá, tiền xử lý, mô hình hoá và đánh giá. Áp dụng quy trình này vào bài
+toán phát hiện Parkinson từ giọng nói không chỉ giúp trả lời được các câu hỏi về chất lượng
+dữ liệu và cấu trúc tín hiệu, mà còn cho phép so sánh định lượng các mô hình học máy có giám
+sát (phân loại) và không giám sát (phân cụm). Đây là động lực để nhóm chọn đề tài này cho
+bài tập lớn môn \textbf{Khai phá dữ liệu}.
+
+\section{Mục tiêu đề tài}
+
+\subsection{Mục tiêu tổng quát}
+Xây dựng một quy trình khai phá dữ liệu hoàn chỉnh, tái lập được trên bộ dữ liệu giọng nói
+Parkinson của UCI; sử dụng một bộ dữ liệu chuẩn duy nhất, cùng một hạt giống ngẫu nhiên và
+cùng một bộ chỉ số đánh giá ở mọi bước, nhằm đảm bảo tính minh bạch và khả năng so sánh.
+
+\subsection{Các câu hỏi nghiên cứu}
+\begin{itemize}
+    \item \textbf{RQ1 - Chất lượng dữ liệu:} bộ dữ liệu có đặc điểm gì về kích thước, kiểu
+          dữ liệu, nhãn, thang đo, giá trị thiếu/trùng, ngoại lai và độ lệch? Cần xử lý ra sao?
+    \item \textbf{RQ2 - Phân loại có giám sát:} với 22 đặc trưng giọng nói, các mô hình
+          KNN, SVM và Random Forest đạt kết quả như thế nào khi đánh giá bằng kiểm định chéo
+          phân tầng 10-fold và độ đo F-score?
+    \item \textbf{RQ3 - Phân cụm không giám sát:} cấu trúc cụm tự phát sinh trong không gian
+          đặc trưng có phù hợp với ranh giới bệnh lý \texttt{status} hay không (đo bằng ARI)?
+\end{itemize}
+
+\subsection{Phạm vi và giới hạn}
+Đề tài tập trung vào quy trình khai phá dữ liệu và học máy với bộ dữ liệu công khai có sẵn;
+không nhằm mục tiêu chẩn đoán y khoa. Kết quả thực nghiệm được giới hạn ở 195 bản ghi, khoảng
+32 chủ thể trong dữ liệu thô, nên chưa khẳng định được hiệu năng trên dân số rộng. Nhóm cũng
+không thay đổi, bổ sung hay gán lại nhãn ngoài dữ liệu công bố.
+
+\section{Tổ chức báo cáo}
+
+Báo cáo gồm năm chương:
+\begin{itemize}
+    \item Chương 1 trình bày bối cảnh, mục tiêu, câu hỏi nghiên cứu và phạm vi.
+    \item Chương 2 tổng hợp cơ sở lý thuyết và các phương pháp được sử dụng.
+    \item Chương 3 mô tả quy trình, kiến trúc thực hiện, môi trường và cách quản lý công việc.
+    \item Chương 4 trình bày kết quả thực nghiệm và đối chiếu.
+    \item Chương 5 rút ra kết luận, hạn chế và hướng phát triển.
+\end{itemize}
+
+\section{Thành viên và vai trò}
+
+Nhóm gồm 6 thành viên, phân công theo nhiệm vụ chính như sau (chi tiết công việc và
+minh chứng nằm ở Chương 3 và Phụ lục A).
+
+\begin{table}[H]
+\centering
+\caption{Thành viên và vai trò trong đề tài}
+\begin{tabular}{|c|>{\raggedright\arraybackslash}p{4.6cm}|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}p{5.0cm}|}
+\hline
+\textbf{Mã} & \textbf{Họ và tên} & \textbf{MSSV} & \textbf{Vai trò / nhiệm vụ chính} \\
+\hline
+M01 & Đặng Hoàng Ân   & 080206014982 & Điều phối, chuẩn bị dữ liệu, kiểm soát gate \\
+\hline
+M02 & Lê Thiên Lộc    & 079306040024 & Khám phá cấu trúc, kiểu dữ liệu, bản đồ đặc trưng \\
+\hline
+M03 & Huỳnh Gia Hợp    & 054205008367 & Thống kê mô tả, kiểm tra chất lượng, ngoại lai IQR \\
+\hline
+M04 & Trần Hoàng Thông & 075206008044 & Tiền xử lý, PCA, trực quan hóa \\
+\hline
+M05 & Ngô Thị Anh Thư   & 087306008195 & Phân loại, cross-validation, F-score \\
+\hline
+M06 & Nguyễn Hoàng Bách & 056205005522 & Phân cụm, ARI, tổng hợp kết quả và báo cáo \\
+\hline
+\end{tabular}
+\end{table}
