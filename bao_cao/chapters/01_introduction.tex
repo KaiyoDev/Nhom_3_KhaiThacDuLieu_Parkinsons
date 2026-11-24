@@ -13,7 +13,7 @@ trở thành một nguồn tín hiệu phi xâm lấn, có tiềm năng hỗ tr�
 Trong công trình nghiên cứu nổi bật, Little và cộng sự đã thu thập và công bố bộ dữ liệu
 giọng nói Parkinson trên kho lưu trữ học máy UCI \cite{little2009,uci_parkinsons}. Bộ dữ liệu
 gồm 195 bản ghi, mỗi bản ghi được mô tả bởi 22 đặc trưng giọng nói thuộc các nhóm tần số,
-độ run (jitter), độ ồn (shimmer), tỷ lệ nhiễu--giọng và các chỉ số phi tuyến, kèm nhãn
+độ run (jitter), độ ồn (shimmer), tỷ lệ nhiễu-giọng và các chỉ số phi tuyến, kèm nhãn
 \texttt{status} (0 = khỏe, 1 = Parkinson). Kích thước nhỏ và mất cân bằng nhãn làm cho bộ dữ
 liệu này trở thành một tình huống thực tế để rèn nghề khai phá dữ liệu: vừa cần kiểm soát
 chất lượng dữ liệu, vừa phải chọn phương pháp đánh giá phù hợp.
@@ -34,12 +34,12 @@ cùng một bộ chỉ số đánh giá ở mọi bước, nhằm đảm bảo t
 
 \subsection{Các câu hỏi nghiên cứu}
 \begin{itemize}
-    \item \textbf{RQ1 -- Chất lượng dữ liệu:} bộ dữ liệu có đặc điểm gì về kích thước, kiểu
+    \item \textbf{RQ1 - Chất lượng dữ liệu:} bộ dữ liệu có đặc điểm gì về kích thước, kiểu
           dữ liệu, nhãn, thang đo, giá trị thiếu/trùng, ngoại lai và độ lệch? Cần xử lý ra sao?
-    \item \textbf{RQ2 -- Phân loại có giám sát:} với 22 đặc trưng giọng nói, các mô hình
+    \item \textbf{RQ2 - Phân loại có giám sát:} với 22 đặc trưng giọng nói, các mô hình
           KNN, SVM và Random Forest đạt kết quả như thế nào khi đánh giá bằng kiểm định chéo
           phân tầng 10-fold và độ đo F-score?
-    \item \textbf{RQ3 -- Phân cụm không giám sát:} cấu trúc cụm tự phát sinh trong không gian
+    \item \textbf{RQ3 - Phân cụm không giám sát:} cấu trúc cụm tự phát sinh trong không gian
           đặc trưng có phù hợp với ranh giới bệnh lý \texttt{status} hay không (đo bằng ARI)?
 \end{itemize}
 

@@ -7,7 +7,7 @@
 
 \begin{document}
 
-% -------------------- 1. TRANG BÌA --------------------
+% ---------- 1. TRANG BÌA ----------
 \input{frontmatter/titlepage}
 
 % ===== ĐÁNH SỐ LA MÃ CHO PHẦN ĐẦU =====
@@ -28,11 +28,11 @@
 \pagenumbering{roman}
 \setcounter{page}{1}
 
-% -------------------- 2. CÁC TRANG ĐẦU --------------------
+% ---------- 2. CÁC TRANG ĐẦU ----------
 \input{frontmatter/declaration}
 \input{frontmatter/acknowledgments}
 
-% -------------------- 3. MỤC LỤC & DANH MỤC --------------------
+% ---------- 3. MỤC LỤC & DANH MỤC ----------
 \cleardoublepage
 \begingroup
 \singlespacing
@@ -63,13 +63,13 @@
 \input{chapters/04_results}
 \input{chapters/05_conclusion}
 
-% -------------------- 5. TÀI LIỆU THAM KHẢO --------------------
+% ---------- 5. TÀI LIỆU THAM KHẢO ----------
 \cleardoublepage
 \addcontentsline{toc}{chapter}{\bibname}
-\bibliographystyle{ieeetr}
+\bibliographystyle{ieeetr-hyphen}
 \bibliography{refs}
 
-% -------------------- 6. PHỤ LỤC --------------------
+% ---------- 6. PHỤ LỤC ----------
 \cleardoublepage
 \appendix
 \input{appendices/appendix_a}

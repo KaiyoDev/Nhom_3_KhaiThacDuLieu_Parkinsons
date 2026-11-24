@@ -2,7 +2,7 @@
 \label{chap:results}
 
 Chương này trình bày kết quả theo đúng trình tự nghiệm vụ: khám phá và chất lượng dữ
-liệu (M02--M03), tiền xử lý với PCA (M04), phân loại có giám sát (M05) và phân cụm với
+liệu (M02-M03), tiền xử lý với PCA (M04), phân loại có giám sát (M05) và phân cụm với
 đánh giá ARI (M06). Mọi số liệu đều được tính trên \texttt{parkinsons\_v1.csv} và seed
 \texttt{42}; minh chứng gốc nằm trong thư mục \texttt{results/}.
 
@@ -36,8 +36,8 @@ Mẫu có ít nhất một candidate outlier & 47 / 195 (24,10\%) \\
 
 Dữ liệu sạch về thiếu và trùng lặp, nhưng mang hai đặc điểm cần xử lý: nhãn mất cân bằng
 (theo chiều Parkinson) và thang đo các đặc trưng chênh lệch lớn. Các feature jitter có giá
-trị rất nhỏ (ví dụ \texttt{MDVP:Jitter(\%)} dao động 0,0017--0,0332) trong khi
-\texttt{MDVP:Fhi(Hz)} đạt 102--592, do đó việc chuẩn hoá là bắt buộc trước khi đưa vào mô
+trị rất nhỏ (ví dụ \texttt{MDVP:Jitter(\%)} dao động 0,0017-0,0332) trong khi
+\texttt{MDVP:Fhi(Hz)} đạt 102-592, do đó việc chuẩn hoá là bắt buộc trước khi đưa vào mô
 hình.
 
 \begin{figure}[H]
@@ -96,13 +96,13 @@ Thành phần đạt ngưỡng $\ge$ 90\% & 6 (tích luỹ 91,61\%) \\
 \end{table}
 
 Hai thành phần đầu giữ 70,2\% phương sai; để đạt ngưỡng 90\% phương sai cần 6 thành phần
-(tích luỹ 91,61\%). Biểu đồ phân tán PC1--PC2 cho thấy hai nhóm tách một phần nhưng chồng
+(tích luỹ 91,61\%). Biểu đồ phân tán PC1-PC2 cho thấy hai nhóm tách một phần nhưng chồng
 lấn đáng kể, tức ranh giới bệnh lý không nằm ngay trên hai trục chính.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.78\linewidth]{pca_scatter.png}
-    \caption{Scatter PC1--PC2 tô theo \texttt{status}}
+    \caption{Scatter PC1-PC2 tô theo \texttt{status}}
     \label{fig:pca_scatter}
 \end{figure}
 \source{\texttt{results/figures/02\_pca\_scatter.png}.}
@@ -164,8 +164,8 @@ Random Forest & 0,8737 $\pm$ 0,1171 & 0,9103 $\pm$ 0,0824 & 1,0000 \\
 \source{\texttt{docs/images/f1\_scores.png}.}
 
 Ba mô hình đều đạt F-score macro trên 0,87 trên tập kiểm tra. SVM đạt cao nhất (0,8904),
-nhưng chênh lệch giữa các mô hình chỉ khoảng 0,016 -- nhỏ hơn độ lệch chuẩn giữa các fold
-(0,07--0,12) -- do đó báo cáo không kết luận một mô hình tốt nhất một cách chắc chắn.
+nhưng chênh lệch giữa các mô hình chỉ khoảng 0,016 - nhỏ hơn độ lệch chuẩn giữa các fold
+(0,07-0,12) - do đó báo cáo không kết luận một mô hình tốt nhất một cách chắc chắn.
 F-score weighted cao hơn macro ở cả ba mô hình do lớp khỏe (48 mẫu) có tỷ trọng nhỏ.
 Random Forest có điểm huấn luyện 1,0000 và độ lệch chuẩn lớn nhất, cho thấy dấu hiệu quá
 khớp; KNN và SVM ổn định hơn.
@@ -206,7 +206,7 @@ Các mô hình K-Means ($K = 2\dots10$, $n\_init=10$, seed 42) được chạy t
 \end{table}
 
 Silhouette đạt cực đại tại $K = 2$ (0,4373), giảm mạnh ở $K = 3$ (0,2763) và dao động quanh
-0,19--0,24 ở các giá trị lớn hơn; đường cong inertia giảm đều, không có điểm gập rõ ràng nên
+0,19-0,24 ở các giá trị lớn hơn; đường cong inertia giảm đều, không có điểm gập rõ ràng nên
 Elbow chỉ dùng để đối chiếu. Tuy nhiên, ARI tại $K = 2$ là $-0{,}0978$ và trên toàn dải
 $K$ chỉ nằm trong $[-0{,}0978; 0{,}1058]$, cho thấy cụm K-Means không khớp ranh giới bệnh
 lý. Cụm nhỏ 30 mẫu nằm lệch về phía PC1 dương, nhiều khả năng là nhóm có biên độ cao

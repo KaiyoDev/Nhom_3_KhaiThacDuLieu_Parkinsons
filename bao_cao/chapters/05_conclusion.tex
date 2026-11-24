@@ -6,20 +6,20 @@
 Nhóm đã hoàn thành quy trình khai phá dữ liệu hoàn chỉnh trên bộ dữ liệu giọng nói
 Parkinson của UCI, với ba câu hỏi nghiên cứu được trả lời như sau.
 
-\textbf{RQ1 -- Chất lượng dữ liệu.} Bộ dữ liệu canonical gồm 195 bản ghi $\times$ 23 cột,
+\textbf{RQ1 - Chất lượng dữ liệu.} Bộ dữ liệu canonical gồm 195 bản ghi $\times$ 23 cột,
 không có giá trị thiếu hay dòng trùng lặp. Nhãn mất cân bằng (147 Parkinson / 48 khỏe),
 thang đo đặc trưng chênh lệch lớn, 19/22 feature có candidate outlier theo IQR và 47/195
 mẫu chứa ít nhất một candidate outlier; 14/22 feature có độ lệch $|\text{skew}| > 1$. Từ
 đó nhóm áp dụng chuẩn hoá z-score và kiểm định chéo phân tầng để giảm ảnh hưởng của hai
 đặc điểm này.
 
-\textbf{RQ2 -- Phân loại có giám sát.} Trên 10-fold CV, ba mô hình đạt F-score macro 0,8757
+\textbf{RQ2 - Phân loại có giám sát.} Trên 10-fold CV, ba mô hình đạt F-score macro 0,8757
 (KNN), 0,8904 (SVM) và 0,8737 (Random Forest). SVM có kết quả cao nhất nhưng chênh lệch
 giữa các mô hình nhỏ so với độ biến động giữa các fold; Random Forest cho thấy dấu hiệu
 quá khớp (F-score huấn luyện 1,0000). Kết quả cho thấy tín hiệu giọng nói mang thông tin
 phân biệt bệnh lý ở mức tốt.
 
-\textbf{RQ3 -- Phân cụm không giám sát.} K-Means chọn $K=2$ theo silhouette (0,4373) nhưng
+\textbf{RQ3 - Phân cụm không giám sát.} K-Means chọn $K=2$ theo silhouette (0,4373) nhưng
 ARI chỉ $-0{,}0978$; DBSCAN đạt $\varepsilon = 3{,}37$, \texttt{min\_samples} = 5 cho một
 cụm lớn, 12 điểm nhiễu và ARI $-0{,}0639$. Cấu trúc cụm trong không gian 22 đặc trưng do
 đó không khớp ranh giới bệnh lý \texttt{status}; phân cụm đóng vai trò đối chiếu, không thay

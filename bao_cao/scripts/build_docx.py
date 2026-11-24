@@ -21,7 +21,7 @@ DARK = RGBColor(0x20, 0x20, 0x20)
 
 doc = Document()
 
-# ---------- base styles ----------
+# ----- base styles -----
 normal = doc.styles["Normal"]
 normal.font.name = "Times New Roman"
 normal.font.size = Pt(13)
@@ -205,7 +205,7 @@ para("PHÁT HIỆN BỆNH PARKINSON", align=WD_ALIGN_PARAGRAPH.CENTER, bold=True
 para("", space_after=6)
 para("Học phần: Khai phá dữ liệu", align=WD_ALIGN_PARAGRAPH.CENTER, size=13)
 para("Mã lớp học phần: 012012204102", align=WD_ALIGN_PARAGRAPH.CENTER, size=13)
-para("Học kỳ I · Năm học 2026–2027", align=WD_ALIGN_PARAGRAPH.CENTER, size=13)
+para("Học kỳ I · Năm học 2026-2027", align=WD_ALIGN_PARAGRAPH.CENTER, size=13)
 para("", space_after=6)
 para("Giảng viên hướng dẫn: Bùi Trọng Hiếu", align=WD_ALIGN_PARAGRAPH.CENTER, bold=True, size=13)
 para("Sinh viên thực hiện: NHÓM 3", align=WD_ALIGN_PARAGRAPH.CENTER, bold=True, size=13)
@@ -228,7 +228,7 @@ page_break()
 
 # ============================ DECLARATION ============================
 doc.add_heading("LỜI CAM ĐOAN", level=1)
-para("Chúng em – NHÓM 3 lớp 012012204102 – xin cam đoan báo cáo đề tài “KHAI PHÁ DỮ LIỆU GIỌNG NÓI PHÁT HIỆN BỆNH PARKINSON” là công trình nghiên cứu và thực nghiệm thực hiện phối hợp bởi Nhóm 3 dưới sự hướng dẫn khoa học của giảng viên Bùi Trọng Hiếu. Toàn bộ số liệu, phân tích, công thức tính toán, mã nguồn và kết quả thực nghiệm trình bày trong báo cáo là trung thực, được tái lập được trên cùng một bộ dữ liệu chuẩn (parkinsons_v1.csv) và cùng hạt giống ngẫu nhiên (seed = 42).")
+para("Chúng em - NHÓM 3 lớp 012012204102 - xin cam đoan báo cáo đề tài “KHAI PHÁ DỮ LIỆU GIỌNG NÓI PHÁT HIỆN BỆNH PARKINSON” là công trình nghiên cứu và thực nghiệm thực hiện phối hợp bởi Nhóm 3 dưới sự hướng dẫn khoa học của giảng viên Bùi Trọng Hiếu. Toàn bộ số liệu, phân tích, công thức tính toán, mã nguồn và kết quả thực nghiệm trình bày trong báo cáo là trung thực, được tái lập được trên cùng một bộ dữ liệu chuẩn (parkinsons_v1.csv) và cùng hạt giống ngẫu nhiên (seed = 42).")
 para("Mọi tài liệu tham khảo, tiêu chuẩn và công trình học thuật trích dẫn trong báo cáo đều được ghi rõ nguồn gốc theo đúng quy định về liêm chính học thuật. Chúng em xin chịu trách nhiệm hoàn toàn về nội dung và mã nguồn được trình bày trong báo cáo này.")
 para("")
 make_table(
@@ -249,8 +249,8 @@ page_break()
 
 # ============================ ACKNOWLEDGEMENTS ============================
 doc.add_heading("LỜI CẢM ƠN", level=1)
-para("Lời đầu tiên, chúng em – NHÓM 3 – xin bày tỏ lòng biết ơn sâu sắc nhất tới giảng viên hướng dẫn, Bùi Trọng Hiếu, người đã tận tình hướng dẫn, chỉnh chu học thuật và động viên nhóm trong suốt quá trình thực hiện bài tập lớn môn Khai phá dữ liệu.")
-para("Chúng em cũng xin gửi lời cảm ơn chân thành đến quý Thầy, Cô thuộc Viện Công nghệ Thông tin và Điện - Điện tử – Trường Đại học Giao thông Vận tải TP.HCM đã truyền đạt những kiến thức nền tảng quý báu và tạo điều kiện về môi trường học tập, nghiên cứu để nhóm hoàn thành đề tài.")
+para("Lời đầu tiên, chúng em - NHÓM 3 - xin bày tỏ lòng biết ơn sâu sắc nhất tới giảng viên hướng dẫn, Bùi Trọng Hiếu, người đã tận tình hướng dẫn, chỉnh chu học thuật và động viên nhóm trong suốt quá trình thực hiện bài tập lớn môn Khai phá dữ liệu.")
+para("Chúng em cũng xin gửi lời cảm ơn chân thành đến quý Thầy, Cô thuộc Viện Công nghệ Thông tin và Điện - Điện tử - Trường Đại học Giao thông Vận tải TP.HCM đã truyền đạt những kiến thức nền tảng quý báu và tạo điều kiện về môi trường học tập, nghiên cứu để nhóm hoàn thành đề tài.")
 para("Cuối cùng, chúng em xin cảm ơn gia đình, bạn bè và mọi người đã luôn động viên, chia sẻ trong thời gian thực hiện. Dù đã nỗ lực hết mình, báo cáo khó tránh khỏi những thiếu sót; nhóm rất mong nhận được ý kiến đóng góp của giảng viên và bạn đọc.")
 para("TP. Hồ Chí Minh, tháng 11 năm 2026", align=WD_ALIGN_PARAGRAPH.RIGHT, italic=True)
 para("Sinh viên thực hiện", align=WD_ALIGN_PARAGRAPH.RIGHT, bold=True)
@@ -274,7 +274,7 @@ make_table(
         ["8", "PCA", "Principal Component Analysis (Phân tích thành phần chính)"],
         ["9", "RF", "Random Forest (Rừng ngẫu nhiên)"],
         ["10", "SVM", "Support Vector Machine (Máy vector hỗ trợ)"],
-        ["11", "UCI", "University of California, Irvine – Kho lưu trữ học máy"],
+        ["11", "UCI", "University of California, Irvine - Kho lưu trữ học máy"],
         ["12", "XLSX / CSV", "Định dạng tệp Excel / Giá trị phân tách bởi dấu phẩy"],
     ],
     widths=[1.3, 3.4, 10.8],
@@ -285,13 +285,13 @@ page_break()
 doc.add_heading("CHƯƠNG 1. MỞ ĐẦU", level=1)
 doc.add_heading("1.1. Bối cảnh và động lực", level=2)
 para("Bệnh Parkinson là một trong những bệnh thoái hoá thần kinh phổ biến ở người cao tuổi. Giai đoạn đầu bệnh diễn biến âm thầm, khiến việc phát hiện sớm trở nên khó khăn nếu chỉ dựa vào các triệu chứng vận động điển hình. Một trong những dấu hiệu sớm và dễ quan sát là thay đổi giọng nói: người bệnh thường xuất hiện run giọng, giọng nhỏ, khàn hoặc mất điều khiển tần số, biên độ. Các đại lượng âm học thu được từ giọng nói do đó trở thành nguồn tín hiệu phi xâm lấn có tiềm năng hỗ trợ sàng lọc và theo dõi bệnh.")
-para("Trong công trình nghiên cứu nổi bật, Little và cộng sự đã thu thập và công bố bộ dữ liệu giọng nói Parkinson trên kho lưu trữ học máy UCI. Bộ dữ liệu gồm 195 bản ghi, mỗi bản ghi mô tả bởi 22 đặc trưng giọng nói thuộc các nhóm tần số, độ run (jitter), độ ồn (shimmer), tỷ lệ nhiễu–giọng và chỉ số phi tuyến, kèm nhãn status (0 = khỏe, 1 = Parkinson). Kích thước nhỏ và mất cân bằng nhãn làm bộ dữ liệu trở thành tình huống thực tế để rèn nghề khai phá dữ liệu.")
+para("Trong công trình nghiên cứu nổi bật, Little và cộng sự đã thu thập và công bố bộ dữ liệu giọng nói Parkinson trên kho lưu trữ học máy UCI. Bộ dữ liệu gồm 195 bản ghi, mỗi bản ghi mô tả bởi 22 đặc trưng giọng nói thuộc các nhóm tần số, độ run (jitter), độ ồn (shimmer), tỷ lệ nhiễu-giọng và chỉ số phi tuyến, kèm nhãn status (0 = khỏe, 1 = Parkinson). Kích thước nhỏ và mất cân bằng nhãn làm bộ dữ liệu trở thành tình huống thực tế để rèn nghề khai phá dữ liệu.")
 doc.add_heading("1.2. Mục tiêu đề tài", level=2)
 para("**Mục tiêu tổng quát.** Xây dựng một quy trình khai phá dữ liệu hoàn chỉnh, tái lập được trên bộ dữ liệu giọng nói Parkinson; sử dụng một bộ dữ liệu chuẩn duy nhất, cùng hạt giống ngẫu nhiên và cùng bộ chỉ số đánh giá ở mọi bước.")
 para("**Các câu hỏi nghiên cứu.**")
-bullet("RQ1 – Chất lượng dữ liệu: kích thước, kiểu dữ liệu, nhãn, thang đo, giá trị thiếu/trùng, ngoại lai và độ lệch như thế nào? Cần xử lý ra sao?")
-bullet("RQ2 – Phân loại có giám sát: các mô hình KNN, SVM và Random Forest đạt kết quả nào khi đánh giá bằng kiểm định chéo phân tầng 10-fold và độ đo F-score?")
-bullet("RQ3 – Phân cụm không giám sát: cấu trúc cụm tự phát sinh có phù hợp với ranh giới bệnh lý status hay không (đo bằng ARI)?")
+bullet("RQ1 - Chất lượng dữ liệu: kích thước, kiểu dữ liệu, nhãn, thang đo, giá trị thiếu/trùng, ngoại lai và độ lệch như thế nào? Cần xử lý ra sao?")
+bullet("RQ2 - Phân loại có giám sát: các mô hình KNN, SVM và Random Forest đạt kết quả nào khi đánh giá bằng kiểm định chéo phân tầng 10-fold và độ đo F-score?")
+bullet("RQ3 - Phân cụm không giám sát: cấu trúc cụm tự phát sinh có phù hợp với ranh giới bệnh lý status hay không (đo bằng ARI)?")
 doc.add_heading("1.3. Phạm vi và giới hạn", level=2)
 para("Đề tài tập trung vào quy trình khai phá dữ liệu và học máy với bộ dữ liệu công khai có sẵn, không nhằm mục tiêu chẩn đoán y khoa. Kết quả thực nghiệm được giới hạn ở 195 bản ghi, khoảng 32 chủ thể trong dữ liệu thô, nên chưa khẳng định được hiệu năng trên dân số rộng. Nhóm không thay đổi, bổ sung hay gán lại nhãn ngoài dữ liệu công bố.")
 doc.add_heading("1.3. Tổ chức báo cáo", level=2)
@@ -322,7 +322,7 @@ make_table(
         ["Tần số cơ bản", "MDVP:Fo(Hz), MDVP:Fhi(Hz), MDVP:Flo(Hz)", "3"],
         ["Độ run tần số (Jitter)", "MDVP:Jitter(%), MDVP:Jitter(Abs), MDVP:RAP, MDVP:PPQ, Jitter:DDP", "5"],
         ["Độ run biên độ (Shimmer)", "MDVP:Shimmer, MDVP:Shimmer(dB), Shimmer:APQ3, Shimmer:APQ5, MDVP:APQ, Shimmer:DDA", "6"],
-        ["Tỷ lệ nhiễu – giọng", "NHR, HNR", "2"],
+        ["Tỷ lệ nhiễu - giọng", "NHR, HNR", "2"],
         ["Chỉ số phi tuyến", "RPDE, DFA, spread1, spread2, D2, PPE", "6"],
     ],
     widths=[4.2, 8.6, 2.2],
@@ -350,18 +350,18 @@ page_break()
 # ============================ CHAPTER 3 ============================
 doc.add_heading("CHƯƠNG 3. PHƯƠNG PHÁP VÀ KIẾN TRÚC THỰC HIỆN", level=1)
 doc.add_heading("3.1. Quy trình tổng thể", level=2)
-para("Quy trình gồm sáu giai đoạn theo hướng một đầu vào chuẩn – nhiều nhánh phân tích – tổng hợp có kiểm soát. Hai cổng chất lượng bắt buộc: GATE #1 (S-T1) thống nhất đầu vào chuẩn và GATE #2 (S-T2) kiểm tra nhất quán toàn bộ số liệu trước khi tổng hợp.")
+para("Quy trình gồm sáu giai đoạn theo hướng một đầu vào chuẩn - nhiều nhánh phân tích - tổng hợp có kiểm soát. Hai cổng chất lượng bắt buộc: GATE #1 (S-T1) thống nhất đầu vào chuẩn và GATE #2 (S-T2) kiểm tra nhất quán toàn bộ số liệu trước khi tổng hợp.")
 figure("pipeline_diagram.png", "Hình 3.1. Sơ đồ quy trình khai phá dữ liệu và các cổng kiểm soát", 15.8)
 doc.add_heading("3.2. Dữ liệu và chuẩn hoá đầu vào", level=2)
 para("Dữ liệu thô là tệp D07 - parkinsons.data.xlsx (Oxford Parkinson's Disease Detection, UCI), 195 bản ghi × 24 cột gồm 22 đặc trưng, nhãn status và cột định danh name. Nhóm loại bỏ cột name (thông tin cá nhân), giữ nguyên 22 đặc trưng định lượng.")
-para("Canonical CSV v1: data/processed/parkinsons_v1.csv – 195 dòng × 23 cột; SHA-256: 55e2fed63eb74ad19a119b43ef33d92c60d60f7d6751688f1cae45d38d358153. SHA-256 tệp thô: d5d96457a760cd06e93b1a1d1cd6380b38909c2cc82121968bb51ef29f80029a.")
+para("Canonical CSV v1: data/processed/parkinsons_v1.csv - 195 dòng × 23 cột; SHA-256: 55e2fed63eb74ad19a119b43ef33d92c60d60f7d6751688f1cae45d38d358153. SHA-256 tệp thô: d5d96457a760cd06e93b1a1d1cd6380b38909c2cc82121968bb51ef29f80029a.")
 doc.add_heading("3.3. Kiến trúc thực hiện", level=2)
 make_table(
     ["Đường dẫn", "Vai trò"],
     [
         ["data/raw/", "Dữ liệu thô và manifest nguồn"],
         ["data/processed/", "Canonical CSV v1 và schema"],
-        ["notebooks/", "5 notebook phân tích có lần lượt M01–M06"],
+        ["notebooks/", "5 notebook phân tích có lần lượt M01-M06"],
         ["src/", "Hàm dùng chung và pipeline tổng hợp (pipeline.py)"],
         ["results/", "Báo cáo, bảng số liệu, hình ảnh, pipeline_summary.json"],
         ["reports/", "Báo cáo tổng hợp cuối cùng"],
@@ -372,7 +372,7 @@ make_table(
 caption("Bảng 3.1. Cấu trúc chính của kho lưu trữ")
 para("Pipeline tổng hợp chạy bằng lệnh python -m src.pipeline, ghi results/pipeline_summary.json để đối chiếu chéo.")
 doc.add_heading("3.4. Quản lý công việc và đảm bảo chất lượng", level=2)
-para("Nhóm áp dụng luồng Git theo nhánh: mỗi nhiệm vụ tạo nhánh riêng, mở pull request về main, review và tag thành viên liên quan, chỉ nhập nhánh sau khi đạt. PR đã merge: #5 (khám phá), #7 (tiền xử lý–PCA), #8 (phân loại), #13 (thống kê/chất lượng), #14 (phân cụm), #16 (tổng hợp), #17 (chốt gate). TASK_BOARD.md báo 21/21 nhiệm vụ Done; GATE #1 và #2 đã ký.")
+para("Nhóm áp dụng luồng Git theo nhánh: mỗi nhiệm vụ tạo nhánh riêng, mở pull request về main, review và tag thành viên liên quan, chỉ nhập nhánh sau khi đạt. PR đã merge: #5 (khám phá), #7 (tiền xử lý-PCA), #8 (phân loại), #13 (thống kê/chất lượng), #14 (phân cụm), #16 (tổng hợp), #17 (chốt gate). TASK_BOARD.md báo 21/21 nhiệm vụ Done; GATE #1 và #2 đã ký.")
 make_table(
     ["Mã", "Họ và tên", "Mô-đun / minh chứng nghiệm thu"],
     [
@@ -438,10 +438,10 @@ make_table(
     widths=[7.0, 8.5],
 )
 caption("Bảng 4.2. Phương sai giải thích của PCA")
-figure("pca_scatter.png", "Hình 4.2. Scatter PC1–PC2 tô theo status", 11.5)
+figure("pca_scatter.png", "Hình 4.2. Scatter PC1-PC2 tô theo status", 11.5)
 figure("histograms.png", "Hình 4.3. Histogram 22 feature theo status", 13.5)
 figure("corr_heatmap.png", "Hình 4.4. Ma trận tương quan Pearson giữa các feature", 13.5)
-para("Hai thành phần đầu giữ 70,2% phương sai; đạt ngưỡng 90% cần 6 thành phần (91,61%). Hai nhóm tách một phần nhưng chồng lấn đáng kể trên PC1–PC2; một số feature phi tuyến (RPDE, DFA, PPE) tách biệt hơn.")
+para("Hai thành phần đầu giữ 70,2% phương sai; đạt ngưỡng 90% cần 6 thành phần (91,61%). Hai nhóm tách một phần nhưng chồng lấn đáng kể trên PC1-PC2; một số feature phi tuyến (RPDE, DFA, PPE) tách biệt hơn.")
 doc.add_heading("4.3. Phân loại có giám sát", level=2)
 para("Thiết lập: StratifiedKFold ngoài 10 (seed 42), GridSearchCV 5 trong tập huấn luyện; lưới KNN n_neighbors ∈ {3,5,7}, SVM C ∈ {0,1; 1; 10}, RF n_estimators ∈ {50; 100}; scaler trong Pipeline.")
 make_table(
@@ -455,7 +455,7 @@ make_table(
 )
 caption("Bảng 4.3. F-score trên 10-fold CV (mean ± std)")
 figure("f1_scores.png", "Hình 4.5. F-score macro và weighted trên 10-fold CV cho ba mô hình", 13.0)
-para("Ba mô hình đạt F-score macro trên 0,87. SVM cao nhất (0,8904) nhưng chênh lệch giữa các mô hình (~0,016) nhỏ hơn độ lệch chuẩn giữa fold (0,07–0,12), nên không kết luận một mô hình tốt nhất chắc chắn. F-score weighted cao hơn macro do lớp khỏe ít mẫu. Random Forest có train 1,0000 và std lớn nhất, dấu hiệu quá khớp.")
+para("Ba mô hình đạt F-score macro trên 0,87. SVM cao nhất (0,8904) nhưng chênh lệch giữa các mô hình (~0,016) nhỏ hơn độ lệch chuẩn giữa fold (0,07-0,12), nên không kết luận một mô hình tốt nhất chắc chắn. F-score weighted cao hơn macro do lớp khỏe ít mẫu. Random Forest có train 1,0000 và std lớn nhất, dấu hiệu quá khớp.")
 doc.add_heading("4.4. Phân cụm không giám sát và đánh giá ARI", level=2)
 make_table(
     ["K", "Inertia", "Silhouette", "Kích thước cụm", "ARI"],
@@ -530,12 +530,12 @@ page_break()
 # ============================ REFERENCES ============================
 doc.add_heading("TÀI LIỆU THAM KHẢO", level=1)
 refs = [
-    "[1] M. A. Little, P. E. McSharry, E. J. Hunter, J. Spielman, and L. O. Ramig, “Suitability of dysphonia measurements for telemonitoring of Parkinson's disease,” IEEE Transactions on Biomedical Engineering, vol. 56, no. 4, pp. 1015–1022, 2009.",
+    "[1] M. A. Little, P. E. McSharry, E. J. Hunter, J. Spielman, and L. O. Ramig, “Suitability of dysphonia measurements for telemonitoring of Parkinson's disease,” IEEE Transactions on Biomedical Engineering, vol. 56, no. 4, pp. 1015-1022, 2009.",
     "[2] UCI Machine Learning Repository, “Parkinson's Disease Detection / Oxford Parkinson's Dataset.\" Truy cập: https://archive.ics.uci.edu/ml/datasets/parkinsons (tháng 11 năm 2026).",
     "[3] I. T. Jolliffe, Principal Component Analysis, 2nd ed. New York: Springer, 2002.",
     "[4] G. James, D. Witten, T. Hastie, and R. Tibshirani, An Introduction to Statistical Learning: With Applications in R. New York: Springer, 2013.",
     "[5] J. Han, M. Kamber, and J. Pei, Data Mining: Concepts and Techniques, 3rd ed. Waltham, MA: Morgan Kaufmann, 2011.",
-    "[6] M. Ester, H.-P. Kriegel, J. Sander, and X. Xu, “A density-based algorithm for discovering clusters in large spatial databases with noise,” Proc. KDD-96, pp. 226–231, 1996.",
+    "[6] M. Ester, H.-P. Kriegel, J. Sander, and X. Xu, “A density-based algorithm for discovering clusters in large spatial databases with noise,” Proc. KDD-96, pp. 226-231, 1996.",
 ]
 for r in refs:
     p = doc.add_paragraph()
@@ -565,7 +565,7 @@ caption("Bảng A.1. Cấu trúc thư mục chính")
 para("Cách tái lập (trong thư mục gốc):")
 for cmd in ["pip install -r requirements.txt",
             "python -m src.pipeline          # ghi results/pipeline_summary.json",
-            "jupyter nbconvert --to notebook --execute notebooks/05_integration_report.ipynb"]:
+            "jupyter nbconvert -to notebook -execute notebooks/05_integration_report.ipynb"]:
     p = doc.add_paragraph()
     p.paragraph_format.left_indent = Cm(0.8)
     rich(p, cmd, size=11.5)

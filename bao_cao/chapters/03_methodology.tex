@@ -3,8 +3,8 @@
 
 \section{Quy trình tổng thể}
 
-Nhóm thiết kế quy trình gồm sáu giai đoạn theo hướng một đầu vào chuẩn -- nhiều nhánh phân tích
--- tổng hợp có kiểm soát. Sơ đồ tổng thể được trình bày ở Hình \ref{fig:pipeline}.
+Nhóm thiết kế quy trình gồm sáu giai đoạn theo hướng một đầu vào chuẩn - nhiều nhánh phân tích
+- tổng hợp có kiểm soát. Sơ đồ tổng thể được trình bày ở Hình \ref{fig:pipeline}.
 
 \begin{figure}[H]
     \centering
@@ -17,7 +17,7 @@ Nhóm thiết kế quy trình gồm sáu giai đoạn theo hướng một đầu
 Quy trình có hai cổng chất lượng bắt buộc:
 \begin{itemize}
     \item \textbf{GATE \#1 (S-T1):} thống nhất đầu vào chuẩn \texttt{parkinsons\_v1.csv};
-          các bước M02--M06 chỉ được chạy khi đầu ra của M01 đã sẵn sàng.
+          các bước M02-M06 chỉ được chạy khi đầu ra của M01 đã sẵn sàng.
     \item \textbf{GATE \#2 (S-T2):} kiểm tra nhất quán toàn bộ số liệu trước khi tổng hợp,
           gồm cùng đầu vào, cùng seed, cùng độ đo và cùng quy ước.
 \end{itemize}
@@ -62,7 +62,7 @@ dẫn đến số liệu không thể đối chiếu. Cấu trúc đầu vào đ
 \hline
 \texttt{data/processed/} & Canonical CSV v1 và schema \\
 \hline
-\texttt{notebooks/} & 5 notebook phân tích có lần lượt M01--M06 \\
+\texttt{notebooks/} & 5 notebook phân tích có lần lượt M01-M06 \\
 \hline
 \texttt{src/} & Hàm dùng chung và pipeline tổng hợp (\texttt{pipeline.py}) \\
 \hline
@@ -87,7 +87,7 @@ notebook chuyên sâu mà phục vụ đối chiếu chéo giữa các sản ph�
 Nhóm áp dụng luồng làm việc theo nhánh: mỗi nhiệm vụ tạo một nhánh riêng, mở pull request
 (PR) về \texttt{main}, người phụ trách review bình luận và tag thành viên liên quan, chỉ
 nhập nhánh sau khi có xác nhận đạt. Các PR đã merge bao gồm \#5 (khám phá), \#7 (tiền xử
-lý--PCA), \#8 (phân loại), \#13 (thống kê/chất lượng), \#14 (phân cụm), \#16 (tổng hợp) và
+lý-PCA), \#8 (phân loại), \#13 (thống kê/chất lượng), \#14 (phân cụm), \#16 (tổng hợp) và
 \#17 (chốt gate). Đây là cách thức giúp mọi thay đổi đều được kiểm soát và truy vết.
 
 \subsection{Bảng theo dõi nhiệm vụ}

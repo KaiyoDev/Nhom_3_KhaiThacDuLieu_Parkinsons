@@ -48,6 +48,7 @@ python scripts/build_docx.py
 - `figures/` — hình vẽ dùng trong báo cáo (sao chép từ `docs/images/` và
   `results/figures/`; `pipeline_diagram.png` do `scripts/make_pipeline_figure.py` vẽ).
 - `refs.bib` — tài liệu tham khảo (chuẩn IEEE).
+- `ieeetr-hyphen.bst` — biến thể `ieeetr` giữ dấu gạch trùng (`-`) cho khoảng trang.
 - `scripts/build_docx.py` — dựng file `.docx`.
 - `scripts/make_pipeline_figure.py` — vẽ sơ đồ quy trình.
 
