@@ -1,0 +1,93 @@
+\chapter{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
+\label{chap:conclusion}
+
+\section{Kết luận}
+
+Nhóm đã hoàn thành quy trình khai phá dữ liệu hoàn chỉnh trên bộ dữ liệu giọng nói
+Parkinson của UCI, với ba câu hỏi nghiên cứu được trả lời như sau.
+
+\textbf{RQ1 -- Chất lượng dữ liệu.} Bộ dữ liệu canonical gồm 195 bản ghi $\times$ 23 cột,
+không có giá trị thiếu hay dòng trùng lặp. Nhãn mất cân bằng (147 Parkinson / 48 khỏe),
+thang đo đặc trưng chênh lệch lớn, 19/22 feature có candidate outlier theo IQR và 47/195
+mẫu chứa ít nhất một candidate outlier; 14/22 feature có độ lệch $|\text{skew}| > 1$. Từ
+đó nhóm áp dụng chuẩn hoá z-score và kiểm định chéo phân tầng để giảm ảnh hưởng của hai
+đặc điểm này.
+
+\textbf{RQ2 -- Phân loại có giám sát.} Trên 10-fold CV, ba mô hình đạt F-score macro 0,8757
+(KNN), 0,8904 (SVM) và 0,8737 (Random Forest). SVM có kết quả cao nhất nhưng chênh lệch
+giữa các mô hình nhỏ so với độ biến động giữa các fold; Random Forest cho thấy dấu hiệu
+quá khớp (F-score huấn luyện 1,0000). Kết quả cho thấy tín hiệu giọng nói mang thông tin
+phân biệt bệnh lý ở mức tốt.
+
+\textbf{RQ3 -- Phân cụm không giám sát.} K-Means chọn $K=2$ theo silhouette (0,4373) nhưng
+ARI chỉ $-0{,}0978$; DBSCAN đạt $\varepsilon = 3{,}37$, \texttt{min\_samples} = 5 cho một
+cụm lớn, 12 điểm nhiễu và ARI $-0{,}0639$. Cấu trúc cụm trong không gian 22 đặc trưng do
+đó không khớp ranh giới bệnh lý \texttt{status}; phân cụm đóng vai trò đối chiếu, không thay
+thế mô hình có giám sát.
+
+Ngoài kết quả kỹ thuật, đề tài còn rèn được quy trình làm việc nhóm: quản lý mã nguồn theo
+nhánh, review từng pull request, đóng băng đầu vào chuẩn và chốt hai cổng GATE để đảm bảo
+mọi kết quả nhất quán, tái lập được.
+
+\section{Hạn chế}
+
+\begin{itemize}
+    \item Mẫu nhỏ (195 bản ghi, khoảng 32 chủ thể theo mô tả UCI) và mất cân bằng nhãn; mỗi
+          fold kiểm tra chỉ khoảng 20 mẫu, trong đó khoảng 5 mẫu lớp khỏe nên điểm số giữa
+          các fold dao động lớn.
+    \item Cột \texttt{name} đã được loại khỏi canonical CSV nên không thực hiện kiểm định
+          chéo theo nhóm chủ thể; bản ghi của cùng một người có thể rơi vào cả huấn luyện và
+          kiểm tra, khiến điểm test có thể cao hơn thực tế.
+    \item PCA hai chiều chỉ giữ 70,2\% phương sai; phân cụm không tách được cấu trúc khớp
+          nhãn, DBSCAN chỉ tạo một cụm lớn với 12 điểm nhiễu.
+    \item Mới so sánh ba mô hình với lưới tham số nhỏ; chưa tinh chỉnh ngưỡng quyết định,
+          chưa huấn luyện trên tập dữ liệu độc lập.
+    \item Một số thành viên chạy trên phiên bản thư viện khác nhau (ví dụ scikit-learn
+          1.9.1); số liệu vẫn khớp khi kiểm tra chéo nhưng lần chạy cần ghi rõ môi trường.
+\end{itemize}
+
+\section{Hướng phát triển}
+
+\begin{itemize}
+    \item Bổ sung đặc trưng, lựa chọn đặc trưng (feature selection) và thử nghiệm thêm các
+          mô hình hiện đại hơn; nghiên cứu kiểm định chéo theo nhóm chủ thể
+          (\texttt{GroupKFold}) để khắc phục rò rỉ theo người.
+    \item Điều chỉnh đơn vị/nhãn lưỡng phân hóa (threshold, class-weight) phù hợp với mục
+          tiêu sàng lọc; đánh giá thêm độ tin cậy (calibration) và toàn diện (độ nhạy, độ
+          đặc hiệu).
+    \item Kết hợp nhãn với phân cụm (semi-supervised) hoặc học sâu trên tín hiệu âm thanh
+          thô, và xây dựng giao diện nhỏ minh hoạ pipeline cho người dùng.
+    \item Hoàn thiện hạ tầng tái lập: khóa phiên bản thư viện, thêm kiểm tra tự động cho
+          dữ liệu đầu vào và đầu ra, chạy pipeline bằng một lệnh duy nhất.
+\end{itemize}
+
+\section{Đóng góp của nhóm và nghiệm thu}
+
+Toàn bộ 21 nhiệm vụ trong bảng theo dõi đã được thực hiện và nghiệm thu \textbf{Done};
+hai cổng GATE \#1 và GATE \#2 đã ký. Các pull request đã merge gồm \#5, \#7, \#8, \#13,
+\#14, \#16 và \#17; mỗi nhiệm vụ chỉ được đóng sau khi có review độc lập.
+
+\begin{table}[H]
+\centering
+\caption{Trạng thái nghiệm thu của từng thành viên}
+\begin{tabular}{|c|l|l|}
+\hline
+\textbf{Mã} & \textbf{Thành viên} & \textbf{Trạng thái / bằng chứng} \\
+\hline
+M01 & Đặng Hoàng Ân   & Hoàn thành; ký GATE \#1, GATE \#2 \\
+\hline
+M02 & Lê Thiên Lộc    & Hoàn thành; PR \#5 đạt review \\
+\hline
+M03 & Huỳnh Gia Hợp    & Hoàn thành; PR \#13 đạt review \\
+\hline
+M04 & Trần Hoàng Thông & Hoàn thành; PR \#7 đã merge \\
+\hline
+M05 & Ngô Thị Anh Thư   & Hoàn thành; PR \#8 đạt review \\
+\hline
+M06 & Nguyễn Hoàng Bách & Hoàn thành; PR \#14, \#16 đạt review \\
+\hline
+\end{tabular}
+\end{table}
+
+Nhóm hy vọng báo cáo đáp ứng yêu cầu môn Khai phá dữ liệu; mọi thiếu sót còn lại nhóm sẽ
+bổ sung theo hướng dẫn của giảng viên.

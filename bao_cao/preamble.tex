@@ -1,0 +1,169 @@
+% ==============================================================
+%  PREAMBLE - Bao cao Bai tap lon Nhom 3 (Parkinson)
+%  Template: UTH LaTeX Template (Tieng Viet) - vanphat111
+% ==============================================================
+
+% ================= DOCUMENT CLASS =================
+\documentclass[13pt,a4paper,oneside]{extreport}
+
+% ================= GÓI CƠ BẢN & TIẾNG VIỆT =================
+\usepackage[utf8]{inputenc}
+\usepackage[utf8]{vietnam}
+\usepackage{mathptmx} % Font Times New Roman
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    left=30mm,
+    right=20mm,
+    top=25mm,
+    bottom=25mm
+}
+
+% ================= GIÃN DÒNG & ĐOẠN VĂN =================
+\usepackage{setspace}
+\setstretch{1.3}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{6pt}
+
+% ================= HÌNH ẢNH & ĐỒ HỌA =================
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% ================= BẢNG BIỂU & TOÁN HỌC =================
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb}
+\usepackage{float}
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{cite}
+
+% ================= CHÈN SOURCE CODE =================
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    basicstyle=\ttfamily\fontsize{10}{12}\selectfont,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    breaklines=true,
+    keywordstyle=\bfseries\color{blue},
+    commentstyle=\itshape\color{gray},
+    stringstyle=\color{red!70!black},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    tabsize=4,
+    showstringspaces=false
+}
+
+% ================= ĐỊNH DẠNG MỤC LỤC (TOCLOFT) =================
+\usepackage[titles]{tocloft}
+\setlength{\cftbeforechapskip}{6pt}
+\setlength{\cftbeforesecskip}{2pt}
+\setlength{\cftbeforesubsecskip}{1pt}
+\setlength{\cftbeforetabskip}{3pt}
+\setlength{\cftbeforefigskip}{3pt}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+
+% ================= ĐÁNH SỐ TRANG (FANCYHDR) =================
+\usepackage{fancyhdr}
+\pagestyle{empty}
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\fontsize{10}{12}\selectfont\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+% ================= TIÊU ĐỀ TIẾNG VIỆT CHO DANH MỤC =================
+\renewcommand{\contentsname}{MỤC LỤC}
+\renewcommand{\listtablename}{DANH MỤC BẢNG}
+\renewcommand{\listfigurename}{DANH MỤC HÌNH ẢNH}
+\renewcommand{\bibname}{TÀI LIỆU THAM KHẢO}
+\renewcommand{\appendixname}{PHỤ LỤC}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\figurename}{Hình}
+
+% ================= ĐỊNH DẠNG HEADING (TITLESEC) =================
+\usepackage{titlesec}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\titleformat{\chapter}[block]
+  {\normalfont\fontsize{14}{17}\bfseries\centering}
+  {\MakeUppercase{CHƯƠNG\ \thechapter.}}{0.5em}{\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
+
+\titleformat{\section}
+  {\normalfont\fontsize{13}{16}\bfseries}
+  {\thesection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+\titleformat{\subsection}
+  {\normalfont\fontsize{13}{16}\itshape\bfseries}
+  {\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{13}{16}\bfseries}
+  {\alph{subsubsection}.}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{8pt}{2pt}
+
+% ================= ĐỊNH DẠNG CHÚ THÍCH (CAPTION) =================
+\captionsetup[table]{
+    position=top,
+    justification=raggedright,
+    singlelinecheck=false,
+    font={bf,small},
+    skip=6pt,
+    labelsep=period
+}
+\captionsetup[figure]{
+    position=bottom,
+    justification=centering,
+    singlelinecheck=false,
+    font={bf,small},
+    skip=6pt,
+    labelsep=period
+}
+
+% Lệnh chú thích nguồn tài liệu
+\newcommand{\source}[1]{%
+    \par\vspace{4pt}%
+    {\raggedleft\fontsize{12}{14}\selectfont\itshape Nguồn: #1\par}%
+    \vspace{6pt}%
+}
+
+% Vẽ khung viền đôi cho trang bìa
+\newcommand{\drawborder}{
+    \begin{tikzpicture}[remember picture, overlay]
+        \draw[line width=1.8pt]
+            ($(current page.north west) + (20mm,-15mm)$)
+            rectangle
+            ($(current page.south east) + (-15mm,15mm)$);
+        \draw[line width=0.6pt]
+            ($(current page.north west) + (21.5mm,-16.5mm)$)
+            rectangle
+            ($(current page.south east) + (-13.5mm,13.5mm)$);
+    \end{tikzpicture}
+}
+
+% ================= THÔNG TIN ĐỀ TÀI / BÁO CÁO =================
+% >>> CHỈNH SỬA THÔNG TIN ĐỀ TÀI TẠI ĐÂY <<<
+\newcommand{\UnivName}{TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI TP.HCM}
+\newcommand{\InstituteName}{VIỆN CÔNG NGHỆ THÔNG TIN VÀ ĐIỆN - ĐIỆN TỬ}
+\newcommand{\ReportType}{BÁO CÁO BÀI TẬP LỚN}
+\newcommand{\ProjectTitle}{KHAI PHÁ DỮ LIỆU GIỌNG NÓI\\ PHÁT HIỆN BỆNH PARKINSON}
+\newcommand{\CourseName}{Khai phá dữ liệu}
+\newcommand{\ClassCode}{012012204102}
+\newcommand{\InstructorName}{Bùi Trọng Hiếu}
+\newcommand{\GroupCode}{NHÓM 3}
+\newcommand{\LocationDate}{TP. Hồ Chí Minh, tháng 11 năm 2026}

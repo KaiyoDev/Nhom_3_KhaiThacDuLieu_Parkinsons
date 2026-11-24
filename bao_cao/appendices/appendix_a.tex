@@ -1,0 +1,75 @@
+\chapter{KHO LƯU TRỮ, CẤU TRÚC VÀ CÁCH TÁI LẬP}
+\label{app:a}
+
+\section{Kho lưu trữ mã nguồn}
+
+Toàn bộ mã nguồn, dữ liệu đã xử lý, notebook và kết quả được lưu trữ tại:
+\begin{center}
+    \url{https://github.com/KaiyoDev/Nhom_3_KhaiThacDuLieu_Parkinsons}
+\end{center}
+
+Nhánh \texttt{main} chứa các sản phẩm đã nghiệm thu; lịch sử thay đổi và review được theo
+dõi trong các pull request \#5, \#7, \#8, \#13, \#14, \#16 và \#17.
+
+\section{Cấu trúc thư mục chính}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|p{8.4cm}|}
+\hline
+\textbf{Đường dẫn} & \textbf{Nội dung} \\
+\hline
+\texttt{data/raw/} & Tệp thô \texttt{D07 - parkinsons.data.xlsx}, manifest \\
+\hline
+\texttt{data/processed/} & \texttt{parkinsons\_v1.csv} (canonical), \texttt{schema\_v1.md} \\
+\hline
+\texttt{notebooks/} & 01 exploration, 02 preprocessing+PCA, 03 classification, 04 clustering, 05 integration report \\
+\hline
+\texttt{src/} & \texttt{preprocessing.py}, \texttt{pipeline.py} \\
+\hline
+\texttt{results/} & Báo cáo, bảng số liệu CSV, hình ảnh, \texttt{pipeline\_summary.json} \\
+\hline
+\texttt{reports/summary.md} & Báo cáo tổng hợp đa nhiệm vụ \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Cách tái lập}
+
+Yêu cầu: Python 3.10+, cài các gói trong \texttt{requirements.txt}. Trong thư mục gốc:
+
+\begin{lstlisting}[language=bash, numbers=none]
+pip install -r requirements.txt
+python -m src.pipeline          # ghi results/pipeline_summary.json
+jupyter nbconvert --to notebook --execute notebooks/05_integration_report.ipynb
+\end{lstlisting}
+
+Quy ước cố định: seed \texttt{42}; kiểm định chéo ngoài 10 fold, trong 5 fold;
+\texttt{StandardScaler}; độ đo chính là F-score macro (phân loại) và ARI (phân cụm);
+PCA 2 thành phần để trực quan hoá, 6 thành phần để đạt $\ge$ 90\% phương sai.
+
+\section{Thông tin nhóm}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|l|l|l|}
+\hline
+\textbf{Mã} & \textbf{Họ và tên} & \textbf{MSSV} & \textbf{Tài khoản GitHub} \\
+\hline
+M01 & Đặng Hoàng Ân   & 080206014982 & @KaiyoDev \\
+\hline
+M02 & Lê Thiên Lộc    & 079306040024 & @Phiadz \\
+\hline
+M03 & Huỳnh Gia Hợp    & 054205008367 & @HGiaHop \\
+\hline
+M04 & Trần Hoàng Thông & 075206008044 & @HoangThongTom \\
+\hline
+M05 & Ngô Thị Anh Thư   & 087306008195 & @THUNGO-dot \\
+\hline
+M06 & Nguyễn Hoàng Bách & 056205005522 & @nguyenhoangbach1 \\
+\hline
+\end{tabular}
+\end{table}
+
+Giảng viên hướng dẫn: \textbf{\InstructorName}. Mã lớp học phần: \textbf{\ClassCode}.
+Học kỳ I, năm học 2026--2027.
