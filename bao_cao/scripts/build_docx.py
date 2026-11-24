@@ -117,6 +117,11 @@ def make_table(headers, rows, widths=None, font_size=10.5):
     t = doc.add_table(rows=1, cols=len(headers))
     t.style = "Table Grid"
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t.autofit = False
+    tblPr = t._tbl.tblPr
+    layout = OxmlElement("w:tblLayout")
+    layout.set(qn("w:type"), "fixed")
+    tblPr.append(layout)
     hdr = t.rows[0].cells
     for i, h in enumerate(headers):
         set_cell(hdr[i], h, bold=True, size=font_size, align=WD_ALIGN_PARAGRAPH.CENTER)
